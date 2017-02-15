@@ -9,7 +9,7 @@ from ebird.core import geo_observations, geo_notable, geo_species, \
     location_observations, location_notable, location_species, \
     nearest_species
 
-VERSION = (0, 1, 0, 'final')
+VERSION = (0, 1, 1, 'final')
 
 
 def get_version():

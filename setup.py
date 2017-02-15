@@ -12,7 +12,7 @@ def read(filename):
 
 setup(
     name='ebird-api',
-    version='1.0.0',
+    version='0.1.1',
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
     author='ProjectBabbler',
