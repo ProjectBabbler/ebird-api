@@ -22,7 +22,7 @@ from ebird import \
     nearest_species
 
 # Get the most recent sighting of the the first 100 species within 5km 
-# of here in the past week.
+# of here in the past week. Coordinates will be rounded to 2 decimal places.
 records = geo_observations(42.48, -76.45, dist=5, back=7, max_results=100)
 
 # Get the most recent sighting of each species within 25km of here in 

@@ -132,9 +132,9 @@ def geo_observations(lat, lng, dist=25, back=14, max_results=None,
     The maps to the end point in the eBird API 1.1,
     https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-RecentNearbyObservations
 
-    :param lat: the latitude with a precision of up to 2 decimal places.
+    :param lat: the latitude, which will be rounded to 2 decimal places.
 
-    :param lng: the longitude with a precision of up to 2 decimal places.
+    :param lng: the longitude, which will be rounded to 2 decimal places.
 
     :param dist: include all sites within this distance, from 0 to 50km
     with a default of 25km.
@@ -191,9 +191,9 @@ def geo_species(species, lat, lng, dist=25, back=14, max_results=None,
 
     :param species: the scientific name of the species.
 
-    :param lat: the latitude with a precision of up to 2 decimal places.
+    :param lat: the latitude, which will be rounded to 2 decimal places.
 
-    :param lng: the longitude with a precision of up to 2 decimal places.
+    :param lng: the longitude, which will be rounded to 2 decimal places.
 
     :param dist: include all sites within this distance, from 0 to 50km
     with a default of 25km.
@@ -250,9 +250,9 @@ def geo_notable(lat, lng, dist=25, back=14, max_results=None, locale='en_US',
     The maps to the end point in the eBird API 1.1,
     https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-RecentNearbyNotableObservations
 
-    :param lat: the latitude with a precision of up to 2 decimal places.
+    :param lat: the latitude, which will be rounded to 2 decimal places.
 
-    :param lng: the longitude with a precision of up to 2 decimal places.
+    :param lng: the longitude, which will be rounded to 2 decimal places.
 
     :param dist: include all sites within this distance, from 0 to 50km
     with a default of 25km.
@@ -730,9 +730,9 @@ def nearest_species(species, lat, lng, back=14, max_results=None,
 
     :param species: the scientific name of the species.
 
-    :param lat: the latitude with a precision of up to 2 decimal places.
+    :param lat: the latitude, which will be rounded to 2 decimal places.
 
-    :param lng: the longitude with a precision of up to 2 decimal places.
+    :param lng: the longitude, which will be rounded to 2 decimal places.
 
     :param back: the number of days in the past to include. Ranges from
     1 to 30 with a default of 14 days.

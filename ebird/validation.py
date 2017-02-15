@@ -31,7 +31,7 @@ def validate_lat(value):
     :param value: the value to be validated.
 
     :returns: the cleaned, floating-point value.
-    :rtype: float
+    :rtype: str
 
     :raises ValueError if the value is not an decimal in the
     range -90.00 to 90.00 or has more than 2 decimal places
@@ -40,11 +40,9 @@ def validate_lat(value):
     """
     try:
         cleaned = float(value)
-        scaled = cleaned * 100
-        if scaled - int(scaled) != 0:
+        if not -90 <= cleaned <= 90:
             raise ValueError()
-        if not -9000 <= scaled <= 9000:
-            raise ValueError()
+        cleaned = "%.2f" % round(cleaned, 2)
     except ValueError as err:
         err.message = "Value for 'lat', %s, must be a decimal number" \
                       " in the range -90.00 to 90.00" % value
@@ -56,23 +54,22 @@ def validate_lat(value):
 def validate_lng(value):
     """Validate lng is coordinate in the range -180 to 180.
 
+    The value will be rounded to 2 decimal places.
+
     :param value: the value to be validated.
 
     :returns: the cleaned, floating-point value.
-    :rtype: float
+    :rtype: str
 
     :raises ValueError if the value is not an decimal in the
-    range -180.00 to 180.00 or has more than 2 decimal places
-    of precision.
+    range -180.00 to 180.00.
 
     """
     try:
         cleaned = float(value)
-        scaled = cleaned * 100
-        if scaled - int(scaled) != 0:
+        if not -180 <= cleaned <= 180:
             raise ValueError()
-        if not -18000 <= scaled <= 18000:
-            raise ValueError()
+        cleaned = "%.2f" % round(cleaned, 2)
     except ValueError as err:
         err.message = "Value for 'lon', %s, must be a decimal number" \
                       " in the range -180.00 to 180.00" % value

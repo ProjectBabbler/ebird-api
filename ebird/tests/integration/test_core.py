@@ -13,12 +13,14 @@ from ebird.core import \
 class CoreIntegrationTests(TestCase):
     """Tests for the core functions which call the eBird API."""
 
-    lat = 42.48
-    lng = -76.45
-    region = 'US-NY-061'
-    hotspot = 'L227544'
-    location = 'L227544'
-    species = 'Branta canadensis'
+    @classmethod
+    def setUpClass(cls):
+        records = region_notable('US-NY', detail='full', hotspot=True)
+        cls.lat = "%.2f" % records[0]['lat']
+        cls.lng = "%.2f" % records[0]['lng']
+        cls.species = records[0]['sciName']
+        cls.region = records[0]['subnational2Code']
+        cls.location = records[0]['locID']
 
     def test_geo_observations(self):
         geo_observations(self.lat, self.lng)
@@ -30,13 +32,13 @@ class CoreIntegrationTests(TestCase):
         geo_notable(self.lat, self.lng)
 
     def test_hotspot_observations(self):
-        hotspot_observations(self.hotspot)
+        hotspot_observations(self.location)
 
     def test_hotspot_species(self):
-        hotspot_species(self.species, self.hotspot)
+        hotspot_species(self.species, self.location)
 
     def test_hotspot_notable(self):
-        hotspot_notable(self.hotspot)
+        hotspot_notable(self.location)
 
     def test_location_observations(self):
         location_observations(self.location)

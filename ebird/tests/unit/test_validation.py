@@ -10,7 +10,7 @@ class ValidationTests(unittest.TestCase):
 
     def test_lat_string(self):
         """A value for lat passed as a string in converted to a float."""
-        self.assertEqual(45.34, validation.validate_lat('45.34'))
+        self.assertEqual('45.34', validation.validate_lat('45.34'))
 
     def test_lat_max(self):
         """If the latitude is greater than 90 then an exception is raised."""
@@ -21,12 +21,12 @@ class ValidationTests(unittest.TestCase):
         self.assertRaises(ValueError, validation.validate_lat, -90.01)
 
     def test_lat_precision(self):
-        """If the latitude has more than 2 decimal places then an exception is raised."""
-        self.assertRaises(ValueError, validation.validate_lat, -0.001)
+        """The latitude will be rounded 2 decimal places."""
+        self.assertEqual('74.34', validation.validate_lat(74.336))
 
     def test_lng_string(self):
         """A value for lng passed as a string in converted to a float."""
-        self.assertEqual(45.34, validation.validate_lng('45.34'))
+        self.assertEqual('45.34', validation.validate_lng('45.34'))
 
     def test_lng_max(self):
         """If the longitude is greater than 180 then an exception is raised."""
@@ -37,8 +37,8 @@ class ValidationTests(unittest.TestCase):
         self.assertRaises(ValueError, validation.validate_lng, -180.01)
 
     def test_lng_precision(self):
-        """If the longitude has more than 2 decimal places then an exception is raised."""
-        self.assertRaises(ValueError, validation.validate_lng, -0.001)
+        """The longitude will be rounded 2 decimal places."""
+        self.assertEqual('74.34', validation.validate_lng(74.344))
 
     def test_dist_string(self):
         """A value for dist passed as a string in converted to an integer."""
