@@ -9,8 +9,6 @@ high-level functions.
 
 import re
 
-from ebird.core import region_observations, geo_observations
-
 
 def find_locations(observations):
     """Get the list of location codes from a list of observations.
@@ -27,41 +25,6 @@ def find_locations(observations):
         if code:
             locations.add(code)
     return list(locations)
-
-
-def find_locations_in_area(point, back=14):
-    """Get the list of locations in an area.
-
-    :param point: the coordinates and optional radius.
-    :type point: dict
-
-    :param back: the number of days in the past to include. Ranges from
-    1 to 30 with a default of 14 days.
-
-    :return: the list of unique identifiers for locations.
-    :rtype: list
-
-    """
-    params = {'back': back, 'provisional': True}
-    params.update(point)
-    return find_locations(geo_observations(**params))
-
-
-def find_locations_in_region(code, back=14):
-    """Get the list of locations in a region.
-
-    :param code: the code for the county or region/state.
-    :type code: str
-
-    :param back: the number of days in the past to include. Ranges from
-    1 to 30 with a default of 14 days.
-
-    :return: the list of unique identifiers for locations.
-    :rtype: list
-
-    """
-    return find_locations(
-        region_observations(code, back=back, provisional=True))
 
 
 def is_point(value):
