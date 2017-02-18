@@ -295,3 +295,47 @@ def validate_locations(values):
                              " letter 'L' followed by 1 or more digits." % value)
 
     return values[:]
+
+
+def validate_region_type(value):
+    """Validate the region type.
+
+    :param value: the region type one of 'bcr', 'country', 'subnationa1' or
+    'subnational2'
+    :type value: str
+
+    :return the validated region type:
+    :rtype: str
+
+    :raises ValueError if the value is not a valida region type.
+
+    """
+    rtypes = ['bcr', 'country', 'subnational1', 'subnational2']
+
+    cleaned = value.lower()
+    if cleaned not in rtypes:
+        raise ValueError(
+            "Value for region type, %s, must be either: "
+            "'bcr', 'country', 'subnational1' or 'subnational2'" % value)
+
+    return cleaned
+
+
+def validate_country(value):
+    """Validate the country code.
+
+    :param value: the value to be validated.
+    :type value: str
+
+    :return: the cleaned, country code.
+    :rtype: str
+
+    :raises: ValueError the code does not match the pattern for a country.
+
+    """
+    cleaned = value.upper()
+    if re.match(r'^\w{2}$', cleaned):
+        return cleaned
+    else:
+        raise ValueError(
+            "Value for 'rtype', %s, must be a country code, e.g. 'US'" % value)

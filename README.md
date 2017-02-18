@@ -19,7 +19,7 @@ from ebird import \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
     region_observations, region_species, region_notable, \
-    nearest_species
+    nearest_species, find_locations, list_locations
 
 # Get the most recent sighting of the the first 100 species within 5km 
 # of here in the past week. Coordinates will be rounded to 2 decimal places.
@@ -86,6 +86,15 @@ records = region_notable('US-NY-061', back=7)
 # Tennessee Warbler. Depending on when you try this you might have
 # far to travel.
 records = nearest_species('Oreothlypis peregrina', 42.48, -76.45)
+
+# Get the list of states in the US.
+states = list_locations('subnational1', 'US')
+
+# Get the list of counties in New York state.
+counties = list_locations('subnational2', 'US-NY')
+
+# Find all the counties in the USA with 'west' in their name.
+counties = find_locations('subnational2', 'US')
 ```
 
 Each of these functions support arguments (with sensible defaults) for all

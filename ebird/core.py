@@ -20,9 +20,14 @@
 
     nearest_species() - the recent observations of a species from nearby locations.
 
-"""
+    list_locations() - get the codes for countries, subnational1 or subnational2 areas.
+    find_locations() - find countries, subnational1 or subnational2 areas that match a name.
 
+"""
+import csv
 import json
+
+from ebird.utils import region_type_for_code
 
 try:
     import urllib.request as urlrequest
@@ -33,8 +38,7 @@ except ImportError:
 
 from ebird.validation import validate_lat, validate_lng, validate_dist, \
     validate_back, validate_max_results, validate_locale, validate_detail, \
-    validate_provisional, validate_hotspot, validate_locations, validate_region
-
+    validate_provisional, validate_hotspot, validate_locations, validate_region, validate_region_type
 
 GEO_OBSERVATIONS_URL = 'http://ebird.org/ws1.1/data/obs/geo/recent'
 GEO_SPECIES_URL = 'http://ebird.org/ws1.1/data/obs/geo_spp/recent'
@@ -53,6 +57,9 @@ REGION_SPECIES_URL = 'http://ebird.org/ws1.1/data/obs/region_spp/recent'
 REGION_NOTABLE_URL = 'http://ebird.org/ws1.1/data/notable/region/recent'
 
 NEAREST_SPECIES_URL = 'http://ebird.org/ws1.1/data/nearest/geo_spp/recent'
+
+LIST_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/list'
+FIND_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/find'
 
 # default values for the arguments passed the core functions.
 
@@ -771,3 +778,114 @@ def nearest_species(species, lat, lng, back=14, max_results=None,
 
     return get_observations(
         NEAREST_SPECIES_URL, filter_parameters(params))
+
+
+def get_csv(response):
+    """Decode the CSV records from the response.
+
+    :param response:
+    :type response
+
+    :return: the records decoded from the CSV payload.
+    :rtype: list
+
+    """
+    content = response.read().decode('utf-8')
+    return list(csv.DictReader(content.splitlines(), delimiter=','))
+
+
+def get_locations(url, params):
+    """Get the locations from the eBird API.
+
+    :param url: the URL for the API call.
+    :typw url: str
+
+    :param params: the query parameters for the API call
+    :type params: dict
+
+    :return: the decoded data
+    :rtype: list
+
+    """
+    return get_csv(urlrequest.urlopen(url + '?' + urlencode(params, doseq=True)))
+
+
+def list_locations(rtype, code=None):
+    """List all regions.
+
+    Fetch all the areas of type bcr, country, subnational1 or subnational2.
+    The code argument is used to limit the records to a given country or
+    subnational1 region.
+
+    This maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-LocationReference
+
+    :param rtype: the type of region to search for, 'bcr', 'country',
+    'subnational1' or 'subnational2'.
+
+    :param code: the region to limit the records returned.
+
+    :return: the list of regions.
+
+    :raises ValueError: if an invalid region type is given or if the code
+    used to limit the scope of the search is for a region type that is narrower
+    in focus that the region type argument.
+
+    """
+    params = {'rtype': validate_region_type(rtype)}
+
+    if code:
+        search_type = region_type_for_code(code)
+
+        if params['rtype'] == 'bcr':
+            raise ValueError("A country or subnational code cannot be used "
+                             "with the region type 'bcr'.")
+
+        if params['rtype'] == 'country':
+            raise ValueError("A country or subnational code cannot be used "
+                             "with the region type 'country'.")
+
+        if params['rtype'] == 'subnational1' and search_type == 'subnational1':
+            raise ValueError("A subnational1 code cannot be used with the "
+                             "region type 'subnational1'.")
+
+        if params['rtype'] == 'subnational1' and search_type == 'subnational2':
+            raise ValueError("A subnational2 code cannot be used with the "
+                             "region type 'subnational1'.")
+
+        if params['rtype'] == 'subnational2' and search_type == 'subnational2':
+            raise ValueError("A subnational2 code cannot be used with the "
+                             "region type 'subnational2'.")
+
+        params[search_type + 'Code'] = code
+
+    return get_locations(LIST_LOCATIONS_URL, params)
+
+
+def find_locations(rtype, match):
+    """Find matching regions.
+
+    Find all the areas of type bcr, country, subnational1 or subnational2
+    which have a name that optionally matches a given keyword (partial or
+    full, match case insensitive). If a keyword is not given then the full
+    list is returned.
+
+    This maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-LocationReference
+
+    :param rtype: the type of region to search for, 'bcr', 'country',
+    'subnational1' or 'subnational2'.
+
+    :param match: keyword to find matching names.
+
+    :return: the list of regions.
+
+    """
+    if not match:
+        raise ValueError("You specify a word to search for regions.")
+
+    params = {
+        'rtype': validate_region_type(rtype),
+        'match': match,
+    }
+    return get_locations(FIND_LOCATIONS_URL, params)
