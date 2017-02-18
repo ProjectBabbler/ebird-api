@@ -7,7 +7,7 @@ from ebird.core import \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
     region_observations, region_species, region_notable, \
-    nearest_species, list_locations, find_locations
+    nearest_species, list_locations, find_locations, list_hotspots
 
 
 class CoreIntegrationTests(TestCase):
@@ -71,3 +71,6 @@ class LocationsIntegrationTests(TestCase):
 
     def test_find_locations(self):
         find_locations('subnational1', match='west')
+
+    def test_list_hotspots(self):
+        list_hotspots('US-NV', back=10)

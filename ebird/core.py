@@ -23,6 +23,8 @@
     list_locations() - get the codes for countries, subnational1 or subnational2 areas.
     find_locations() - find countries, subnational1 or subnational2 areas that match a name.
 
+    list_hotspots() - get the hotspots for a country, subnational1 or subnational2 area.
+
 """
 import csv
 import json
@@ -60,6 +62,8 @@ NEAREST_SPECIES_URL = 'http://ebird.org/ws1.1/data/nearest/geo_spp/recent'
 
 LIST_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/list'
 FIND_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/find'
+
+LIST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/region'
 
 # default values for the arguments passed the core functions.
 
@@ -889,3 +893,33 @@ def find_locations(rtype, match):
         'match': match,
     }
     return get_locations(FIND_LOCATIONS_URL, params)
+
+
+def list_hotspots(code, back=None):
+    """List all hotspots visited recently within a region.
+
+    Fetch all the hotspots visited in  country, subnational1 or subnational2
+    area recently (up to 30 days ago). All hotspots are returned if the
+    default value for the keyword arg, back, of None is used.
+
+    This maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotReference
+
+    :param code: the code for the region, eg. US-NV.
+
+    :param back: include all hotspots of those visited up to 30 days ago.
+
+    :return: the list of hotspots.
+
+    :raises ValueError: if an invalid region code is given or if the value for
+    'back' is not None or in the range 1..30.
+
+    """
+    params = {
+        'r': validate_region(code),
+    }
+
+    if back is not None:
+        params['back'] = validate_back(back)
+
+    return get_locations(LIST_HOTSPOTS_URL, params)

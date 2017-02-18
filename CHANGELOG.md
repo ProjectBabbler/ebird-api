@@ -4,14 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased]
+### Added 
+- Added function for fetching lists of hotspots for a region.
+
 ## [0.2.0] - 2017-02-18
-## Added
+### Added
 - Functions for fetching locations from the eBird API.
-## Changed
+### Changed
 - Updated setup.py project description and list of languages supported.
 
 ## [0.1.1] - 2017-02-14
-## Changed
+### Changed
 - Coordinates are rounded to 2 decimal places and converted to strings to
 avoid any issues with representation.
 
