@@ -24,6 +24,7 @@
     find_locations() - find countries, subnational1 or subnational2 areas that match a name.
 
     list_hotspots() - get the hotspots for a country, subnational1 or subnational2 area.
+    nearest_hotspots() - get the list of nearby hotspots.
 
 """
 import csv
@@ -64,6 +65,7 @@ LIST_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/list'
 FIND_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/find'
 
 LIST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/region'
+NEAREST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/geo'
 
 # default values for the arguments passed the core functions.
 
@@ -923,3 +925,39 @@ def list_hotspots(code, back=None):
         params['back'] = validate_back(back)
 
     return get_locations(LIST_HOTSPOTS_URL, params)
+
+
+def nearest_hotspots(lat, lng, dist=25, back=None):
+    """Get the list of nearby hotspots.
+
+    Get the list of hotspots closest to a set of coordinates (latitude,
+    longitude) up to a distance of 50km.
+
+    The maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotGeoReference
+
+    :param lat: the latitude, which will be rounded to 2 decimal places.
+
+    :param lng: the longitude, which will be rounded to 2 decimal places.
+
+    :param dist: include all sites within this distance, from 0 to 50km
+    with a default of 25km.
+
+    :param back: include only visits to the hotspots from 1 to 30 days. The
+    default value of None will include all hotspots.
+
+    :return: the list of hotspots nearest to the given set of coordinates.
+
+    """
+    params = {
+        'lat': validate_lat(lat),
+        'lng': validate_lng(lng),
+    }
+
+    if dist != 25:
+        params['dist'] = validate_dist(dist)
+
+    if back is not None:
+        params['back'] = validate_back(back)
+
+    return get_locations(NEAREST_HOTSPOTS_URL, params)
