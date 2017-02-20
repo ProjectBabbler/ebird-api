@@ -71,6 +71,7 @@ NEAREST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/geo'
 
 LIST_SPECIES_URL = 'http://ebird.org/ws1.1/ref/taxa/ebird'
 
+HOTSPOT_SUMMARY_URL = 'http://ebird.org/ws1.1/product/obs/hotspot/recent'
 
 # default values for the arguments passed the core functions.
 
@@ -993,3 +994,54 @@ def list_species(category='species', locale='en_US'):
     }
 
     return get_locations(LIST_SPECIES_URL, filter_parameters(params))
+
+
+def hotspot_summary(codes, back=14, max_results=None, locale='en_US',
+                         provisional=False, detail='simple'):
+    """Get a summary of recent observations from a list of hotspots.
+
+    Get a summary of the recent observations (up to 30 days ago) from up
+    to 10 hotspots.
+
+    The maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotSightingsSummary
+
+    NOTE: This function is identical to hotspot_observations() except that
+    the records return contain an additional field that contains the number
+    of checklists that recorded a given species.
+
+    :param codes: the unique identifiers, eg. L3733278 of up to 10 hotspots.
+
+    :param back: the number of days in the past to include. Ranges from
+    1 to 30 with a default of 14 days.
+
+    :param max_results: the maximum number of observations to return from
+    1 to 10000. The default value is None which means all observations will
+    be returned.
+
+    :param locale: the language (to use) for the species common names. The
+    default of 'en_US' will use species names from the eBird/Clements checklist.
+    This can be any locale for which eBird has translations available. For a
+    complete list see, http://help.ebird.org/customer/portal/articles/1596582.
+
+    :param provisional: include records which have not yet been reviewed.
+    Either True or False, the default is False.
+
+    :param detail: return records in 'simple' or 'full' format. See the eBird API
+    documentation for a description of the fields.
+
+    :return: the list of observations.
+
+    """
+    params = {
+        'r': validate_locations(codes),
+        'back': validate_back(back),
+        'maxResults': validate_max_results(max_results, 10000),
+        'locale': validate_locale(locale),
+        'includeProvisional': validate_provisional(provisional),
+        'detail': validate_detail(detail),
+        'fmt': 'json',
+    }
+
+    return get_observations(
+        HOTSPOT_SUMMARY_URL, filter_parameters(params))
