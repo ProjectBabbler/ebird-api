@@ -19,7 +19,8 @@ from ebird import \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
     region_observations, region_species, region_notable, \
-    nearest_species, find_locations, list_locations
+    nearest_species, find_locations, list_locations, list_species, \
+    list_hotspots
 
 # Get the most recent sighting of the the first 100 species within 5km 
 # of here in the past week. Coordinates will be rounded to 2 decimal places.
@@ -95,6 +96,19 @@ counties = list_locations('subnational2', 'US-NY')
 
 # Find all the counties in the USA with 'west' in their name.
 counties = find_locations('subnational2', 'US')
+
+# List all the hotspots in New York state.
+hotspots = list_hotspots('US-NY')
+
+# List all the hotspots in New York state visited in the past week.
+hotspots = list_hotspots('US-NY', back=7)
+
+# Get all the species in the eBird taxonomy.
+species = list_species()
+
+# Get all the species classified as 'domestic'.
+species = list_species('domestic')
+
 ```
 
 Each of these functions support arguments (with sensible defaults) for all

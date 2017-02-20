@@ -339,3 +339,31 @@ def validate_country(value):
     else:
         raise ValueError(
             "Value for 'rtype', %s, must be a country code, e.g. 'US'" % value)
+
+
+def validate_category(value):
+    """Validate the species category or categories.
+
+    :param value: the species category one of 'domestic', 'form', 'hybrid',
+    'intergrade', 'issf', 'slash', 'species', 'spuh'. Multiple values can
+    be given if they are separated by commas.
+
+    :raises ValueError if the value is not one of the allowed categories.
+
+    """
+    categories = ['domestic', 'form', 'hybrid', 'intergrade', 'issf', 'slash',
+                  'species', 'spuh']
+
+    if ',' in value:
+        cleaned = value.split(',')
+    else:
+        cleaned = [value.lower()]
+
+    for category in cleaned:
+        if category not in categories:
+            raise ValueError(
+                "Value for species category, %s, must be one or more of : "
+                "'domestic', 'form', 'hybrid', 'intergrade', 'issf', "
+                "'slash', 'species' or 'spuh'" % value)
+
+    return ','.join(cleaned)

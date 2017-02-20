@@ -26,6 +26,8 @@
     list_hotspots() - get the hotspots for a country, subnational1 or subnational2 area.
     nearest_hotspots() - get the list of nearby hotspots.
 
+    list_species() - get the list of species in the eBird taxonomy.
+
 """
 import csv
 import json
@@ -41,7 +43,7 @@ except ImportError:
 
 from ebird.validation import validate_lat, validate_lng, validate_dist, \
     validate_back, validate_max_results, validate_locale, validate_detail, \
-    validate_provisional, validate_hotspot, validate_locations, validate_region, validate_region_type
+    validate_provisional, validate_hotspot, validate_locations, validate_region, validate_region_type, validate_category
 
 GEO_OBSERVATIONS_URL = 'http://ebird.org/ws1.1/data/obs/geo/recent'
 GEO_SPECIES_URL = 'http://ebird.org/ws1.1/data/obs/geo_spp/recent'
@@ -67,6 +69,9 @@ FIND_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/find'
 LIST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/region'
 NEAREST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/geo'
 
+LIST_SPECIES_URL = 'http://ebird.org/ws1.1/ref/taxa/ebird'
+
+
 # default values for the arguments passed the core functions.
 
 OBSERVATION_DEFAULTS = {
@@ -78,6 +83,7 @@ OBSERVATION_DEFAULTS = {
     'locale': 'en_US',
     'fmt': 'xml',
     'detail': 'simple',
+    'cat': 'species',
 }
 
 
@@ -961,3 +967,29 @@ def nearest_hotspots(lat, lng, dist=25, back=None):
         params['back'] = validate_back(back)
 
     return get_locations(NEAREST_HOTSPOTS_URL, params)
+
+
+def list_species(category='species', locale='en_US'):
+    """Get the list of species in the eBird taxonomy.
+
+    The maps to the end point in the eBird API 1.1,
+    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-SpeciesReference
+
+    :param category: one or more categories of species to return: 'domestic',
+    'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species', 'spuh'. More
+    than one value can be given in a comma-separated string.
+
+    :param locale: the language (to use) for the species common names. The
+    default of 'en_US' will use species names from the eBird/Clements checklist.
+    This can be any locale for which eBird has translations available. For a
+    complete list see, http://help.ebird.org/customer/portal/articles/1596582.
+
+    :return: the list of species matching the species category.
+
+    """
+    params = {
+        'cat': validate_category(category),
+        'locale': validate_locale(locale),
+    }
+
+    return get_locations(LIST_SPECIES_URL, filter_parameters(params))

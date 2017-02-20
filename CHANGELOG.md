@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
 ### Added 
+- Added function for fetching lists of species.
 - Added function for fetching nearby hotspots.
 - Added function for fetching lists of hotspots for a region.
 
