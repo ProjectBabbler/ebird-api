@@ -91,6 +91,13 @@ def geo_observations(lat, lng, dist=25, back=14, max_results=None,
     :return: the list of observations in 'simple' form. See the eBird API
     documentation for a description of the fields.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'lat': validate_lat(lat),
@@ -150,6 +157,13 @@ def geo_species(species, lat, lng, dist=25, back=14, max_results=None,
     :return: the list of observations in 'simple' form. See the eBird API
     documentation for a description of the fields.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'sci': species,
@@ -208,6 +222,13 @@ def geo_notable(lat, lng, dist=25, back=14, max_results=None, locale='en_US',
 
     :return: the list of observations.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'lat': validate_lat(lat),
@@ -256,6 +277,13 @@ def hotspot_observations(codes, back=14, max_results=None, locale='en_US',
     documentation for a description of the fields.
 
     :return: the list of observations.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -306,6 +334,13 @@ def hotspot_species(species, codes, back=14, max_results=None, locale='en_US',
 
     :return: the list of observations.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'sci': species,
@@ -349,6 +384,13 @@ def hotspot_notable(codes, back=14, max_results=None, locale='en_US', detail='si
     documentation for a description of the fields.
 
     :return: the list of observations.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -395,6 +437,13 @@ def location_observations(codes, back=14, max_results=None, locale='en_US',
     documentation for a description of the fields.
 
     :return: the list of observations.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -445,6 +494,13 @@ def location_species(species, codes, back=14, max_results=None, locale='en_US',
 
     :return: the list of observations.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'sci': species,
@@ -490,6 +546,13 @@ def location_notable(codes, back=14, max_results=None, locale='en_US', detail='s
 
     :return: the list of observations.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'r': validate_locations(codes),
@@ -534,6 +597,13 @@ def region_observations(code, back=14, max_results=None, locale='en_US',
     hotspots and private locations, False (the default).
 
     :return: the list of observations in simple format.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -584,6 +654,13 @@ def region_species(species, code, back=14, max_results=None, locale='en_US',
 
     :return: the list of observations in simple format.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'sci': species,
@@ -632,6 +709,13 @@ def region_notable(code, back=14, max_results=None, locale='en_US',
     documentation for a description of the fields.
 
     :return: the list of observations.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -685,6 +769,13 @@ def nearest_species(species, lat, lng, back=14, max_results=None,
 
     :return: the list of observations in 'simple' form. See the eBird API
     documentation for a description of the fields.
+
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {

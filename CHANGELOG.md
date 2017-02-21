@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.1] - 2017-02-21
+### Added 
+- Updated docstrings to report exceptions raised.
+
 ## [1.0.0] - 2017-02-21
 ### Added 
 - Added function for Google Gadgets showing recent observations.
@@ -30,7 +34,8 @@ avoid any issues with representation.
 ### Added
 - Core functions for accessing end-points for fetching observations.
 
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.0...HEAD
+[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.1...HEAD
+[1.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.2.0...1.0.0
 [0.2.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.1...0.2.0
 [0.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.0...0.1.1

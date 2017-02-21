@@ -51,6 +51,13 @@ def hotspot_summary(codes, back=14, max_results=None, locale='en_US',
 
     :return: the list of observations.
 
+    :raises ValueError: if any of the arguments fail the validation checks.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'r': validate_locations(codes),

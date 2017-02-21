@@ -62,6 +62,11 @@ def get_content(url, params):
     :return: the content returned by the API
     :rtype: str
 
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     response = urlrequest.urlopen(url + '?' + urlencode(params, doseq=True))
     return response.read().decode('utf-8')

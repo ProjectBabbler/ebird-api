@@ -44,6 +44,11 @@ def list_hotspots(code, back=None):
     :raises ValueError: if an invalid region code is given or if the value for
     'back' is not None or in the range 1..30.
 
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     params = {
         'r': validate_region(code),
@@ -75,6 +80,15 @@ def nearest_hotspots(lat, lng, dist=25, back=None):
     default value of None will include all hotspots.
 
     :return: the list of hotspots nearest to the given set of coordinates.
+
+    :raises ValueError: if the coordinates are out of range, if the value
+    for 'dist' is not in the range 1..50 or if the value for 'back' is not
+    None or in the range 1..30.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
@@ -111,6 +125,11 @@ def list_regions(rtype, code=None):
     :raises ValueError: if an invalid region type is given or if the code
     used to limit the scope of the search is for a region type that is narrower
     in focus that the region type argument.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {'rtype': validate_region_type(rtype)}
@@ -161,6 +180,14 @@ def find_regions(rtype, match):
 
     :return: the list of regions.
 
+    :raises ValueError: if an invalid region type is given or if match is an
+    empty string.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
     """
     if not match:
         raise ValueError("You specify a word to search for regions.")
@@ -188,6 +215,13 @@ def list_species(category='species', locale='en_US'):
     complete list see, http://help.ebird.org/customer/portal/articles/1596582.
 
     :return: the list of species matching the species category.
+
+    :raises ValueError: if an invalid category or locale is given.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
 
     """
     params = {
