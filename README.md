@@ -11,7 +11,12 @@ pip install ebird-api
 
 ## Usage
 
-Each of the core functions map to a specific end-point:
+Each of the core functions map to a specific end-point.
+
+### Observations
+
+The majority of the end-points are used to fetch the observations made 
+at a given site or in a general area:
 
 ```python
 from ebird import \
@@ -19,8 +24,7 @@ from ebird import \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
     region_observations, region_species, region_notable, \
-    nearest_species, find_locations, list_locations, list_species, \
-    list_hotspots
+    nearest_species
 
 # Get the most recent sighting of the the first 100 species within 5km 
 # of here in the past week. Coordinates will be rounded to 2 decimal places.
@@ -87,15 +91,24 @@ records = region_notable('US-NY-061', back=7)
 # Tennessee Warbler. Depending on when you try this you might have
 # far to travel.
 records = nearest_species('Oreothlypis peregrina', 42.48, -76.45)
+```
+
+### Reference data
+
+The API also has functions for fetching the reference data (species, areas
+and locations) used in the eBird database:
+
+```python
+from ebird import find_regions, list_regions, list_species, list_hotspots
 
 # Get the list of states in the US.
-states = list_locations('subnational1', 'US')
+states = list_regions('subnational1', 'US')
 
 # Get the list of counties in New York state.
-counties = list_locations('subnational2', 'US-NY')
+counties = list_regions('subnational2', 'US-NY')
 
 # Find all the counties in the USA with 'west' in their name.
-counties = find_locations('subnational2', 'US')
+counties = find_regions('subnational2', 'US')
 
 # List all the hotspots in New York state.
 hotspots = list_hotspots('US-NY')
@@ -111,9 +124,24 @@ species = list_species('domestic')
 
 ```
 
+### Product data
+
+The product end-point is used by Google Gadgets (widgets) that can be 
+added to a web site to show what species have been seen for a given 
+location or area:
+
+```python
+from ebird import hotspot_summary
+
+# Get a summary of the records at a hotspot for the past week.
+records = hotspot_summary('L128530', back=7)
+
+```
+
 Each of these functions support arguments (with sensible defaults) for all
 the query parameters supported by the eBird API. Check the docstring for
-each function for more details.
+each function for more details. There you will also find a link to the
+documentation for each end-point.
 
 ## Compatibility
 

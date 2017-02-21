@@ -7,12 +7,12 @@ try:
 except ImportError:
     import unittest.mock as mock
 
-from ebird.core import nearest_hotspots, NEAREST_HOTSPOTS_URL
+from ebird.reference import NEAREST_HOTSPOTS_URL, nearest_hotspots
 
 
 # noinspection PyUnusedLocal
-def get_locations(url, params):
-    pass
+def get_content(url, params):
+    return '[]'
 
 
 class NearestHotspotsTests(TestCase):
@@ -47,14 +47,14 @@ class NearestHotspotsTests(TestCase):
         (0.0, 0.0, 25, 31)
     ]
 
-    @mock.patch('ebird.core.get_locations', side_effect=get_locations)
+    @mock.patch('ebird.reference.get_content', side_effect=get_content)
     def test_url(self, mocked_function):
         """Verify the correct URL is used to fetch the records."""
         nearest_hotspots(0.0, 0.0)
         actual = mocked_function.call_args[0][0]
         self.assertEqual(NEAREST_HOTSPOTS_URL, actual)
 
-    @mock.patch('ebird.core.get_locations', side_effect=get_locations)
+    @mock.patch('ebird.reference.get_content', side_effect=get_content)
     def test_parameters(self, mocked_function):
         """Verify only non-default values for query string parameters are sent."""
         for idx, (args, expected) in enumerate(self.parameters):
@@ -63,7 +63,7 @@ class NearestHotspotsTests(TestCase):
             self.assertDictEqual(expected, actual, msg="Pattern %d failed" % idx)
 
     # noinspection PyUnusedLocal
-    @mock.patch('ebird.core.get_locations', side_effect=get_locations)
+    @mock.patch('ebird.reference.get_content', side_effect=get_content)
     def test_validation(self, mocked_function):
         """Verify the function arguments are validated."""
         for idx, args in enumerate(self.validation):

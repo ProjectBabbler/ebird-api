@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Basic functions for accessing the eBird API.
+"""Wrappers for the end-points returning recent observations from the eBird API.
 
     geo_observations() - get nearby recent observations.
     geo_species() - get nearby, recent observations of a species.
@@ -20,30 +20,14 @@
 
     nearest_species() - the recent observations of a species from nearby locations.
 
-    list_locations() - get the codes for countries, subnational1 or subnational2 areas.
-    find_locations() - find countries, subnational1 or subnational2 areas that match a name.
-
-    list_hotspots() - get the hotspots for a country, subnational1 or subnational2 area.
-    nearest_hotspots() - get the list of nearby hotspots.
-
-    list_species() - get the list of species in the eBird taxonomy.
-
 """
-import csv
-import json
-
-from ebird.utils import region_type_for_code
-
-try:
-    import urllib.request as urlrequest
-    from urllib.parse import urlencode
-except ImportError:
-    import urllib as urlrequest
-    from urllib import urlencode
 
 from ebird.validation import validate_lat, validate_lng, validate_dist, \
     validate_back, validate_max_results, validate_locale, validate_detail, \
-    validate_provisional, validate_hotspot, validate_locations, validate_region, validate_region_type, validate_category
+    validate_provisional, validate_hotspot, validate_locations, validate_region
+
+from ebird.base import get_content, get_json, filter_parameters
+
 
 GEO_OBSERVATIONS_URL = 'http://ebird.org/ws1.1/data/obs/geo/recent'
 GEO_SPECIES_URL = 'http://ebird.org/ws1.1/data/obs/geo_spp/recent'
@@ -62,80 +46,6 @@ REGION_SPECIES_URL = 'http://ebird.org/ws1.1/data/obs/region_spp/recent'
 REGION_NOTABLE_URL = 'http://ebird.org/ws1.1/data/notable/region/recent'
 
 NEAREST_SPECIES_URL = 'http://ebird.org/ws1.1/data/nearest/geo_spp/recent'
-
-LIST_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/list'
-FIND_LOCATIONS_URL = 'http://ebird.org/ws1.1/ref/location/find'
-
-LIST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/region'
-NEAREST_HOTSPOTS_URL = 'http://ebird.org/ws1.1/ref/hotspot/geo'
-
-LIST_SPECIES_URL = 'http://ebird.org/ws1.1/ref/taxa/ebird'
-
-HOTSPOT_SUMMARY_URL = 'http://ebird.org/ws1.1/product/obs/hotspot/recent'
-
-# default values for the arguments passed the core functions.
-
-OBSERVATION_DEFAULTS = {
-    'back': 14,
-    'dist': 25,
-    'maxResults': None,
-    'hotspot': 'false',
-    'includeProvisional': 'false',
-    'locale': 'en_US',
-    'fmt': 'xml',
-    'detail': 'simple',
-    'cat': 'species',
-}
-
-
-def get_json(response):
-    """Decode the JSON records from the response.
-
-    :param response:
-    :type response
-
-    :return: the records decoded from the JSON payload.
-    :rtype: list
-
-    """
-    return json.loads(response.read().decode('utf-8'))
-
-
-def get_observations(url, params):
-    """Get the observations from the eBird API.
-
-    :param url: the URL for the API call.
-    :typw url: str
-
-    :param params: the query parameters for the API call
-    :type params: dict
-
-    :return: the decoded data
-    :rtype: list
-
-    """
-    return get_json(urlrequest.urlopen(url + '?' + urlencode(params, doseq=True)))
-
-
-def filter_parameters(params):
-    """Filter out any parameter which matches the eBird API default value.
-
-    :param params: a dict contains the GET parameters for the request that
-    will be sent to the eBird API.
-
-    :return: a copy of the params dictionary with only the parameters
-    that are not set to a default value.
-
-    """
-    result = {}
-    for key, value in params.items():
-        if key in OBSERVATION_DEFAULTS:
-            if value != OBSERVATION_DEFAULTS[key]:
-                result[key] = value
-        else:
-            result[key] = value
-
-    return result
 
 
 def geo_observations(lat, lng, dist=25, back=14, max_results=None,
@@ -194,8 +104,8 @@ def geo_observations(lat, lng, dist=25, back=14, max_results=None,
         'fmt': 'json',
     }
 
-    return get_observations(
-        GEO_OBSERVATIONS_URL, filter_parameters(params))
+    return get_json(get_content(
+        GEO_OBSERVATIONS_URL, filter_parameters(params)))
 
 
 def geo_species(species, lat, lng, dist=25, back=14, max_results=None,
@@ -254,8 +164,8 @@ def geo_species(species, lat, lng, dist=25, back=14, max_results=None,
         'fmt': 'json',
     }
 
-    return get_observations(
-        GEO_SPECIES_URL, filter_parameters(params))
+    return get_json(get_content(
+        GEO_SPECIES_URL, filter_parameters(params)))
 
 
 def geo_notable(lat, lng, dist=25, back=14, max_results=None, locale='en_US',
@@ -311,8 +221,8 @@ def geo_notable(lat, lng, dist=25, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        GEO_NOTABLE_URL, filter_parameters(params))
+    return get_json(get_content(
+        GEO_NOTABLE_URL, filter_parameters(params)))
 
 
 def hotspot_observations(codes, back=14, max_results=None, locale='en_US',
@@ -358,8 +268,8 @@ def hotspot_observations(codes, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        HOTSPOT_OBSERVATIONS_URL, filter_parameters(params))
+    return get_json(get_content(
+        HOTSPOT_OBSERVATIONS_URL, filter_parameters(params)))
 
 
 def hotspot_species(species, codes, back=14, max_results=None, locale='en_US',
@@ -408,8 +318,8 @@ def hotspot_species(species, codes, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        HOTSPOT_SPECIES_URL, filter_parameters(params))
+    return get_json(get_content(
+        HOTSPOT_SPECIES_URL, filter_parameters(params)))
 
 
 def hotspot_notable(codes, back=14, max_results=None, locale='en_US', detail='simple'):
@@ -450,8 +360,8 @@ def hotspot_notable(codes, back=14, max_results=None, locale='en_US', detail='si
         'fmt': 'json',
     }
 
-    return get_observations(
-        HOTSPOT_NOTABLE_URL, filter_parameters(params))
+    return get_json(get_content(
+        HOTSPOT_NOTABLE_URL, filter_parameters(params)))
 
 
 def location_observations(codes, back=14, max_results=None, locale='en_US',
@@ -497,8 +407,8 @@ def location_observations(codes, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        LOCATION_OBSERVATIONS_URL, filter_parameters(params))
+    return get_json(get_content(
+        LOCATION_OBSERVATIONS_URL, filter_parameters(params)))
 
 
 def location_species(species, codes, back=14, max_results=None, locale='en_US',
@@ -547,8 +457,8 @@ def location_species(species, codes, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        LOCATION_SPECIES_URL, filter_parameters(params))
+    return get_json(get_content(
+        LOCATION_SPECIES_URL, filter_parameters(params)))
 
 
 def location_notable(codes, back=14, max_results=None, locale='en_US', detail='simple'):
@@ -590,8 +500,8 @@ def location_notable(codes, back=14, max_results=None, locale='en_US', detail='s
         'fmt': 'json',
     }
 
-    return get_observations(
-        LOCATION_NOTABLE_URL, filter_parameters(params))
+    return get_json(get_content(
+        LOCATION_NOTABLE_URL, filter_parameters(params)))
 
 
 def region_observations(code, back=14, max_results=None, locale='en_US',
@@ -636,8 +546,8 @@ def region_observations(code, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        REGION_OBSERVATIONS_URL, filter_parameters(params))
+    return get_json(get_content(
+        REGION_OBSERVATIONS_URL, filter_parameters(params)))
 
 
 def region_species(species, code, back=14, max_results=None, locale='en_US',
@@ -686,8 +596,8 @@ def region_species(species, code, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        REGION_SPECIES_URL, filter_parameters(params))
+    return get_json(get_content(
+        REGION_SPECIES_URL, filter_parameters(params)))
 
 
 def region_notable(code, back=14, max_results=None, locale='en_US',
@@ -734,8 +644,8 @@ def region_notable(code, back=14, max_results=None, locale='en_US',
         'fmt': 'json',
     }
 
-    return get_observations(
-        REGION_NOTABLE_URL, filter_parameters(params))
+    return get_json(get_content(
+        REGION_NOTABLE_URL, filter_parameters(params)))
 
 
 def nearest_species(species, lat, lng, back=14, max_results=None,
@@ -789,259 +699,5 @@ def nearest_species(species, lat, lng, back=14, max_results=None,
         'fmt': 'json',
     }
 
-    return get_observations(
-        NEAREST_SPECIES_URL, filter_parameters(params))
-
-
-def get_csv(response):
-    """Decode the CSV records from the response.
-
-    :param response:
-    :type response
-
-    :return: the records decoded from the CSV payload.
-    :rtype: list
-
-    """
-    content = response.read().decode('utf-8')
-    return list(csv.DictReader(content.splitlines(), delimiter=','))
-
-
-def get_locations(url, params):
-    """Get the locations from the eBird API.
-
-    :param url: the URL for the API call.
-    :typw url: str
-
-    :param params: the query parameters for the API call
-    :type params: dict
-
-    :return: the decoded data
-    :rtype: list
-
-    """
-    return get_csv(urlrequest.urlopen(url + '?' + urlencode(params, doseq=True)))
-
-
-def list_locations(rtype, code=None):
-    """List all regions.
-
-    Fetch all the areas of type bcr, country, subnational1 or subnational2.
-    The code argument is used to limit the records to a given country or
-    subnational1 region.
-
-    This maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-LocationReference
-
-    :param rtype: the type of region to search for, 'bcr', 'country',
-    'subnational1' or 'subnational2'.
-
-    :param code: the region to limit the records returned.
-
-    :return: the list of regions.
-
-    :raises ValueError: if an invalid region type is given or if the code
-    used to limit the scope of the search is for a region type that is narrower
-    in focus that the region type argument.
-
-    """
-    params = {'rtype': validate_region_type(rtype)}
-
-    if code:
-        search_type = region_type_for_code(code)
-
-        if params['rtype'] == 'bcr':
-            raise ValueError("A country or subnational code cannot be used "
-                             "with the region type 'bcr'.")
-
-        if params['rtype'] == 'country':
-            raise ValueError("A country or subnational code cannot be used "
-                             "with the region type 'country'.")
-
-        if params['rtype'] == 'subnational1' and search_type == 'subnational1':
-            raise ValueError("A subnational1 code cannot be used with the "
-                             "region type 'subnational1'.")
-
-        if params['rtype'] == 'subnational1' and search_type == 'subnational2':
-            raise ValueError("A subnational2 code cannot be used with the "
-                             "region type 'subnational1'.")
-
-        if params['rtype'] == 'subnational2' and search_type == 'subnational2':
-            raise ValueError("A subnational2 code cannot be used with the "
-                             "region type 'subnational2'.")
-
-        params[search_type + 'Code'] = code
-
-    return get_locations(LIST_LOCATIONS_URL, params)
-
-
-def find_locations(rtype, match):
-    """Find matching regions.
-
-    Find all the areas of type bcr, country, subnational1 or subnational2
-    which have a name that optionally matches a given keyword (partial or
-    full, match case insensitive). If a keyword is not given then the full
-    list is returned.
-
-    This maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-LocationReference
-
-    :param rtype: the type of region to search for, 'bcr', 'country',
-    'subnational1' or 'subnational2'.
-
-    :param match: keyword to find matching names.
-
-    :return: the list of regions.
-
-    """
-    if not match:
-        raise ValueError("You specify a word to search for regions.")
-
-    params = {
-        'rtype': validate_region_type(rtype),
-        'match': match,
-    }
-    return get_locations(FIND_LOCATIONS_URL, params)
-
-
-def list_hotspots(code, back=None):
-    """List all hotspots visited recently within a region.
-
-    Fetch all the hotspots visited in  country, subnational1 or subnational2
-    area recently (up to 30 days ago). All hotspots are returned if the
-    default value for the keyword arg, back, of None is used.
-
-    This maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotReference
-
-    :param code: the code for the region, eg. US-NV.
-
-    :param back: include all hotspots of those visited up to 30 days ago.
-
-    :return: the list of hotspots.
-
-    :raises ValueError: if an invalid region code is given or if the value for
-    'back' is not None or in the range 1..30.
-
-    """
-    params = {
-        'r': validate_region(code),
-    }
-
-    if back is not None:
-        params['back'] = validate_back(back)
-
-    return get_locations(LIST_HOTSPOTS_URL, params)
-
-
-def nearest_hotspots(lat, lng, dist=25, back=None):
-    """Get the list of nearby hotspots.
-
-    Get the list of hotspots closest to a set of coordinates (latitude,
-    longitude) up to a distance of 50km.
-
-    The maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotGeoReference
-
-    :param lat: the latitude, which will be rounded to 2 decimal places.
-
-    :param lng: the longitude, which will be rounded to 2 decimal places.
-
-    :param dist: include all sites within this distance, from 0 to 50km
-    with a default of 25km.
-
-    :param back: include only visits to the hotspots from 1 to 30 days. The
-    default value of None will include all hotspots.
-
-    :return: the list of hotspots nearest to the given set of coordinates.
-
-    """
-    params = {
-        'lat': validate_lat(lat),
-        'lng': validate_lng(lng),
-    }
-
-    if dist != 25:
-        params['dist'] = validate_dist(dist)
-
-    if back is not None:
-        params['back'] = validate_back(back)
-
-    return get_locations(NEAREST_HOTSPOTS_URL, params)
-
-
-def list_species(category='species', locale='en_US'):
-    """Get the list of species in the eBird taxonomy.
-
-    The maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-SpeciesReference
-
-    :param category: one or more categories of species to return: 'domestic',
-    'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species', 'spuh'. More
-    than one value can be given in a comma-separated string.
-
-    :param locale: the language (to use) for the species common names. The
-    default of 'en_US' will use species names from the eBird/Clements checklist.
-    This can be any locale for which eBird has translations available. For a
-    complete list see, http://help.ebird.org/customer/portal/articles/1596582.
-
-    :return: the list of species matching the species category.
-
-    """
-    params = {
-        'cat': validate_category(category),
-        'locale': validate_locale(locale),
-    }
-
-    return get_locations(LIST_SPECIES_URL, filter_parameters(params))
-
-
-def hotspot_summary(codes, back=14, max_results=None, locale='en_US',
-                         provisional=False, detail='simple'):
-    """Get a summary of recent observations from a list of hotspots.
-
-    Get a summary of the recent observations (up to 30 days ago) from up
-    to 10 hotspots.
-
-    The maps to the end point in the eBird API 1.1,
-    https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-HotspotSightingsSummary
-
-    NOTE: This function is identical to hotspot_observations() except that
-    the records return contain an additional field that contains the number
-    of checklists that recorded a given species.
-
-    :param codes: the unique identifiers, eg. L3733278 of up to 10 hotspots.
-
-    :param back: the number of days in the past to include. Ranges from
-    1 to 30 with a default of 14 days.
-
-    :param max_results: the maximum number of observations to return from
-    1 to 10000. The default value is None which means all observations will
-    be returned.
-
-    :param locale: the language (to use) for the species common names. The
-    default of 'en_US' will use species names from the eBird/Clements checklist.
-    This can be any locale for which eBird has translations available. For a
-    complete list see, http://help.ebird.org/customer/portal/articles/1596582.
-
-    :param provisional: include records which have not yet been reviewed.
-    Either True or False, the default is False.
-
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
-
-    :return: the list of observations.
-
-    """
-    params = {
-        'r': validate_locations(codes),
-        'back': validate_back(back),
-        'maxResults': validate_max_results(max_results, 10000),
-        'locale': validate_locale(locale),
-        'includeProvisional': validate_provisional(provisional),
-        'detail': validate_detail(detail),
-        'fmt': 'json',
-    }
-
-    return get_observations(
-        HOTSPOT_SUMMARY_URL, filter_parameters(params))
+    return get_json(get_content(
+        NEAREST_SPECIES_URL, filter_parameters(params)))

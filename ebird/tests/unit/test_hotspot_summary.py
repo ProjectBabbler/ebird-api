@@ -7,12 +7,12 @@ try:
 except ImportError:
     import unittest.mock as mock
 
-from ebird.core import hotspot_summary, HOTSPOT_SUMMARY_URL
+from ebird.product import HOTSPOT_SUMMARY_URL, hotspot_summary
 
 
 # noinspection PyUnusedLocal
-def get_observations(url, params):
-    pass
+def get_content(url, params):
+    return '[]'
 
 
 class HotspotSummaryTests(TestCase):
@@ -69,14 +69,14 @@ class HotspotSummaryTests(TestCase):
         (('L12345',), {'detail': ''}),  # detail is blank
     ]
 
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.product.get_content', side_effect=get_content)
     def test_url(self, mocked_function):
         """Verify the correct URL is used to fetch the records."""
         hotspot_summary('L12345')
         actual = mocked_function.call_args[0][0]
         self.assertEqual(HOTSPOT_SUMMARY_URL, actual)
 
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.product.get_content', side_effect=get_content)
     def test_parameters(self, mocked_function):
         """Verify only non-default values for query string parameters are sent."""
         for idx, ((args, kwargs), expected) in enumerate(self.parameters):
@@ -85,7 +85,7 @@ class HotspotSummaryTests(TestCase):
             self.assertDictEqual(expected, actual, msg="Pattern %d failed" % idx)
 
     # noinspection PyUnusedLocal
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.product.get_content', side_effect=get_content)
     def test_validation(self, mocked_function):
         """Verify the function arguments are validated."""
         for idx, (args, kwargs) in enumerate(self.validation):

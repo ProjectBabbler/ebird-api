@@ -300,7 +300,7 @@ def validate_locations(values):
 def validate_region_type(value):
     """Validate the region type.
 
-    :param value: the region type one of 'bcr', 'country', 'subnationa1' or
+    :param value: the region type one of 'bcr', 'country', 'subnational1' or
     'subnational2'
     :type value: str
 

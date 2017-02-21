@@ -9,7 +9,7 @@ class ValidationTests(unittest.TestCase):
     """Tests for the functions used to validate arguments."""
 
     def test_lat_string(self):
-        """A value for lat passed as a string in converted to a float."""
+        """A value for lat return '[]'ed as a string in converted to a float."""
         self.assertEqual('45.34', validation.validate_lat('45.34'))
 
     def test_lat_max(self):
@@ -25,7 +25,7 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual('74.34', validation.validate_lat(74.336))
 
     def test_lng_string(self):
-        """A value for lng passed as a string in converted to a float."""
+        """A value for lng return '[]'ed as a string in converted to a float."""
         self.assertEqual('45.34', validation.validate_lng('45.34'))
 
     def test_lng_max(self):
@@ -41,7 +41,7 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual('74.34', validation.validate_lng(74.344))
 
     def test_dist_string(self):
-        """A value for dist passed as a string in converted to an integer."""
+        """A value for dist return '[]'ed as a string in converted to an integer."""
         self.assertEqual(10, validation.validate_dist('10'))
 
     def test_dist_min(self):
@@ -53,7 +53,7 @@ class ValidationTests(unittest.TestCase):
         self.assertRaises(ValueError, validation.validate_dist, 51)
 
     def test_back_string(self):
-        """A value for back passed as a string in converted to an integer."""
+        """A value for back return '[]'ed as a string in converted to an integer."""
         self.assertEqual(10, validation.validate_back('10'))
 
     def test_back_min(self):
@@ -69,7 +69,7 @@ class ValidationTests(unittest.TestCase):
         self.assertEqual(None, validation.validate_max_results(None, 10000))
 
     def test_max_results_string(self):
-        """A value for max_results passed as a string in converted to an integer."""
+        """A value for max_results return '[]'ed as a string in converted to an integer."""
         self.assertEqual(10, validation.validate_max_results('10', 10000))
 
     def test_max_results_min(self):

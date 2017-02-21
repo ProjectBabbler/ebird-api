@@ -3,12 +3,18 @@
 """A set of wrapper functions for accessing the eBird API."""
 
 # noinspection PyUnresolvedReferences
-from ebird.core import geo_observations, geo_notable, geo_species, \
+from ebird.data import geo_observations, geo_notable, geo_species, \
     region_observations, region_notable, region_species, \
     hotspot_observations, hotspot_notable, hotspot_species, \
     location_observations, location_notable, location_species, \
-    nearest_species, find_locations, list_locations, list_hotspots, \
-    nearest_hotspots, list_species, hotspot_summary
+    nearest_species
+
+# noinspection PyUnresolvedReferences
+from ebird.reference import list_hotspots, nearest_hotspots, \
+    find_regions, list_regions, list_species
+
+# noinspection PyUnresolvedReferences
+from ebird.product import hotspot_summary
 
 VERSION = (0, 2, 0, 'final')
 

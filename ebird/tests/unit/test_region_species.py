@@ -7,12 +7,12 @@ try:
 except ImportError:
     import unittest.mock as mock
 
-from ebird.core import region_species, REGION_SPECIES_URL
+from ebird.data import REGION_SPECIES_URL, region_species
 
 
 # noinspection PyUnusedLocal
-def get_observations(url, params):
-    pass
+def get_content(url, params):
+    return '[]'
 
 
 class RegionSpeciesTests(TestCase):
@@ -69,14 +69,14 @@ class RegionSpeciesTests(TestCase):
         # TODO Currently do not have validation tests for hotspot
     ]
 
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.data.get_content', side_effect=get_content)
     def test_url(self, mocked_function):
         """Verify the correct URL is used to fetch the records."""
         region_species('Apus apus', 'US-NV')
         actual = mocked_function.call_args[0][0]
         self.assertEqual(REGION_SPECIES_URL, actual)
 
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.data.get_content', side_effect=get_content)
     def test_parameters(self, mocked_function):
         """Verify only non-default values for query string parameters are sent."""
         for idx, ((args, kwargs), expected) in enumerate(self.parameters):
@@ -85,7 +85,7 @@ class RegionSpeciesTests(TestCase):
             self.assertDictEqual(expected, actual, msg="Pattern %d failed" % idx)
 
     # noinspection PyUnusedLocal
-    @mock.patch('ebird.core.get_observations', side_effect=get_observations)
+    @mock.patch('ebird.data.get_content', side_effect=get_content)
     def test_validation(self, mocked_function):
         """Verify the function arguments are validated."""
         for idx, (args, kwargs) in enumerate(self.validation):

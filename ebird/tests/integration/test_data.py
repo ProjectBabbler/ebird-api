@@ -2,13 +2,12 @@
 
 from unittest import TestCase
 
-from ebird.core import \
+from ebird import \
     geo_observations, geo_species, geo_notable, \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
     region_observations, region_species, region_notable, \
-    nearest_species, list_locations, find_locations, list_hotspots, \
-    nearest_hotspots, list_species,  hotspot_summary
+    nearest_species
 
 
 class CoreIntegrationTests(TestCase):
@@ -41,9 +40,6 @@ class CoreIntegrationTests(TestCase):
     def test_hotspot_notable(self):
         hotspot_notable(self.location)
 
-    def test_hotspot_summary(self):
-        hotspot_summary(self.location)
-
     def test_location_observations(self):
         location_observations(self.location)
 
@@ -64,23 +60,3 @@ class CoreIntegrationTests(TestCase):
 
     def test_nearest_species(self):
         nearest_species(self.species, self.lat, self.lng)
-
-
-# noinspection PyMethodMayBeStatic
-class LocationsIntegrationTests(TestCase):
-    """Tests for the locations functions which call the eBird API."""
-
-    def test_list_locations(self):
-        list_locations('country')
-
-    def test_find_locations(self):
-        find_locations('subnational1', match='west')
-
-    def test_list_hotspots(self):
-        list_hotspots('US-NV', back=10)
-
-    def test_nearest_hotspots(self):
-        nearest_hotspots(42.46, -71.25, back=1)
-
-    def test_list_species(self):
-        list_species()
