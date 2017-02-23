@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [unreleased]
+### Changed 
+- Moved all the functions into the 'api' module and changed the top-level
+'ebird' module to be nanmespaced (PEP420).
+
 ## [1.0.2] - 2017-02-23
 ### Changed 
 - Corrected version number in python.

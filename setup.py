@@ -4,8 +4,7 @@ import os
 
 from setuptools import setup
 
-
-version = __import__('ebird').get_version()
+from ebird.api import get_version
 
 
 def read(filename):
@@ -15,7 +14,7 @@ def read(filename):
 
 setup(
     name='ebird-api',
-    version=version,
+    version=get_version(),
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
     author='ProjectBabbler',
@@ -23,16 +22,14 @@ setup(
     url='http://pypi.python.org/pypi/ebird-api/',
     license='GPL',
     keywords='eBird API client',
+    packages=['ebird.api'],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',

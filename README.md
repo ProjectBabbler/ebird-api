@@ -19,7 +19,7 @@ The majority of the end-points are used to fetch the observations made
 at a given site or in a general area:
 
 ```python
-from ebird import \
+from ebird.api import \
     geo_observations, geo_species, geo_notable, \
     hotspot_observations, hotspot_species, hotspot_notable, \
     location_observations, location_species, location_notable, \
@@ -99,7 +99,7 @@ The API also has functions for fetching the reference data (species, areas
 and locations) used in the eBird database:
 
 ```python
-from ebird import find_regions, list_regions, list_species, list_hotspots
+from ebird.api import find_regions, list_regions, list_species, list_hotspots
 
 # Get the list of states in the US.
 states = list_regions('subnational1', 'US')
@@ -131,7 +131,7 @@ added to a web site to show what species have been seen for a given
 location or area:
 
 ```python
-from ebird import hotspot_summary
+from ebird.api import hotspot_summary
 
 # Get a summary of the records at a hotspot for the past week.
 records = hotspot_summary('L128530', back=7)
@@ -145,9 +145,12 @@ documentation for each end-point.
 
 ## Compatibility
 
-ebird-api works with Python 2.7, 3.3, 3.4, 3.5, 3.6. It works with Python 2.6
-but the tests use assertDictEqual() which were introduced only in Python 2.7.
-It also works with Python 3.2 but tox which is used to run the tests does not.
+ebird-api works with Python 3.3+. 
+
+The previous version 1.0 works with python 2.7, 3.3, 3.4, 3.5and  3.6. It also 
+works with Python 2.6 but the tests use assertDictEqual() which were introduced 
+only in Python 2.7. It also works with Python 3.2 but tox which is used to run 
+the tests does not.
 
 ## Resources
 
