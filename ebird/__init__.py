@@ -16,7 +16,7 @@ from ebird.reference import list_hotspots, nearest_hotspots, \
 # noinspection PyUnresolvedReferences
 from ebird.product import hotspot_summary
 
-VERSION = (0, 2, 0, 'final')
+VERSION = (1, 0, 2, 'final')
 
 
 def get_version():

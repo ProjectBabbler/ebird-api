@@ -5,6 +5,9 @@ import os
 from setuptools import setup
 
 
+version = __import__('ebird').get_version()
+
+
 def read(filename):
     with open(os.path.join(os.path.dirname(__file__), filename)) as fp:
         return fp.read()
@@ -12,7 +15,7 @@ def read(filename):
 
 setup(
     name='ebird-api',
-    version='1.0.1',
+    version=version,
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
     author='ProjectBabbler',
