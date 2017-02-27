@@ -1,7 +1,10 @@
 # eBird API
 
+[![Build Status](https://travis-ci.org/ProjectBabbler/ebird-api.svg?branch=master)](https://travis-ci.org/ProjectBabbler/ebird-api)
+
 eBird API provides a set of wrapper functions for accessing the end-points
 in the eBird API.
+
 
 # Install
 
