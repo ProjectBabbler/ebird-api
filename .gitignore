@@ -15,3 +15,4 @@ dist/
 # root level dot files
 .*
 !/.gitignore
+!/.travis.yml
