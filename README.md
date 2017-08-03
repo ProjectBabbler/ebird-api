@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/ProjectBabbler/ebird-api.svg?branch=master)](https://travis-ci.org/ProjectBabbler/ebird-api)
 [![PyPI version](https://badge.fury.io/py/ebird-api.svg)](https://badge.fury.io/py/ebird-api)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/ebird-api.svg)](https://img.shields.io/pypi/pyversions/ebird-api)
 
 # eBird API
 
