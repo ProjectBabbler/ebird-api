@@ -201,4 +201,4 @@ Information on the taxonomy used by eBird: http://help.ebird.org/customer/portal
 
 ## License
 
-eBird API is available under the terms of the [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html) licence.
+eBird API is available under the terms of the [MIT](https://opensource.org/licenses/MIT) licence.
