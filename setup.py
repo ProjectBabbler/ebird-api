@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import unittest
 
 from setuptools import setup
 
@@ -10,6 +11,13 @@ from ebird.api.version import __version__
 def read(filename):
     with open(os.path.join(os.path.dirname(__file__), filename)) as fp:
         return fp.read()
+
+
+def test_suite():
+    # Force test discovery to only look at the tests directory
+    # otherwise all the tests get executed twice.
+    test_loader = unittest.TestLoader()
+    return test_loader.discover('tests', pattern='test_*.py')
 
 
 setup(
@@ -23,6 +31,7 @@ setup(
     license='GPL',
     keywords='eBird API client',
     packages=['ebird.api'],
+    test_suite='setup.test_suite',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
