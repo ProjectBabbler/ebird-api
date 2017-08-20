@@ -5,10 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [unreleased]
+## [2.1.0] - 2017-08-20
 ### Changed
 - Improved the documentation in the README.
 - Project now uses the MIT license.
+
+### Added 
 - Added scripts so each API call can be made on the command line.
 
 ## [2.0.0] - 2017-02-27
