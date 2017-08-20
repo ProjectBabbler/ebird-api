@@ -19,7 +19,6 @@ def test_suite():
     test_loader = unittest.TestLoader()
     return test_loader.discover('tests', pattern='test_*.py')
 
-
 setup(
     name='ebird-api',
     version=__version__,
@@ -31,6 +30,28 @@ setup(
     license='GPL',
     keywords='eBird API client',
     packages=['ebird.api'],
+    entry_points="""
+        [console_scripts]
+        find-regions=ebird.api.scripts.find_regions:cli
+        list-regions=ebird.api.scripts.list_regions:cli
+        list-hotspots=ebird.api.scripts.list_hotspots:cli
+        list-species=ebird.api.scripts.list_species:cli        
+        nearest-hotspots=ebird.api.scripts.nearest_hotspots:cli        
+        nearest-species=ebird.api.scripts.nearest_species:cli        
+        geo-observations=ebird.api.scripts.geo_observations:cli        
+        geo-notable=ebird.api.scripts.geo_notable:cli        
+        geo-species=ebird.api.scripts.geo_species:cli        
+        hotspot-observations=ebird.api.scripts.hotspot_observations:cli        
+        hotspot-notable=ebird.api.scripts.hotspot_notable:cli        
+        hotspot-species=ebird.api.scripts.hotspot_species:cli        
+        hotspot-summary=ebird.api.scripts.hotspot_summary:cli        
+        location-observations=ebird.api.scripts.location_observations:cli        
+        location-notable=ebird.api.scripts.location_notable:cli        
+        location-species=ebird.api.scripts.location_species:cli        
+        region-observations=ebird.api.scripts.region_observations:cli        
+        region-notable=ebird.api.scripts.region_notable:cli        
+        region-species=ebird.api.scripts.region_species:cli        
+    """,
     test_suite='setup.test_suite',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -48,5 +69,8 @@ setup(
         'Natural Language :: English',
         'Topic :: Utilities',
         'Topic :: Internet',
+    ],
+    install_requires=[
+        'Click'
     ],
 )

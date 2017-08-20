@@ -9,6 +9,7 @@ and by implication, [Semantic Versioning](http://semver.org/).
 ### Changed
 - Improved the documentation in the README.
 - Project now uses the MIT license.
+- Added scripts so each API call can be made on the command line.
 
 ## [2.0.0] - 2017-02-27
 ### Changed 
