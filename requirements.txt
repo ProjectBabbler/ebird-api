@@ -1,0 +1,5 @@
+pluggy==0.4.0
+py==1.4.34
+tox==2.7.0
+virtualenv==15.1.0
+click==6.7
