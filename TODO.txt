@@ -1,0 +1,2 @@
+# TODO Can validation be unified to reduce duplication?
+# TODO (region) code and (hotspot, location) codes are confusingly similar.
