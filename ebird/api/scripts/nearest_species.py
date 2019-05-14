@@ -22,5 +22,6 @@ def cli(species, lat, lng, back, max_results, locale, provisional, hotspot, out,
     save(out, nearest_species(
         species, lat, lng, back, max_results, locale, provisional, hotspot), indent)
 
+
 if __name__ == '__main__':
     cli()

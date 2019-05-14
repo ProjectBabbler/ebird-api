@@ -15,5 +15,6 @@ def cli(code, back, out, indent):
     """List all hotspots visited recently within a region."""
     save(out, list_hotspots(code, back), indent)
 
+
 if __name__ == '__main__':
     cli()

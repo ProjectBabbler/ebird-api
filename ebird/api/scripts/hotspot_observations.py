@@ -20,5 +20,6 @@ def cli(codes, back, max_results, locale, provisional, detail, out, indent):
     save(out, hotspot_observations(
         codes, back, max_results, locale, provisional, detail), indent)
 
+
 if __name__ == '__main__':
     cli()

@@ -17,5 +17,6 @@ def cli(category, locale, out, indent):
     """Get the list of species in the eBird taxonomy."""
     save(out, list_species(category, locale), indent)
 
+
 if __name__ == '__main__':
     cli()

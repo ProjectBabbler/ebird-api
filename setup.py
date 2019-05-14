@@ -5,8 +5,6 @@ import unittest
 
 from setuptools import setup
 
-from ebird.api.version import __version__
-
 
 def read(filename):
     with open(os.path.join(os.path.dirname(__file__), filename)) as fp:
@@ -19,11 +17,13 @@ def test_suite():
     test_loader = unittest.TestLoader()
     return test_loader.discover('tests', pattern='test_*.py')
 
+
 setup(
     name='ebird-api',
-    version=__version__,
+    version='2.1.1',
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
+    long_description_content_type='text/markdown',
     author='ProjectBabbler',
     author_email='projectbabbler@gmail.com',
     url='http://pypi.python.org/pypi/ebird-api/',

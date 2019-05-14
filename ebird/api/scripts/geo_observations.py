@@ -22,5 +22,6 @@ def cli(lat, lng, dist, back, max_results, locale, provisional, hotspots, out, i
     save(out, geo_observations(lat, lng, dist, back, max_results, locale,
                                provisional, hotspots), indent)
 
+
 if __name__ == '__main__':
     cli()

@@ -20,5 +20,6 @@ def cli(code, back, max_results, locale, hotspot, detail, out, indent):
     save(out, region_notable(
         code, back, max_results, locale, hotspot, detail), indent)
 
+
 if __name__ == '__main__':
     cli()

@@ -21,5 +21,6 @@ def cli(species, codes, back, max_results, locale, provisional, detail, out, ind
     save(out, location_species(
         species, codes, back, max_results, locale, provisional, detail), indent)
 
+
 if __name__ == '__main__':
     cli()

@@ -23,5 +23,6 @@ def cli(species, lat, lng, dist, back, max_results, locale, provisional, hotspot
     save(out, geo_species(species, lat, lng, dist, back, max_results, locale,
                           provisional, hotspot), indent)
 
+
 if __name__ == '__main__':
     cli()

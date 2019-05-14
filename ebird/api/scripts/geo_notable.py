@@ -22,5 +22,6 @@ def cli(lat, lng, dist, back, max_results, locale, hotspots, detail, out, indent
     save(out, geo_notable(lat, lng, dist, back, max_results, locale,
                           hotspots, detail), indent)
 
+
 if __name__ == '__main__':
     cli()

@@ -2,7 +2,7 @@
 
 """A set of wrapper functions for accessing the eBird API."""
 
-from .version import __version__
+from ebird.api.version import __version__
 
 # noinspection PyUnresolvedReferences
 from ebird.api.data import geo_observations, geo_notable, geo_species, \

@@ -20,5 +20,6 @@ def cli(code, back, max_results, locale, provisional, hotspot, out, indent):
     save(out, region_observations(
         code, back, max_results, locale, provisional, hotspot), indent)
 
+
 if __name__ == '__main__':
     cli()

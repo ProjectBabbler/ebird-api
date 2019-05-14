@@ -19,5 +19,6 @@ def cli(codes, back, max_results, locale, detail, out, indent):
     save(out, location_notable(
         codes, back, max_results, locale, detail), indent)
 
+
 if __name__ == '__main__':
     cli()

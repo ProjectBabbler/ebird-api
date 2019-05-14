@@ -17,5 +17,6 @@ def cli(lat, lng, dist, back, out, indent):
     """Get the list of nearby hotspots."""
     save(out, nearest_hotspots(lat, lng, dist, back), indent)
 
+
 if __name__ == '__main__':
     cli()

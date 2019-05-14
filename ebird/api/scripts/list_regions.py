@@ -16,5 +16,6 @@ def cli(rtype, code, out, indent):
     """List all regions."""
     save(out, list_regions(rtype, code), indent)
 
+
 if __name__ == '__main__':
     cli()

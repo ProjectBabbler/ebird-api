@@ -2,8 +2,8 @@ import click
 
 from ebird.api import find_regions
 
-from . import args
-from .base import save
+from ebird.api.scripts import args
+from ebird.api.scripts.base import save
 
 
 @click.command()
@@ -14,6 +14,7 @@ from .base import save
 def cli(rtype, match, out, indent):
     """Find matching regions."""
     save(out, find_regions(rtype, match), indent)
+
 
 if __name__ == '__main__':
     cli()
