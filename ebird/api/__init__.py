@@ -2,16 +2,46 @@
 
 """A set of wrapper functions for accessing the eBird API."""
 
-from ebird.api.version import __version__
+__version__ = '3.0.0'
 
-# noinspection PyUnresolvedReferences
-from ebird.api.data import geo_observations, geo_notable, geo_species, \
-    region_observations, region_notable, region_species, \
-    hotspot_observations, hotspot_notable, hotspot_species, \
-    location_observations, location_notable, location_species, \
-    nearest_species
+from ebird.api.observations import (
+    get_observations,
+    get_notable_observations,
+    get_species_observations,
+    get_nearby_observations,
+    get_nearby_notable,
+    get_nearby_species,
+    get_nearest_species,
+    get_historic_observations,
+)
 
-from ebird.api.product import  hotspot_summary
+from ebird.api.checklists import (
+    get_visits,
+    get_checklist,
+)
 
-from ebird.api.reference import  list_hotspots, nearest_hotspots, \
-    find_regions, list_regions, list_species
+from ebird.api.hotspots import (
+    get_hotspots,
+    get_nearby_hotspots,
+    get_hotspot,
+)
+
+from ebird.api.regions import (
+    get_regions,
+    get_region,
+    get_adjacent_regions,
+)
+
+from ebird.api.statistics import (
+    get_top_100,
+    get_totals,
+)
+
+from ebird.api.taxonomy import (
+    get_taxonomy,
+    get_taxonomy_forms,
+    get_taxonomy_groups,
+    get_taxonomy_versions
+)
+
+from ebird.api.client import Client

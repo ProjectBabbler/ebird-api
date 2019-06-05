@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [2.1.1] - 2019-05-145
+## [3.0.0] - 2019-06-06
+### Added 
+- Rewritten to support eBird API 2.0
+
+## [2.1.1] - 2019-05-14
 ### Changed
 - Scripts module is now included in the wheel package.
 
@@ -56,7 +60,7 @@ avoid any issues with representation.
 ### Added
 - Core functions for accessing end-points for fetching observations.
 
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/2.1.1...HEAD
+[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...HEAD
 [2.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.1...2.1.1
 [2.1.0]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.2...2.0.0

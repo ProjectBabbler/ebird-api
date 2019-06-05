@@ -5,8 +5,7 @@
 # eBird API
 
 eBird API provides a set of wrapper functions for accessing the end-points
-in the eBird API.
-
+in the eBird API 2.0.
 
 ## Install
 
@@ -14,186 +13,269 @@ in the eBird API.
 pip install ebird-api
 ```
 
-To install the earlier python 2.7 compatible version run:
-
-```sh
-pip install ebird-api==1.0.2
-```
-
 ## Usage
 
-Each of the core functions map to a specific end-point in the API. The 
-end-points can be divided into three categories: fetching observations,
-fetching the reference data (locations, species, etc.) used in the eBird
-database and a single product end-point that works with Google Gadgets to
-embed observation and visit information in web pages.
+Each of the functions map to a specific end-point in the API - with one or
+two exceptions where API calls are essentially identical. The functions can 
+be grouped into five activities: fetching observations, getting information 
+on hotspots, getting information on regions, getting lists of species and 
+getting statistics.
 
-### Fetch Observations
+All functions support arguments (with sensible defaults) for all the query 
+parameters supported by the eBird API. Check the docstring for each function 
+for more details. There you will also find a link to the documentation for 
+each end-point.
 
-Functions for fetching the records of what has been seen make up the 
-bulk of the API. There are functions for fetching all the observations 
-for hotspots and private locations; fetching all notable sightings of 
-locally or nationally rare birds for a region or an area; fetching the 
-latest sighting of each species in a region or area and finding the 
-nearest location where a given species can be seen.
+To use the API you will need to register for an API key. All you need to do is 
+fill out this [form](https://ebird.org/api/keygen) and the API key is generated 
+automatically.
 
-#### Fetching observations for a set of locations (private or hotspots):
+NOTE: Use the API with some restraint. Data costs money so don't go downloading 
+all the checklists for the world or other excessive behaviour or your account will 
+get banned. If you have a project in mind get in touch with eBird and tell them 
+what you want to do - they will be interested to hear it.
+
+### Observations
 
 ```python
-from ebird.api import location_observations, location_species, location_notable
+from ebird.api import get_observations
+    
+# Get observations from Woodman Pond, Madison county, New York for the past week.
+records = get_observations(api_key, 'L227544', back=7)
 
-# Code for the most visited locations in Madison county, New York:
+# Get observations from Madison county, New York
+records = get_observations(api_key, 'US-NY-053')
+
+# Get observations from New York
+records = get_observations(api_key, 'US-NY')
+
+# Get observations from the USA - don't overdo the data downloads
+records = get_observations(api_key, 'US')
+```
+
+Any where you pass in single location or region you can also pass in a 
+list or a comma-separated string. You can specify up to 10 locations or 
+regions:
+
+```python
+from ebird.api import get_observations
+
+# Get the observations for the most visited locations in Madison county, New York:
 # Woodman Pond, Ditch Bank Rd., Cornell Biological Field Station and
 # Anne V Pickard Memorial Wildlife Overlook.
 locations = ['L227544', 'L273783', 'L677871', 'L2313391']
+get_observations(api_key, locations, provisional=True, detail='full')
 
-# The functions for fetching records for locations are identical to
-# those for hotspots. The only difference is you can include codes for
-# any location, hotspot or private. Codes for private locations are
-# ignored if you pass them to the hotspot functions.
-
-records = location_observations(locations, back=7)
-
-records = location_species(
-    'Branta canadensis', locations, provisional=True, detail='full')
-
-records = location_notable(locations, back=30, detail='full')
+# Get the observations for Suffolk, Nassau and Queens counties in New York state.
+counties = 'US-NY-103,US-NY-059,US-NY-81'
+records = get_observations(api_key, locations, hotspot=False, category='species')
 ```
 
-#### Fetching observations for a set of hotspots:
+The functions that return observations, checklists or taxonomy support allow
+the common name for species to be returned in different languages:
 
 ```python
-from ebird.api import hotspot_observations, hotspot_species, hotspot_notable
+from ebird.api import get_observations
 
-# Codes for some of the main hotspots in Seattle, Washington.
-hotspots = ['L128530', 'L351484', 'L162766', 'L269461', 'L571490']
-
-# Get all the records of what has been seen in the past week. Only the
-# basic set of fields ('simple' format) are returned.
-records = hotspot_observations(hotspots, back=7)
-
-# Get all the records for Canada Goose in the past 2 weeks. Include
-# records that have not been reviewed and return all the fields available.
-records = hotspot_species(
-    'Branta canadensis', hotspots, provisional=True, detail='full')
-
-# Get all the most sightings of locally or nationally rare birds for the past
-# 30 days. Include all the fields available.
-records = hotspot_notable(hotspots, back=30, detail='full')
+records = get_observations(api_key, 'CA-QC', locale='fr')
 ```
 
-#### Fetching observations for a region:
+In addition to getting all the observations for a given location or in
+an area you can also get the latest observation of each species in a 
+geographical area - useful for finding the nearest place to see a given
+species:
 
 ```python
-from ebird.api import region_observations, region_species, region_notable
+from ebird.api import get_nearby_observations
 
-# Get the most recent sightings of each species for Madison county, New 
-# York for the past week.
-records = region_observations('US-NY-053', back=7)
-
-# Get all most recent sighting of Canada Goose in New York state within 
-# the past two weeks.
-records = region_species('Branta canadensis', 'US-NY')
-
-# Get all the records of locally or nationally rare birds for New York
-# county (including Central Park) for the past week.
-records = region_notable('US-NY-061', back=7)
+# Get the most recent sightings of all species seen in the last week within 
+# 10km of Point Reyes National Seashore.
+records = get_nearby_observations(api_key, 38.05, -122.94, dist=10, back=7)
 ```
 
-#### Fetching observations for an are (using a set of coordinates):
+The calls to get_observations() and get_nearby_observation() return all the 
+available records. You can limit the set of records returned to only include 
+notable ones (locally or nationally rare species) or limit the records to 
+a small number of species:
 
 ```python
-from ebird.api import geo_observations, geo_species, geo_notable
+from ebird.api import get_notable_observations, get_nearby_notable, \
+    get_species_observations, get_nearby_species
 
-# Get the most recent sighting of the the first 100 species within 5km 
-# of here in the past week. Coordinates will be rounded to 2 decimal places.
-records = geo_observations(42.48, -76.45, dist=5, back=7, max_results=100)
+# Get the interesting birds seen in New York state.
+records = get_notable_observations(api_key, 'US-NY')
 
-# Get the most recent sighting of each species within 25km of here in 
-# the past week but only from hotspots and with common names in Spanish.
-records = geo_observations(
-    42.48, -76.45, back=7, locale='es', provisional=True, hotspot=True)
+# Get the observations of Horned Lark (Eremophila alpestris) in New York state.
+records = get_species_observations(api_key, 'horlar', 'US-NY')
 
-# Get the most recent sighting of Canada Goose near here in the past 2 weeks.
-records = geo_species('Branta canadensis', 42.48, -76.45)
+# Get the interesting birds within 50kn of Point Reyes
+records = get_nearby_notable(api_key, 38.05, -122.94, dist=50)
 
-# Get the latest sightings of local or nationally rare birds seen near here
-# in the past 10 days. Return all the available fields for each record.
-records = geo_notable(42.48, -76.45, back=10, detail='full')
+# Find out if Barn Swallows have been seen in the area in the past 10 days
+records = get_nearby_species(api_key, 'barswa', 38.05, -122.94, back=10)
 ```
 
-#### Finding out where the nearest place to see a species:
+For the more travel-minded you can also find out where is th e nearest place 
+to see a given species:
 
 ```python
-from ebird.api import nearest_species
+from ebird.api import get_nearest_species
 
 # Where is the closest place to Cornell Lab of Ornithology to see
-# Tennessee Warbler. Depending on when you try this you might have
-# far to travel.
-records = nearest_species('Oreothlypis peregrina', 42.48, -76.45)
+# Tennessee Warbler. 
+locations = get_nearest_species('tenwar', 42.48, -76.45)
 ```
 
-### Reference data
+Depending on what time of year you try this, you might have a long way to go.
 
-The API also has functions for fetching the reference data (species, areas
-and locations) used in the eBird database:
+### Checklists
+
+There are two functions for finding out what has been seen at a given location.
+First you can get the list of checklists for a given country, region or location
+using get_visits(). Each result returned has the unique identifier for the 
+checklist. You can then call get_checklist() to get the list of observations.
 
 ```python
-from ebird.api import find_regions, list_regions, list_species, list_hotspots
+from ebird.api import get_visits, get_checklist
 
-# Get the list of states in the US.
-states = list_regions('subnational1', 'US')
+# Get visits made recently to locations in New York state:
+records = get_visits(api_key, 'US-NY')
 
-# Get the list of counties in New York state.
-counties = list_regions('subnational2', 'US-NY')
+# Get visits made recently to locations in New York state on Jan 1st 2010
+records = get_visits(api_key, 'US-NY', '2010-01-01')
 
-# Find all the counties in the USA with 'west' in their name.
-counties = find_regions('subnational2', 'west')
+# Get the details of a checklist
+checklist = get_checklist(api_key, 'S22536787')
+```
+
+### Hotspots
+
+There are two functions for discovering hotspots. get_hotspots() list all
+the locations in a given area. You can find all the hotspots visited recently
+by given a value for the back argument. get_nearby_hotspots() is used to find
+hotspots within a given radius. get_hotspot() can be used to get information
+on the location of a given hotspot.
+
+```python
+from ebird.api import get_hotspots, get_nearby_hotspots, get_hotspot
 
 # List all the hotspots in New York state.
-hotspots = list_hotspots('US-NY')
+hotspots = get_hotspots(api_key, 'US-NY')
 
 # List all the hotspots in New York state visited in the past week.
-hotspots = list_hotspots('US-NY', back=7)
+recent = get_hotspots(api_key, 'US-NY', back=7)
 
-# Get all the species in the eBird taxonomy.
-species = list_species()
+# List all the hotspots in New York state visited in the past week.
+recent = get_hotspots(api_key, 'US-NY', back=7)
 
-# Get all the  identifiable sub-species and species with distinctive types
-# of plumage.
-species = list_species('issf,form')
+# List all the hotspots in within 50kn of Point Reyes
+nearby = get_nearby_hotspots(api_key, 38.05, -122.94, dist=50)
 
+# Get the details of Anne V Pickard Memorial Wildlife Overlook in New York state.
+details = get_hotspot(api_key, 'L2313391')
 ```
 
-### Product data
+### Regions
 
-The product end-point is used by Google Gadgets (widgets) that can be 
-added to a web site to show what species have been seen for a given 
-location or area:
+eBird divides the world into countries, subnational1 regions (states) or 
+subnational2 regions (counties). You can use get_regions() to get the 
+list of sub-regions for a given region. For the approximate area covered 
+by a region use get_region().
 
 ```python
-from ebird.api import hotspot_summary
+from ebird.api import get_regions, get_adjacent_regions, get_region
 
-# Get a summary of the records at a hotspot for the past week.
-records = hotspot_summary('L128530', back=7)
+# Get the list of countries in the world.
+countries = get_regions(api_key, 'country', 'world')
+
+# Get the list of states in the US.
+states = get_regions(api_key, 'subnational1', 'US')
+
+# Get the list of counties in New York state.
+counties = get_regions(api_key, 'subnational2', 'US-NY')
+
+# Get the list of states which border New York state.
+nearby = get_adjacent_regions(api_key, 'US-NY')
+
+# Get the approximate area covered by New York state.
+bounds = get_region(api_key, 'US-NY')
+```
+
+### Taxonomy
+
+You can get details of all the species, subspecies, forms
+etc. in the taxonomy used by eBird. It's the easiest way
+of getting the codes for each species or subspecies, 
+e.g. horlar (Horned Lark), cangoo (Canada Goose), etc.,
+that are used in the other API calls.1
+
+```python
+from ebird.api import get_taxonomy, get_taxonomy_forms, get_taxonomy_versions
+
+# Get all the species in the eBird taxonomy.
+taxonomy = get_taxonomy(api_key)
+
+# Get all the species in the eBird taxonomy with common names in Spanish
+names = get_taxonomy(api_key, locale='es')
+
+# Get all the taxonomy for Horned Lark
+species = get_taxonomy(api_key, species='horlar')
+
+# Get the codes for all the subspecies and froms recognised for Barn Swallow.
+forms = get_taxonomy_forms(api_key, 'barswa')
+
+# Get information on all the taxonomy revisions, i.e. versions.
+# Usually only the latest is important.
+versions = get_taxonomy_versions(api_key)
+```
+
+### Statistics
+
+You can also get some statistics from the eBird data. The most interesting
+is probably get_top_100() which return the list of observers who have seen
+the most species or submitted the largest number of checklists. The list is
+just for a specific day so it is really only useful for "Big Days" when 
+lots of people are out trying to get the greatest number of species.
+
+```python
+from datetime import date
+from ebird.api import get_top_100, get_totals
+
+# Get the winner of the Global Big Day in New York, on 5th May 2018
+winners = get_top_100(api_key, 'US-NY', '2018-05-05')
+
+# Get the number of contributors, checklist submitted and species seen today
+totals = get_totals(api_key, 'US-NY', date.today())
+```
+
+### Client
+
+There is a simple Client class which wraps the various functions from the API.
+You can set the API key and locale when creating a Client instance so you don't
+have to keep passing them as arguments.
+
+```python
+from ebird.api import Client
+
+api_key = 'abc123'
+locale = 'es'
+
+client = Client(api_key, locale)
+
+client.get_observations('MX-OAX')
 
 ```
 
-Each of these functions support arguments (with sensible defaults) for all
-the query parameters supported by the eBird API. Check the docstring for
-each function for more details. There you will also find a link to the
-documentation for each end-point.
+The client supports all the API functions.
 
 ## Compatibility
 
-ebird-api works with Python 3.3+. 
-
-The previous version, 1.0.2, works with python 2.7, 3.3, 3.4, 3.5 and 3.6. It is 
-feature complete and provides the same set of functions as the current release.
+ebird-api works with Python 3.5+. 
 
 ## Links
 
-Documentation for the eBird API: https://confluence.cornell.edu/display/CLOISAPI/eBird+API+1.1
+Documentation for the eBird API: https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#intro 
+though it could do with a little love and attention.
 
 Available translations for species names: http://help.ebird.org/customer/portal/articles/1596582
 
