@@ -5,7 +5,8 @@ from unittest.mock import patch
 
 from ebird.api.hotspots import NEARBY_HOTSPOTS_URL, get_nearby_hotspots
 
-from tests.mixins import LatTestsMixin, LngTestsMixin, DistTestsMixin, BackTestsMixin, HeaderTestsMixin
+from tests.mixins import (
+    LatTestsMixin, LngTestsMixin, DistTestsMixin, BackTestsMixin, HeaderTestsMixin)
 
 
 def get_content(url, params, headers):  # noqa

@@ -51,7 +51,9 @@ def get_top_100(token, region, date, max_results=100):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    filtered = filter_parameters(params, **defaults)
+
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_totals(token, area, date):

@@ -28,7 +28,8 @@ def get_visits(token, area, date=None, max_results=10):
 
     :param token: the token needed to access the API.
 
-    :param area: the code for a country, subnational1 region, subnational2 region or location.
+    :param area: the code for a country, subnational1 region, subnational2
+    region or location.
 
     :param date: the date, since Jan 1st 1800.
 
@@ -63,7 +64,9 @@ def get_visits(token, area, date=None, max_results=10):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    filtered = filter_parameters(params, **defaults)
+
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_checklist(token, sub_id):

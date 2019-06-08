@@ -69,7 +69,9 @@ def get_taxonomy(token, category=None, locale='en', version=None, species=None):
         'fmt': 'csv',  # Leave this in case we want to allow the format to be specified.
     }
 
-    return get_json(get_content(TAXONOMY_URL, filter_parameters(params, **defaults), headers))
+    filtered = filter_parameters(params, **defaults)
+
+    return get_json(get_content(TAXONOMY_URL, filtered, headers))
 
 
 def get_taxonomy_forms(token, species):
@@ -114,8 +116,8 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
     :param ordering: order groups using taxonomic order, 'ebird' or by
     likeness, 'merlin'.
 
-    :param locale: the language (to use) for the group names. One of: de, en, es,
-    fr, he, pt or tr.
+    :param locale: the language (to use) for the group names. One of: de,
+    en, es, fr, he, pt or tr.
 
     :raises ValueError: if an invalid ordering or locale is given.
 
@@ -139,7 +141,9 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
         'groupNameLocale': 'en',
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    filtered = filter_parameters(params, **defaults)
+
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_taxonomy_versions(token):

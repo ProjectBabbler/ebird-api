@@ -4,7 +4,8 @@ import re
 
 from datetime import date, datetime
 
-SPECIES_CATEGORIES = ['domestic', 'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species', 'spuh']
+SPECIES_CATEGORIES = [
+    'domestic', 'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species', 'spuh']
 SPECIES_ORDERING = ['ebird', 'merlin']
 SPECIES_SORT = ['date', 'species']
 REGION_TYPES = ['country', 'subnational1', 'subnational2']
@@ -286,7 +287,8 @@ def clean_date(value):
     elif isinstance(value, date):
         cleaned = value
     else:
-        raise ValueError("Date must be a string ('YYYY-mm-dd'), a date or a datetime: %s" % str(value))
+        raise ValueError("Date must be a string ('YYYY-mm-dd'),"
+                         " a date or a datetime: %s" % str(value))
 
     if cleaned.year < 1800:
         raise ValueError('Dates cannot be earlier than Jan 1st 1800')

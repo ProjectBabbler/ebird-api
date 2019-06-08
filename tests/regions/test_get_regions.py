@@ -34,7 +34,9 @@ class GetRegionsTests(HeaderTestsMixin, TestCase):
         self.assertEqual(REGION_LIST_URL % ('subnational2', 'US-NV'), actual)
 
     def test_invalid_region_type_raises_error(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(rtype='county', region='US'))
+        params = self.get_params(rtype='county', region='US')
+        self.assertRaises(ValueError, self.get_fixture(), **params)
 
     def test_invalid_region_code_raises_error(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(rtype='country', region='aa-bb-cc-dd'))
+        params = self.get_params(rtype='country', region='aa-bb-cc-dd')
+        self.assertRaises(ValueError, self.get_fixture(), **params)

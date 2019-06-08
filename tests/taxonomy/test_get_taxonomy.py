@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from unittest import TestCase, skip
+from unittest import TestCase
 from unittest.mock import patch
 
 from ebird.api.taxonomy import TAXONOMY_URL, get_taxonomy
@@ -88,11 +88,14 @@ class GetTaxonomyTests(
         self.assertEqual(actual['species'], 'horlar,crelar')
 
     def test_species_must_be_string_or_list(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(category='species', species={}))
+        params = self.get_params(category='species', species={})
+        self.assertRaises(ValueError, self.get_fixture(), **params)
 
     def test_species_in_list_cannot_be_blank(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(category='species', species='horlar,'))
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(category='species', species=['horlar', '']))
+        params = self.get_params(category='species', species='horlar,')
+        self.assertRaises(ValueError, self.get_fixture(), **params)
+        params['species'] = ['horlar', '']
+        self.assertRaises(ValueError, self.get_fixture(), **params)
 
 #    def test_using_category_and_species_raises_error(self, mocked_function):  # noqa
 #        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(species='horlar'))

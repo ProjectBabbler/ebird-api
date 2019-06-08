@@ -44,5 +44,6 @@ class GetVisitsTests(
     def test_visits_on_date_url(self, mocked_function):
         params = self.get_params(date=date.today())
         self.get_fixture()(**params)
+        expected = CHECKLISTS_DATE_URL % ('US-NV', params['date'].strftime('%Y/%m/%d'))
         actual = mocked_function.call_args[0][0]
-        self.assertEqual(CHECKLISTS_DATE_URL % ('US-NV', params['date'].strftime('%Y/%m/%d')), actual)
+        self.assertEqual(expected, actual)

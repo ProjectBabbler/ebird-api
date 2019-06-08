@@ -1,3 +1,4 @@
+# flake8: noqa
 from tests.mixins.base import BaseMixin
 from tests.mixins.area_tests import AreaTestsMixin
 from tests.mixins.back_tests import BackTestsMixin

@@ -48,8 +48,8 @@ def get_observations(token, area, back=14, max_results=None, locale='en',
     :param hotspot: return records only from hotspots, True or include both
     hotspots and private locations, False (the default).
 
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
+    :param detail: return records in 'simple' or 'full' format. See the eBird
+    API documentation for a description of the fields.
 
     :param category: one or more categories of species to return: 'domestic',
     'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species' or 'spuh'.
@@ -90,11 +90,13 @@ def get_observations(token, area, back=14, max_results=None, locale='en',
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_notable_observations(token, area, back=14, max_results=None, locale='en',
@@ -128,8 +130,8 @@ def get_notable_observations(token, area, back=14, max_results=None, locale='en'
     :param hotspot: return records only from hotspots, True or include both
     hotspots and private locations, False (the default).
 
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
+    :param detail: return records in 'simple' or 'full' format. See the eBird
+    API documentation for a description of the fields.
 
     :return: the list of observations.
 
@@ -160,11 +162,13 @@ def get_notable_observations(token, area, back=14, max_results=None, locale='en'
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_species_observations(token, species, area, back=14, max_results=None, locale='en',
@@ -202,8 +206,8 @@ def get_species_observations(token, species, area, back=14, max_results=None, lo
     :param hotspot: return records only from hotspots, True or include both
     hotspots and private locations, False (the default).
 
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
+    :param detail: return records in 'simple' or 'full' format. See the eBird
+    API documentation for a description of the fields.
 
     :param category: one or more categories of species to return: 'domestic',
     'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species' or 'spuh'.
@@ -245,11 +249,13 @@ def get_species_observations(token, species, area, back=14, max_results=None, lo
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
@@ -291,9 +297,9 @@ def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
     :param provisional: include records which have not yet been reviewed.
     Either True or False, the default is False.
 
-    :param hotspot: get only observations from hotspots, in other words exclude
-    private locations. The default is False so observations will be returned from
-    all locations.
+    :param hotspot: get only observations from hotspots, in other words
+    exclude private locations. The default is False so observations will
+    be returned from all locations.
 
     :param category: one or more categories of species to return: 'domestic',
     'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species' or 'spuh'.
@@ -330,11 +336,13 @@ def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
         'sppLocale': 'en'
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(NEARBY_OBSERVATIONS_URL, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(NEARBY_OBSERVATIONS_URL, filtered, headers))
 
 
 def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=None,
@@ -381,9 +389,11 @@ def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=N
     :param category: one or more categories of species to return: 'domestic',
     'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species' or 'spuh'.
     More than one value can be given in a comma-separated string. The default
-    value is None and records from all categories will be returned. It's not clear
-    what the purpose of this parameter is given the species is being specified.
-    It is not documented on the eBird API page but it is supported by the code.
+    value is None and records from all categories will be returned. It's not
+    clear what the purpose of this parameter is given the species is being
+    specified. It is not documented on the eBird API page but it is supported
+    by the code.
+
     :return: the list of observations in 'simple' form. See the eBird API
     documentation for a description of the fields.
 
@@ -415,11 +425,13 @@ def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=N
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, locale='en',
@@ -455,12 +467,12 @@ def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, loca
     This can be any locale for which eBird has translations available. For a
     complete list see, http://help.ebird.org/customer/portal/articles/1596582.
 
-    :param hotspot: get only observations from hotspots, in other words exclude
-    private locations. The default is False so observations will be returned from
-    all locations.
+    :param hotspot: get only observations from hotspots, in other words
+    exclude private locations. The default is False so observations will be
+    returned from all locations.
 
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
+    :param detail: return records in 'simple' or 'full' format. See the eBird
+    API documentation for a description of the fields.
 
     :return: the list of observations.
 
@@ -488,11 +500,13 @@ def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, loca
         'sppLocale': 'en'
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(NEARBY_NOTABLE_URL, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(NEARBY_NOTABLE_URL, filtered, headers))
 
 
 def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=None,
@@ -533,9 +547,9 @@ def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=
     :param provisional: include records which have not yet been reviewed.
     Either True or False, the default is False.
 
-    :param hotspot: get only observations from hotspots, in other words exclude
-    private locations. The default is False so observations will be returned from
-    all locations.
+    :param hotspot: get only observations from hotspots, in other words
+    exclude private locations. The default is False so observations will
+    be returned from all locations.
 
     :return: the list of observations in 'simple' form. See the eBird API
     documentation for a description of the fields.
@@ -565,11 +579,13 @@ def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))
 
 
 def get_historic_observations(token, area, date, max_results=None, locale='en',
@@ -607,8 +623,8 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
     :param hotspot: return records only from hotspots, True or include both
     hotspots and private locations, False (the default).
 
-    :param detail: return records in 'simple' or 'full' format. See the eBird API
-    documentation for a description of the fields.
+    :param detail: return records in 'simple' or 'full' format. See the
+    eBird API documentation for a description of the fields.
 
     :param category: one or more categories of species to return: 'domestic',
     'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species' or 'spuh'.
@@ -648,8 +664,10 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
         'maxResults': None
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params, **defaults), headers))
+    return get_json(get_content(url, filtered, headers))

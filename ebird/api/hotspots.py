@@ -82,8 +82,8 @@ def get_nearby_hotspots(token, lat, lng, dist=25, back=None):
     :param dist: include all sites within this distance, from 0 to 50km
     with a default of 25km.
 
-    :param back: include only visits to the hotspots from 1 to 30 days. The
-    default value of None will include all hotspots.
+    :param back: include only visits to the hotspots from 1 to 30 days.
+    The default value of None will include all hotspots.
 
     :return: the list of hotspots nearest to the given set of coordinates.
 
@@ -141,5 +141,3 @@ def get_hotspot(token, loc_id):
     }
 
     return get_json(get_content(url, {}, headers))
-
-
