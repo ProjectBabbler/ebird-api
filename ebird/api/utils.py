@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=C0111
+
+"""Utility functions for validation."""
 
 import re
 
@@ -150,17 +153,19 @@ def clean_max_results(value, limit):
 def clean_locale(value):
     cleaned = str(value)
     if re.match(r'^[a-zA-Z]{2}$', cleaned):
-        return cleaned.lower()
+        cleaned = cleaned.lower()
     elif re.match(r'^[a-zA-Z]{2}_[a-zA-Z]{2}$', cleaned):
-        return cleaned[:2].lower() + '_' + cleaned[-2:].upper()
+        cleaned = cleaned[:2].lower() + '_' + cleaned[-2:].upper()
     else:
         raise ValueError("Invalid code for 'locale': %s" % value)
+
+    return cleaned
 
 
 def clean_detail(value):
     cleaned = str(value).lower()
 
-    if cleaned != 'simple' and cleaned != 'full':
+    if cleaned not in ('simple', 'full'):
         raise ValueError(
             "Value for 'detail', %s, must be either 'simple' or 'full'" % value)
 
@@ -274,9 +279,9 @@ def clean_species_code(value):
     cleaned = value.lower()
     if re.match(r'^\w{6}$', cleaned):
         return cleaned
-    else:
-        raise ValueError(
-            "Value for 'species code', %s, must be 6 letters, e.g. 'cangoo'" % value)
+
+    raise ValueError(
+        "Value for 'species code', %s, must be 6 letters, e.g. 'cangoo'" % value)
 
 
 def clean_date(value):
@@ -294,6 +299,6 @@ def clean_date(value):
         raise ValueError('Dates cannot be earlier than Jan 1st 1800')
 
     if cleaned > date.today():
-        raise ValueError('Date is in the future: %s', cleaned.strftime('%Y-%m-%d'))
+        raise ValueError('Date is in the future: %s' % cleaned.strftime('%Y-%m-%d'))
 
     return cleaned.strftime('%Y/%m/%d')

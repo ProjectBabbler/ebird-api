@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Functions for fetching information about hotspots."""
+
 from ebird.api.base import get_json, get_content, filter_parameters
 
 from ebird.api.utils import clean_lat, clean_lng, clean_dist, \

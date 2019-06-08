@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=R0913,R0914
+
+"""Functions for fetching information about what species have been seen."""
 
 from ebird.api.base import get_content, get_json, filter_parameters
 from ebird.api import utils
@@ -307,6 +310,8 @@ def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
     value is None and records from all categories will be returned.
 
     :param sort: return the records sorted by date, 'date' or taxonomy, 'species'.
+
+    :return: the list of observations in simple format.
 
     :raises ValueError: if any of the arguments fail the validation checks.
 

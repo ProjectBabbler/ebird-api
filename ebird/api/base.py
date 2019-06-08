@@ -122,12 +122,13 @@ def region_type_for_code(value):
     """
     cleaned = value.upper()
     if re.match(r'^[A-Z]{2}$', cleaned):
-        return 'country'
-    elif re.match(r'[A-Z]{2}-\w{2,}$', cleaned):
-        return 'subnational1'
-    elif re.match(r'^\w{2}-\w{2,}-\w{2,}$', cleaned):
-        return 'subnational2'
+        rtype = 'country'
+    elif re.match(r'^[A-Z]{2}-\w{2,}$', cleaned):
+        rtype = 'subnational1'
+    elif re.match(r'^[A-Z]{2}-\w{2,}-\w{2,}$', cleaned):
+        rtype = 'subnational2'
     else:
-        raise ValueError(
-            "Value must be a country, e.g. 'US', subnational1 code, "
-            "e.g. 'US-NV' or subnational2 code, e.g. 'US-NV-211'")
+        raise ValueError("Value must be a country, e.g. 'US', subnational1 code, "
+                         "e.g. 'US-NV' or subnational2 code, e.g. 'US-NV-211'")
+
+    return rtype

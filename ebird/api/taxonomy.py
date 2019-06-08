@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Functions for fetching information about the taxonomy used by eBird."""
+
 from ebird.api.base import get_json, get_content, filter_parameters
 
 from ebird.api.utils import clean_category, clean_locale, clean_ordering, \
@@ -118,6 +120,8 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
 
     :param locale: the language (to use) for the group names. One of: de,
     en, es, fr, he, pt or tr.
+
+    :return: the list of species groups.
 
     :raises ValueError: if an invalid ordering or locale is given.
 

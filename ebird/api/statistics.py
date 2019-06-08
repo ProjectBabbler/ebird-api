@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Functions for fetching basic statistics about observers and observations."""
+
 from ebird.api.base import get_json, get_content, filter_parameters
 
 from ebird.api.utils import clean_area, clean_date, clean_max_results, clean_region
@@ -11,7 +13,8 @@ TOTALS_URL = 'https://ebird.org/ws2.0/product/stats/%s/%s'
 
 def get_top_100(token, region, date, max_results=100):
     """
-    ???
+    Get the observers who have seen the most species or submitted the
+    greatest number of checklists on a given date.
 
     The maps to the end point in the eBird API 2.0,
     https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#2d8d3f94-c4b0-42bd-9c8e-71edfa6347ba
@@ -25,7 +28,7 @@ def get_top_100(token, region, date, max_results=100):
     :param max_results: the maximum number of entries to return from
     1 to 100. The default value is 100.
 
-    :return:
+    :return: the list of observers.
 
     :raises ValueError: if any of the arguments fail the validation checks.
 
@@ -47,11 +50,11 @@ def get_top_100(token, region, date, max_results=100):
         'maxResults': 100
     }
 
+    filtered = filter_parameters(params, **defaults)
+
     headers = {
         'X-eBirdApiToken': token,
     }
-
-    filtered = filter_parameters(params, **defaults)
 
     return get_json(get_content(url, filtered, headers))
 

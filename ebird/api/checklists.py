@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+"""Functions for fetching checklists and information about visits."""
+
 from ebird.api.base import get_json, get_content, filter_parameters
 
 from ebird.api.utils import clean_code, clean_max_results, clean_area, clean_date
-
 
 CHECKLISTS_DATE_URL = 'https://ebird.org/ws2.0/product/lists/%s/%s'
 CHECKLISTS_RECENT_URL = 'https://ebird.org/ws2.0/product/lists/%s'
