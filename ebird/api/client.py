@@ -23,15 +23,10 @@ class Client:
 
     def __init__(self, api_key, locale):
         self.api_key = api_key
-
         self.locale = locale
-        self.sppLocale = locale
-        self.groupNameLocale = locale
-
         self.max_observations = None
         self.max_visits = 200
         self.max_observers = 100
-
         self.back = 14
         self.category = None
         self.detail = 'full'
