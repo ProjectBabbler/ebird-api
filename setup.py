@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import unittest
 
 from setuptools import setup
@@ -9,6 +10,14 @@ from setuptools import setup
 def read(filename):
     with open(os.path.join(os.path.dirname(__file__), filename)) as fp:
         return fp.read()
+
+
+def find_version(path):
+    version_file = read(path)
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
 
 
 def test_suite():
@@ -20,7 +29,7 @@ def test_suite():
 
 setup(
     name='ebird-api',
-    version='3.0.0',
+    version=find_version("ebird/api/__init__.py"),
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
