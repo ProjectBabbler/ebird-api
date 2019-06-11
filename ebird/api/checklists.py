@@ -76,7 +76,7 @@ def get_checklist(token, sub_id):
 
     The information returned include the checklist attributes, date, etc. and the
     list of observations. Only the code for the location and subnational1 are
-    included you will need to call get_hostspot_info() to get the full details
+    included you will need to call get_hotspot_info() to get the full details
     of the location.
 
     The maps to the end point in the eBird API 2.0,

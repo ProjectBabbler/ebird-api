@@ -87,7 +87,7 @@ def get_json(content):
     """Decode the JSON records from the response.
 
     :param content: the content returned by the eBird API.
-    :type response:
+    :type content: http.client.HTTPResponse:
 
     :return: the records decoded from the JSON payload.
     :rtype: list
@@ -100,7 +100,7 @@ def get_csv(content):
     """Decode the CSV records from the response.
 
     :param content: the content returned by the eBird API.
-    :type response:
+    :type content: http.client.HTTPResponse:
 
     :return: the records decoded from the CSV payload.
     :rtype: list

@@ -537,6 +537,9 @@ def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=
 
     :param lng: the longitude, which will be rounded to 2 decimal places.
 
+    :param dist: include all sites within this distance, from 0 to 50km
+    with a default of 25km.
+
     :param back: the number of days in the past to include. Ranges from
     1 to 30 with a default of 14 days.
 
@@ -609,9 +612,6 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
     or a list of up to 10 codes. All codes must be same type.
 
     :param date: the date, since Jan 1st 1800.
-
-    :param back: the number of days in the past to include. Ranges from
-    1 to 30 with a default of 14 days.
 
     :param max_results: the maximum number of observations to return from
     1 to 10000. The default value is None which means all observations will

@@ -16,7 +16,7 @@ class Client:
     private and hotspot locations (hotspots = False).
 
     All methods raise ValueError if any of the arguments or default values
-    canont be validated; URLError if there is an error with the connection
+    cannot be validated; URLError if there is an error with the connection
     to the eBird site or HTTPError if the eBird API returns an error.
 
     """

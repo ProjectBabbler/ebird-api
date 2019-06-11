@@ -23,7 +23,7 @@ def check_client():
     loc_id = 'L2313391'
     sub_id = 'S56966468'
 
-    api_key = 's46vrls4eibf'
+    api_key = 'abc123'
     locale = 'en'
 
     try:
