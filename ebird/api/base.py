@@ -163,6 +163,24 @@ def get_json(content):
     return json.loads(content)
 
 
+def save_json(filename, data, indent=None):
+    """Save results to a file.
+
+    :param filename: the name of the file to save. The .json
+    extension will be added if not present.
+
+    :param data: the list of records to save.
+
+    :param indent: whether to pretty-print results by adding indentation
+    for each level. The default is no formatting.
+
+    """
+    if not filename.endswith('.json'):
+        filename += '.json'
+    with open(filename, 'w') as outfile:
+        json.dump(data, outfile, indent=indent)
+
+
 def get_csv(content):
     """Decode the CSV records from the response.
 

@@ -8,6 +8,7 @@ and by implication, [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added 
 - Added the full list of locales support by eBird (but not necessarily by the API).
+- Added a convenience function for saving downloaded records to a file.
 ### Changed
 - Validating the locale now uses the list supported by eBird.
 
