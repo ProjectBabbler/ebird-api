@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added 
+- Added the full list of locales support by eBird (but not necessarily by the API).
+### Changed
+- Validating the locale now uses the list supported by eBird.
+
 ## [3.0.0] - 2019-06-06
 ### Added 
 - Rewritten to support eBird API 2.0

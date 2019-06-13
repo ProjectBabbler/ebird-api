@@ -268,6 +268,83 @@ client.get_observations('MX-OAX')
 
 The client supports all the API functions.
 
+## Locales
+
+The eBird site supports the following list of locales:
+
+```python
+LOCALES = [
+    ('Bulgarian', 'bg'),
+    ('Chinese', 'zh'),
+    ('Chinese (Simple)', 'zh_SIM'),
+    ('Croatian', 'hr'),
+    ('Czech', 'cs'),
+    ('Dutch', 'nl'),
+    ('Danish', 'da'),
+    ('English', 'en'),
+    ('English (Australia)', 'en_AU'),
+    ('English (India)', 'en_IN'),
+    ('English (IOC)', 'en_IOC'),
+    ('English (Hawaii)', 'en_HAW'),
+    ('English (Kenya)', 'en_KE'),
+    ('English (Malaysia)', 'en_MY'),
+    ('English (New Zealand)', 'en_NZ'),
+    ('English (Philippines)', 'en_PH'),
+    ('English (South Africa)', 'en_ZA'),
+    ('English (United Arab Emirates)', 'en_AE'),
+    ('English (Great Britain)', 'en_UK'),
+    ('English (United States)', 'en_US'),
+    ('Faroese', 'fo'),
+    ('Finnish', 'fi'),
+    ('French', 'fr'),
+    ('French (AOU)', 'fr_AOU'),
+    ('French (Canada)', 'fr_CA'),
+    ('German', 'de'),
+    ('French (Guadeloupe)', 'fr_GP'),
+    ('French (Haiti)', 'fr_HT'),
+    ('Haitian', 'ht_HT'),
+    ('Hebrew', 'iw'),
+    ('Hungarian', 'hu'),
+    ('Indonesian', 'id'),
+    ('Icelandic', 'is'),
+    ('Italian', 'it'),
+    ('Japanese', 'ja'),
+    ('Korean', 'ko'),
+    ('Latvian', 'lv'),
+    ('Lithuanian', 'lt'),
+    ('Malayalam', 'ml'),
+    ('Mongolian', 'mn'),
+    ('Norwegian', 'no'),
+    ('Polish', 'pl'),
+    ('Portuguese (Portugal)', 'pt_PT'),
+    ('Portuguese (Brasil)', 'pt_BR'),
+    ('Russian', 'ru'),
+    ('Serbian', 'sr'),
+    ('Slovenian', 'sl'),
+    ('Spanish', 'es'),
+    ('Spanish (Argentina)', 'es_AR'),
+    ('Spanish (Chile)', 'es_CL'),
+    ('Spanish (Costa Rica)', 'es_CR'),
+    ('Spanish (Cuba)', 'es_CU'),
+    ('Spanish (Dominican Republic)', 'es_DO'),
+    ('Spanish (Ecuador)', 'es_EC'),
+    ('Spanish (Spain)', 'es_ES'),
+    ('Spanish (Mexico)', 'es_MX'),
+    ('Spanish (Panama)', 'es_PA'),
+    ('Spanish (Puerto Rico)', 'es_PR'),
+    ('Spanish (Uruguay)', 'es_UY'),
+    ('Spanish (Venezuela)', 'es_VE'),
+    ('Swedish', 'sv'),
+    ('Thai', 'th'),
+    ('Turkish', 'tr'),
+    ('Ukrainian', 'uk'),
+]
+```
+Not all locales are supported by the API however. If a locale is not supported then
+results are returned in English. It is expected that the API will eventually return
+results in all the languages supported by the web site and database.
+
+
 ## Compatibility
 
 ebird-api works with Python 3.5+. 

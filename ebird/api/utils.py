@@ -7,12 +7,15 @@ import re
 
 from datetime import date, datetime
 
+from ebird.api.base import LOCALES
+
 SPECIES_CATEGORIES = [
     'domestic', 'form', 'hybrid', 'intergrade', 'issf', 'slash', 'species', 'spuh']
 SPECIES_ORDERING = ['ebird', 'merlin']
 SPECIES_SORT = ['date', 'species']
 REGION_TYPES = ['country', 'subnational1', 'subnational2']
-LOCALES = ['de', 'en', 'es', 'fr', 'he', 'pt', 'tr']
+
+_codes = [locale[1] for locale in LOCALES]
 
 
 def is_country(value):
@@ -151,13 +154,14 @@ def clean_max_results(value, limit):
 
 
 def clean_locale(value):
-    cleaned = str(value)
+    cleaned = str(value).strip()
     if re.match(r'^[a-zA-Z]{2}$', cleaned):
         cleaned = cleaned.lower()
-    elif re.match(r'^[a-zA-Z]{2}_[a-zA-Z]{2}$', cleaned):
-        cleaned = cleaned[:2].lower() + '_' + cleaned[-2:].upper()
-    else:
-        raise ValueError("Invalid code for 'locale': %s" % value)
+    elif re.match(r'^[a-zA-Z]{2}_[a-zA-Z]{2,3}$', cleaned):
+        cleaned = cleaned[:2].lower() + '_' + cleaned[3:].upper()
+
+    if cleaned not in _codes:
+        raise ValueError("eBird does not support this locale: %s" % cleaned)
 
     return cleaned
 

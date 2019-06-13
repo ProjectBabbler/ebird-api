@@ -5,6 +5,10 @@
 
 __version__ = '3.0.0'
 
+from ebird.api.base import (
+    LOCALES
+)
+
 from ebird.api.observations import (
     get_observations,
     get_notable_observations,

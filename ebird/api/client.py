@@ -6,6 +6,8 @@
 from ebird.api import observations, checklists, regions, hotspots, \
     taxonomy, statistics
 
+from ebird.api.utils import clean_locale
+
 
 class Client:
     """Client class to simplify interacting with the API calls.
@@ -23,7 +25,7 @@ class Client:
 
     def __init__(self, api_key, locale):
         self.api_key = api_key
-        self.locale = locale
+        self.locale = clean_locale(locale)
         self.max_observations = None
         self.max_visits = 200
         self.max_observers = 100
