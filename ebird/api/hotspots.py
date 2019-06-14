@@ -2,9 +2,9 @@
 
 """Functions for fetching information about hotspots."""
 
-from ebird.api.base import get_json, get_content, filter_parameters
+from ebird.api.utils import get_json, get_content, filter_parameters
 
-from ebird.api.utils import clean_lat, clean_lng, clean_dist, \
+from ebird.api.validation import clean_lat, clean_lng, clean_dist, \
     clean_back, clean_region, clean_location
 
 REGION_HOTSPOTS_URL = 'https://ebird.org/ws2.0/ref/hotspot/%s'

@@ -2,9 +2,9 @@
 
 """Functions for fetching information about regions."""
 
-from ebird.api.base import get_json, get_content
+from ebird.api.utils import get_json, get_content
 
-from ebird.api.utils import clean_region, clean_region_type
+from ebird.api.validation import clean_region, clean_region_type
 
 
 REGION_LIST_URL = 'https://ebird.org/ws2.0/ref/region/list/%s/%s.json'

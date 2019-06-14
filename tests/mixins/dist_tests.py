@@ -1,4 +1,4 @@
-from ebird.api.base import PARAMETER_DEFAULTS
+from ebird.api.constants import DEFAULT_DISTANCE
 from tests.mixins import BaseMixin
 
 
@@ -10,7 +10,7 @@ class DistTestsMixin(BaseMixin):
         self.assertEqual(actual['dist'], 50)  # noqa
 
     def test_default_dist_is_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(dist=PARAMETER_DEFAULTS['dist']))
+        self.get_fixture()(**self.get_params(dist=DEFAULT_DISTANCE))
         actual = mocked_function.call_args[0][1]
         self.assertTrue('dist' not in actual)  # noqa
 

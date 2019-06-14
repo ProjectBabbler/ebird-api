@@ -3,8 +3,10 @@
 
 """Functions for fetching information about what species have been seen."""
 
-from ebird.api.base import get_content, get_json, filter_parameters
-from ebird.api import utils
+from ebird.api.utils import get_content, get_json, filter_parameters, map_parameters
+from ebird.api.validation import clean_areas, clean_locale, clean_back, clean_provisional, \
+    clean_hotspot, clean_detail, clean_category, clean_max_observations, clean_lat, clean_lng, \
+    clean_dist, clean_sort
 
 OBSERVATIONS_URL = 'https://ebird.org/ws2.0/data/obs/%s/recent'
 NOTABLE_OBSERVATIONS_URL = 'https://ebird.org/ws2.0/data/obs/%s/recent/notable'
@@ -70,36 +72,33 @@ def get_observations(token, area, back=14, max_results=None, locale='en',
 
     """
 
-    cleaned = utils.clean_areas(area)
+    cleaned = clean_areas(area)
 
     url = OBSERVATIONS_URL % cleaned[0]
 
     params = {
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'locale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'detail': utils.clean_detail(detail),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'locale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
+        'detail': clean_detail(detail),
     }
 
     if category is not None:
-        params['cat'] = utils.clean_category(category)
+        params['cat'] = clean_category(category)
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_notable_observations(token, area, back=14, max_results=None, locale='en',
@@ -146,32 +145,29 @@ def get_notable_observations(token, area, back=14, max_results=None, locale='en'
     :raises HTTPError if the eBird API returns an error.
 
     """
-    cleaned = utils.clean_areas(area)
+    cleaned = clean_areas(area)
 
     url = NOTABLE_OBSERVATIONS_URL % cleaned[0]
 
     params = {
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'locale': utils.clean_locale(locale),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'detail': utils.clean_detail(detail),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'locale': clean_locale(locale),
+        'hotspot': clean_hotspot(hotspot),
+        'detail': clean_detail(detail),
     }
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_species_observations(token, species, area, back=14, max_results=None, locale='en',
@@ -229,36 +225,33 @@ def get_species_observations(token, species, area, back=14, max_results=None, lo
     :raises HTTPError if the eBird API returns an error.
 
     """
-    cleaned = utils.clean_areas(area)
+    cleaned = clean_areas(area)
 
     url = SPECIES_OBSERVATIONS_URL % (cleaned[0], species)
 
     params = {
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'locale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'detail': utils.clean_detail(detail),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'locale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
+        'detail': clean_detail(detail),
     }
 
     if category is not None:
-        params['cat'] = utils.clean_category(category)
+        params['cat'] = clean_category(category)
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
@@ -322,32 +315,28 @@ def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
 
     """
     params = {
-        'lat': utils.clean_lat(lat),
-        'lng': utils.clean_lng(lng),
-        'dist': utils.clean_dist(dist),
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'sppLocale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'sort': utils.clean_sort(sort),
+        'lat': clean_lat(lat),
+        'lng': clean_lng(lng),
+        'dist': clean_dist(dist),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'sppLocale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
+        'sort': clean_sort(sort),
     }
 
     if category is not None:
-        params['cat'] = utils.clean_category(category)
+        params['cat'] = clean_category(category)
 
-    defaults = {
-        'maxResults': None,
-        'sppLocale': 'en'
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(NEARBY_OBSERVATIONS_URL, filtered, headers))
+    return get_json(get_content(NEARBY_OBSERVATIONS_URL, mapped, headers))
 
 
 def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=None,
@@ -413,30 +402,27 @@ def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=N
     url = NEARBY_SPECIES_URL % species
 
     params = {
-        'lat': utils.clean_lat(lat),
-        'lng': utils.clean_lng(lng),
-        'dist': utils.clean_dist(dist),
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'sppLocale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
+        'lat': clean_lat(lat),
+        'lng': clean_lng(lng),
+        'dist': clean_dist(dist),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'sppLocale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
     }
 
     if category is not None:
-        params['cat'] = utils.clean_category(category)
+        params['cat'] = clean_category(category)
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, locale='en',
@@ -490,28 +476,24 @@ def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, loca
 
     """
     params = {
-        'lat': utils.clean_lat(lat),
-        'lng': utils.clean_lng(lng),
-        'dist': utils.clean_dist(dist),
-        'back': utils.clean_back(back),
-        'maxResults': utils.clean_max_results(max_results, 10000),
-        'locale': utils.clean_locale(locale),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'detail': utils.clean_detail(detail),
+        'lat': clean_lat(lat),
+        'lng': clean_lng(lng),
+        'dist': clean_dist(dist),
+        'back': clean_back(back),
+        'maxObservations': clean_max_observations(max_results),
+        'locale': clean_locale(locale),
+        'hotspot': clean_hotspot(hotspot),
+        'detail': clean_detail(detail),
     }
 
-    defaults = {
-        'maxResults': None,
-        'sppLocale': 'en'
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(NEARBY_NOTABLE_URL, filtered, headers))
+    return get_json(get_content(NEARBY_NOTABLE_URL, mapped, headers))
 
 
 def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=None,
@@ -573,27 +555,24 @@ def get_nearest_species(token, species, lat, lng, dist=25, back=14, max_results=
     url = NEAREST_SPECIES_URL % species
 
     params = {
-        'lat': utils.clean_lat(lat),
-        'lng': utils.clean_lng(lng),
-        'back': utils.clean_back(back),
-        'dist': utils.clean_dist(dist),
-        'maxResults': utils.clean_max_results(max_results, 1000),
-        'sppLocale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
+        'lat': clean_lat(lat),
+        'lng': clean_lng(lng),
+        'back': clean_back(back),
+        'dist': clean_dist(dist),
+        'maxObservations': clean_max_observations(max_results),
+        'sppLocale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
     }
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_historic_observations(token, area, date, max_results=None, locale='en',
@@ -646,33 +625,30 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
     :raises HTTPError if the eBird API returns an error.
 
     """
-    cleaned = utils.clean_areas(area)
+    cleaned = clean_areas(area)
 
     url = HISTORIC_OBSERVATIONS_URL % (cleaned[0], date.strftime('%Y/%m/%d'))
 
     params = {
         'rank': 'mrec',
-        'detail': utils.clean_detail(detail),
-        'locale': utils.clean_locale(locale),
-        'includeProvisional': utils.clean_provisional(provisional),
-        'hotspot': utils.clean_hotspot(hotspot),
-        'maxResults': utils.clean_max_results(max_results, 10000),
+        'detail': clean_detail(detail),
+        'locale': clean_locale(locale),
+        'includeProvisional': clean_provisional(provisional),
+        'hotspot': clean_hotspot(hotspot),
+        'maxObservations': clean_max_observations(max_results),
     }
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
 
     if category is not None:
-        params['cat'] = utils.clean_category(category)
+        params['cat'] = clean_category(category)
 
-    defaults = {
-        'maxResults': None
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))

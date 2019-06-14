@@ -1,4 +1,4 @@
-from ebird.api.base import PARAMETER_DEFAULTS
+from ebird.api.constants import DEFAULT_SPECIES_CATEGORY
 from tests.mixins import BaseMixin
 
 
@@ -10,7 +10,7 @@ class CategoryTestsMixin(BaseMixin):
         self.assertEqual(actual['cat'], 'species')  # noqa
 
     def test_default_category_is_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(category=PARAMETER_DEFAULTS['cat']))
+        self.get_fixture()(**self.get_params(category=DEFAULT_SPECIES_CATEGORY))
         actual = mocked_function.call_args[0][1]
         self.assertTrue('cat' not in actual)  # noqa
 

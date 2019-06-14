@@ -1,4 +1,4 @@
-from ebird.api.base import PARAMETER_DEFAULTS
+from ebird.api.constants import DEFAULT_DETAIL
 from tests.mixins import BaseMixin
 
 
@@ -10,7 +10,7 @@ class DetailTestsMixin(BaseMixin):
         self.assertEqual(actual['detail'], 'full')  # noqa
 
     def test_default_detail_is_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(detail=PARAMETER_DEFAULTS['detail']))
+        self.get_fixture()(**self.get_params(detail=DEFAULT_DETAIL))
         actual = mocked_function.call_args[0][1]
         self.assertTrue('detail' not in actual)  # noqa
 

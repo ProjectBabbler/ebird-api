@@ -17,13 +17,10 @@ def get_content(url, params, headers):  # noqa
 @patch('ebird.api.checklists.get_content', side_effect=get_content)
 class GetVisitsTests(
     mixins.HeaderTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxChecklistsTestsMixin,
     TestCase
 ):
     """Tests for the get_visits() API call."""
-
-    def get_max_results_default(self):
-        return 10
 
     def get_fixture(self):
         return get_visits

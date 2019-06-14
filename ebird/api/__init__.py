@@ -5,7 +5,7 @@
 
 __version__ = '3.0.0'
 
-from ebird.api.base import (
+from ebird.api.constants import (
     LOCALES
 )
 

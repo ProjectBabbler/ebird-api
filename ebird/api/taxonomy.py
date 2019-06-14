@@ -2,9 +2,9 @@
 
 """Functions for fetching information about the taxonomy used by eBird."""
 
-from ebird.api.base import get_json, get_content, filter_parameters
+from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
 
-from ebird.api.utils import clean_category, clean_locale, clean_ordering, \
+from ebird.api.validation import clean_category, clean_locale, clean_ordering, \
     clean_species_code, clean_codes
 
 TAXONOMY_URL = 'https://ebird.org/ws2.0/ref/taxonomy/ebird'
@@ -141,13 +141,10 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
         'X-eBirdApiToken': token,
     }
 
-    defaults = {
-        'groupNameLocale': 'en',
-    }
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
-    filtered = filter_parameters(params, **defaults)
-
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_taxonomy_versions(token):

@@ -21,7 +21,7 @@ class GetHistoricObservationsTests(
     mixins.HeaderTestsMixin,
     mixins.HotspotTestsMixin,
     mixins.LocaleTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObservationsTestsMixin,
     mixins.ProvisionalTestsMixin,
     TestCase
 ):

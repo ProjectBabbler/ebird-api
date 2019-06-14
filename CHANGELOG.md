@@ -11,6 +11,7 @@ and by implication, [Semantic Versioning](http://semver.org/).
 - Added a convenience function for saving downloaded records to a file.
 ### Changed
 - Validating the locale now uses the list supported by eBird.
+- Reorganised the internal files. The API functions remain unchanged
 
 ## [3.0.0] - 2019-06-06
 ### Added 

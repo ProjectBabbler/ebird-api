@@ -22,7 +22,7 @@ class GetGeoNotableTests(
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
     mixins.LocaleTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObservationsTestsMixin,
     TestCase
 ):
     """Tests for the get_nearest_notable() API call."""

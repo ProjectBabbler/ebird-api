@@ -22,7 +22,7 @@ class GetGeoSpeciesTests(
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
     mixins.SpeciesLocaleTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObservationsTestsMixin,
     mixins.ProvisionalTestsMixin,
     TestCase
 ):

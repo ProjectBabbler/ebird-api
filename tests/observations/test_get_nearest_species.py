@@ -20,7 +20,7 @@ class GetNearestSpeciesTests(
     mixins.HotspotTestsMixin,
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObservationsTestsMixin,
     mixins.ProvisionalTestsMixin,
     TestCase
 ):

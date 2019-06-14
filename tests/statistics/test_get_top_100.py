@@ -17,13 +17,10 @@ def get_content(url, params, headers):  # noqa
 @patch('ebird.api.statistics.get_content', side_effect=get_content)
 class GetTop100Tests(
     mixins.HeaderTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObserversTestsMixin,
     TestCase
 ):
     """Tests for the get_top_100() API call."""
-
-    def get_max_results_default(self):
-        return 100
 
     def get_fixture(self):
         return get_top_100

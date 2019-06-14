@@ -1,4 +1,4 @@
-from ebird.api.base import PARAMETER_DEFAULTS
+from ebird.api.constants import DEFAULT_OBSERVATION_ORDER
 from tests.mixins import BaseMixin
 
 
@@ -10,7 +10,7 @@ class SortTestsMixin(BaseMixin):
         self.assertEqual(actual['sort'], 'species')  # noqa
 
     def test_default_sort_is_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(sort=PARAMETER_DEFAULTS['sort']))
+        self.get_fixture()(**self.get_params(sort=DEFAULT_OBSERVATION_ORDER))
         actual = mocked_function.call_args[0][1]
         self.assertTrue('sort' not in actual)  # noqa
 

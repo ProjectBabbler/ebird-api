@@ -2,9 +2,9 @@
 
 """Functions for fetching basic statistics about observers and observations."""
 
-from ebird.api.base import get_json, get_content, filter_parameters
+from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
 
-from ebird.api.utils import clean_area, clean_date, clean_max_results, clean_region
+from ebird.api.validation import clean_area, clean_date, clean_max_observers, clean_region
 
 
 TOP_100_URL = 'https://ebird.org/ws2.0/product/top100/%s/%s'
@@ -42,21 +42,18 @@ def get_top_100(token, region, date, max_results=100):
         clean_region(region), date.strftime('%Y/%m/%d'))
 
     params = {
-        'maxResults': clean_max_results(max_results, 100),
+        'maxObservers': clean_max_observers(max_results),
         'checklistSort': False,
     }
 
-    defaults = {
-        'maxResults': 100
-    }
-
-    filtered = filter_parameters(params, **defaults)
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
 
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filtered, headers))
+    return get_json(get_content(url, mapped, headers))
 
 
 def get_totals(token, area, date):

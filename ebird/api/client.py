@@ -6,7 +6,7 @@
 from ebird.api import observations, checklists, regions, hotspots, \
     taxonomy, statistics
 
-from ebird.api.utils import clean_locale
+from ebird.api.validation import clean_locale
 
 
 class Client:

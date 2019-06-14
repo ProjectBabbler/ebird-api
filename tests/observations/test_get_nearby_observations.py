@@ -21,7 +21,7 @@ class GetGeoObservationsTests(
     mixins.HotspotTestsMixin,
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
-    mixins.MaxResultsTestsMixin,
+    mixins.MaxObservationsTestsMixin,
     mixins.ProvisionalTestsMixin,
     mixins.SortTestsMixin,
     mixins.SpeciesLocaleTestsMixin,
