@@ -113,13 +113,35 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
     The maps to the end point in the eBird API 2.0,
     https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#aa9804aa-dbf9-4a53-bbf4-48e214e4677a
 
+    NOTE: Not all the locales supported by the eBird site or apps
+    are available in the API. The following locales are not
+    supported, (language, locale code):
+
+    Croatian, hr
+    Croatian, hr
+    Faroese, fo
+    Finnish, fi
+    Haitian, ht_HT
+    Hungarian, hu
+    Indonesian, id
+    Italian, it
+    Japanese, ja
+    Korean, ko
+    Latvian, lv
+    Lithuanian, lt
+    Malayalam, ml
+    Mongolian, mn
+    Polish, pl
+    Slovenian, sl
+    Swedish, sv
+    Ukrainian, uk
+
     :param token: the token needed to access the API.
 
     :param ordering: order groups using taxonomic order, 'ebird' or by
     likeness, 'merlin'.
 
-    :param locale: the language (to use) for the group names. One of: de,
-    en, es, fr, he, pt or tr.
+    :param locale: the language (to use) for the group names.
 
     :return: the list of species groups.
 
