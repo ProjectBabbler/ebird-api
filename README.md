@@ -340,10 +340,28 @@ LOCALES = [
     ('Ukrainian', 'uk'),
 ]
 ```
-Not all locales are supported by the API however. If a locale is not supported then
-results are returned in English. It is expected that the API will eventually return
-results in all the languages supported by the web site and database.
+The common names for all species can be returned using any of the locales 
+listed. When calling get_taxonomy_groups() however the following locales 
+are not currently supported:
 
+* Croatian (hr)
+* Croatian (hr)
+* Faroese (fo)
+* Finnish (fi)
+* Haitian (ht_HT)
+* Hungarian (hu)
+* Indonesian (id)
+* Italian (it)
+* Japanese (ja)
+* Korean (ko)
+* Latvian (lv)
+* Lithuanian (lt)
+* Malayalam (ml)
+* Mongolian (mn)
+* Polish (pl)
+* Slovenian (sl)
+* Swedish (sv)
+* Ukrainian (uk)
 
 ## Compatibility
 
