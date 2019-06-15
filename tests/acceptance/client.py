@@ -1,14 +1,10 @@
 import datetime
-import json
+import os
 
 from urllib.error import HTTPError
 
 from ebird.api import Client
-
-
-def save_json(filename, data):
-    with open(filename + '.json', 'w') as outfile:
-        json.dump(data, outfile, indent=4)
+from ebird.api.utils import save_json
 
 
 def check_client():
@@ -23,7 +19,7 @@ def check_client():
     loc_id = 'L2313391'
     sub_id = 'S56966468'
 
-    api_key = 'abc123'
+    api_key = os.environ['EBIRD_API_KEY']
     locale = 'en'
 
     try:
