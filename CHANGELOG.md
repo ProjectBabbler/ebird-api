@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.0.1] - 2019-06-15
 ### Added 
 - Added the full list of locales support by eBird (but not necessarily by the API).
 - Added a convenience function for saving downloaded records to a file.
@@ -67,7 +67,8 @@ avoid any issues with representation.
 ### Added
 - Core functions for accessing end-points for fetching observations.
 
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...HEAD
+[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...HEAD
+[3.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...3.0.1
 [2.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.1...2.1.1
 [2.1.0]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.2...2.0.0
