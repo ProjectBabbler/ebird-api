@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [3.0.2] - 2019-06-22
+### Added 
+- A prototype specification using OpenAPI 3.0.
+### Changed
+- Updated the validation check for region codes so it supports ISO 3166-2. 
+- Disabled the validation check that limited the number of areas to 10. 
+  The API does not currently enforce this.
+
 ## [3.0.1] - 2019-06-15
 ### Added 
 - Added the full list of locales support by eBird (but not necessarily by the API).
@@ -67,7 +75,8 @@ avoid any issues with representation.
 ### Added
 - Core functions for accessing end-points for fetching observations.
 
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...HEAD
+[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.2...HEAD
+[3.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...3.0.1
 [2.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.1...2.1.1
 [2.1.0]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.0...2.1.0
