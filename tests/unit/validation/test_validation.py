@@ -18,15 +18,21 @@ class ValidationTests(unittest.TestCase):
 
     def test_is_subnational1(self):
         self.assertTrue(validation.is_subnational1('US-NV'))
+        self.assertTrue(validation.is_subnational1('MX-OXA'))
 
-    def test_incomplete_subnational1(self):
+    def test_invalid_subnational1(self):
         self.assertFalse(validation.is_subnational1('US-'))
+        self.assertFalse(validation.is_subnational1('US-ABCD'))
 
     def test_is_subnational2(self):
         self.assertTrue(validation.is_subnational2('US-NV-VMT'))
 
     def test_incomplete_subnational2(self):
         self.assertFalse(validation.is_subnational2('US-NV-'))
+
+    def test_clean_area__invalid_codes(self):
+        self.assertRaises(ValueError, validation.clean_area, 'US-ABCD')
+        self.assertRaises(ValueError, validation.clean_area, 'US-NV-A')
 
     def test_lat_string(self):
         """A value for lat return '[]'ed as a string in converted to a float."""

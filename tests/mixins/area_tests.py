@@ -1,3 +1,5 @@
+from unittest import skip
+
 from tests.mixins import BaseMixin
 
 
@@ -50,8 +52,10 @@ class AreaTestsMixin(BaseMixin):
     def test_blank_location_in_list_raises_error(self, mocked_function):  # noqa
         self.assertRaises(ValueError, self.get_fixture(), **self.get_params(area=['US', '']))  # noqa
 
+    @skip('Disabled as API currently allows more than 10 locations')
     def test_more_than_10_in_string_raises_error(self, mocked_function):  # noqa
         self.assertRaises(ValueError, self.get_fixture(), **self.get_params(area=','.join(['US']*11)))  # noqa
 
+    @skip('Disabled as API currently allows more than 10 locations')
     def test_more_than_10_in_list_raises_error(self, mocked_function):  # noqa
         self.assertRaises(ValueError, self.get_fixture(), **self.get_params(area=['US']*11))  # noqa

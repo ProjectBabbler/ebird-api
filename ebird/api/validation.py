@@ -21,15 +21,15 @@ def is_country(value):
 
 
 def is_subnational1(value):
-    return re.match(r'^\w{2}-\w{2}$', value)
+    return re.match(r'^\w{2}-\w{2,3}$', value)
 
 
 def is_subnational2(value):
-    return re.match(r'^\w{2}-\w{2}-\w{2,}$', value)
+    return re.match(r'^\w{2}-\w{2,3}-\w{2,}$', value)
 
 
 def is_region(value):
-    return re.match(r'^\w{2}((-\w{2})?-\w{2,})?$', value)
+    return re.match(r'^\w{2}((-\w{2,3})?-\w{2,})?$', value)
 
 
 def is_location(value):
@@ -253,8 +253,11 @@ def clean_areas(values):
         if types[0] not in ['country', 'subnational1', 'subnational2', 'location']:
             raise ValueError('Unknown type of area')
 
-    if len(cleaned) > 10:
-        raise ValueError("List of areas cannot be longer than 10")
+    # Disabled this check for now since the API does not enforce this
+    # rule although the documentation says it does.
+
+    # if len(cleaned) > 10:
+    #     raise ValueError("List of areas cannot be longer than 10")
 
     return cleaned
 
