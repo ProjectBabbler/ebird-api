@@ -1,0 +1,100 @@
+openapi: 3.0.1
+info:
+  title: eBird API
+  description: This is a specification for the eBird API.
+  # termsOfService: 
+  # contact: 
+  #   email: apiteam@swagger.io
+  # license:
+  #  name: Apache 2.0
+  #  url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.0
+externalDocs:
+  description: Official API Documentation
+  url: https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest
+servers:
+- url: https://ebird.org/ws2.0/
+# tags:
+# - name: eBird
+#   description: Everything about your Pets
+#   externalDocs:
+#     description: Find out more
+#     url: http://swagger.io
+paths:
+  /data/obs/{regionCode}/recent:
+    get:
+      tags:
+      - observation
+      summary: Get recent observations in a region 
+      description: Return a list of all the species seen recently in a given area
+      parameters:
+      - name: regionCode
+        in: path
+        description: The code for a country, subnational1 region, subnational2 region or a location
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Observation'
+      security:
+      - api_key: []
+components:
+  schemas:
+    Observation:
+      type: object
+      properties:
+        speciesCode:
+          type: string
+          description: 6-letter code
+        comName:
+          type: string
+          description: Species common name (localised)
+        sciName:
+          type: string
+          description: Species scientific name
+        locId:
+          type: string
+          description: Uniqwue identifier for location
+        locName:
+          type: string
+          description: The name of the location
+        obsDt:
+          type: string
+          format: date-time
+        howMany":
+          type: integer
+          format: int32
+        lat:
+          type: string
+          description: latitude of the location in decimal degrees
+        lng: 
+          type: string
+          description: longitude of the location in decimal degrees
+        obsValid:
+          type: boolean
+        obsReviewed:
+          type: boolean
+        locationPrivate:
+          type: boolean
+      xml:
+        name: Observation
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
