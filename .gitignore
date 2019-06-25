@@ -29,3 +29,4 @@ dist/
 # Development tools
 
 .idea
+.make.*
