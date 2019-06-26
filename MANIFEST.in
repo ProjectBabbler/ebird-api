@@ -1,2 +1,2 @@
-include *.md *.txt
+include CHANGELOG.md LICENSE.txt
 recursive-include ebird *.py
