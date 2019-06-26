@@ -23,6 +23,8 @@ clean:
 	python setup.py clean --dist --eggs --pycache
 	# remove state files
 	rm -f .make.*
+	# remove files generated when running acceptance tests
+	rm -rf tests/results
 	# remove coverage files
 	rm -rf coverage
 	rm -f .coverage
