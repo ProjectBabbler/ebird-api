@@ -6,6 +6,7 @@
 #
 atomicwrites==1.3.0       # via pytest
 attrs==19.1.0             # via pytest
+coverage==4.5.3
 filelock==3.0.12          # via tox
 importlib-metadata==0.17  # via pluggy, pytest
 more-itertools==7.0.0     # via pytest

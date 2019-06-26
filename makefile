@@ -23,7 +23,10 @@ gpg_key = `git config --global --get user.signingkey`
 clean:
 	python setup.py clean --dist --eggs --pycache
 	# remove state files
-	-rm -f .make.*
+	rm -f .make.*
+	# remove coverage files
+	rm -rf coverage
+	rm -f .coverage
 
 .make.current:
     # Extract version number from python code
@@ -77,3 +80,13 @@ acceptance:
 	python -m tests.acceptance.client
 
 test: unit acceptance
+
+coverage:
+	# Run coverage for the unit tests
+	coverage run setup.py test
+	# Run coverage for acceptance tests and add it to the unit test coverage
+	coverage run --append -m tests.acceptance.client
+	# Show a quick summary
+	coverage report
+	# Generate a full report in HTML
+	coverage html

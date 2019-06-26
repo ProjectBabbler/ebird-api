@@ -9,7 +9,10 @@ __pycache__/
 .pytest_cache
 .tox/
 
+# coverage results
 .coverage
+# coverage report
+coverage
 
 # Distribution and packaging
 
