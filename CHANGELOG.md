@@ -1,17 +1,23 @@
 # Change Log
 All notable changes to this project will be documented in this file.
+Only changes for the API functions are described here. Changes made 
+to the internals and developing the package are not included. Check 
+the git log for details.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+### Changed
+### Removed
+
 ## [3.0.2] - 2019-06-22
-### Added 
-- A prototype specification using OpenAPI 3.0.
 ### Changed
 - Updated the validation check for region codes so it supports ISO 3166-2. 
-- Disabled the validation check that limited the number of areas to 10. 
-  The API does not currently enforce this.
+- Disabled the validation check that limited the number of areas to 10 as 
+  the eBird API does not currently enforce this.
 
 ## [3.0.1] - 2019-06-15
 ### Added 
