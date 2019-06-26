@@ -2,9 +2,7 @@
 
 """Various functions used in the API."""
 
-import csv
 import json
-import re
 
 from urllib.request import Request, urlopen
 from urllib.parse import urlencode
@@ -41,8 +39,6 @@ def map_parameters(params):
 
     :param params: a dict contains the GET parameters for the request that
     will be sent to the eBird API.
-
-    :param kwargs: additional values to use to filter out default values.
 
     :return: a copy of the params dictionary with only the parameters
     that are not set to a default value.
@@ -140,41 +136,3 @@ def save_json(filename, data, indent=None):
         filename += '.json'
     with open(filename, 'w') as outfile:
         json.dump(data, outfile, indent=indent)
-
-
-def get_csv(content):
-    """Decode the CSV records from the response.
-
-    :param content: the content returned by the eBird API.
-    :type content: http.client.HTTPResponse:
-
-    :return: the records decoded from the CSV payload.
-    :rtype: list
-
-    """
-    return list(csv.DictReader(content.splitlines(), delimiter=','))
-
-
-def region_type_for_code(value):
-    """Get the region type for the code.
-
-    :param value: the code for a country, subnational1 or subnational2
-    region, e.g 'US', 'US-NV' or 'US-NV-001'
-    :type value: str
-
-    :returns: a string describing the type of the code, either 'country',
-    'subnational1' or 'subnational2'
-
-    """
-    cleaned = value.upper()
-    if re.match(r'^[A-Z]{2}$', cleaned):
-        rtype = 'country'
-    elif re.match(r'^[A-Z]{2}-\w{2,}$', cleaned):
-        rtype = 'subnational1'
-    elif re.match(r'^[A-Z]{2}-\w{2,}-\w{2,}$', cleaned):
-        rtype = 'subnational2'
-    else:
-        raise ValueError("Value must be a country, e.g. 'US', subnational1 code, "
-                         "e.g. 'US-NV' or subnational2 code, e.g. 'US-NV-211'")
-
-    return rtype

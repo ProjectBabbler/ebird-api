@@ -13,7 +13,6 @@ version := `cat .make.version`
 today := `date +%Y-%m-%d`
 
 version_file = ebird/api/__init__.py
-changelog := CHANGELOG.md
 
 release_branch = master
 gpg_key = `git config --global --get user.signingkey`
