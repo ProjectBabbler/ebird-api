@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=R0913,R0914
 
 """Functions for fetching information about what species have been seen."""

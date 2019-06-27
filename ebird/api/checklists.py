@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Functions for fetching checklists and information about visits."""
 
 from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters

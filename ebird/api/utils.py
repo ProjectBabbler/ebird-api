@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Various functions used in the API."""
 
 import json

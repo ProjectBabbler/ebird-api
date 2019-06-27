@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # flake8: noqa
 
 """A set of wrapper functions for accessing the eBird API."""

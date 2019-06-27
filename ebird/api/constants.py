@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Various constants and values used in the API."""
 
 DEFAULT_BACK = 14

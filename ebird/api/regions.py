@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """Functions for fetching information about regions."""
 
 from ebird.api.utils import get_json, get_content
