@@ -2,7 +2,7 @@
 
 from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
 
-from ebird.api.validation import clean_category, clean_locale, clean_ordering, \
+from ebird.api.validation import clean_categories, clean_locale, clean_ordering, \
     clean_species_code, clean_codes
 
 TAXONOMY_URL = 'https://ebird.org/ws2.0/ref/taxonomy/ebird'
@@ -53,7 +53,7 @@ def get_taxonomy(token, category=None, locale='en', version=None, species=None):
     }
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     if version is not None:
         params['version'] = version

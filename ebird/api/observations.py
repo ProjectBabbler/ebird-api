@@ -4,7 +4,7 @@
 
 from ebird.api.utils import get_content, get_json, filter_parameters, map_parameters
 from ebird.api.validation import clean_areas, clean_locale, clean_back, clean_provisional, \
-    clean_hotspot, clean_detail, clean_category, clean_max_observations, clean_lat, clean_lng, \
+    clean_hotspot, clean_detail, clean_categories, clean_max_observations, clean_lat, clean_lng, \
     clean_dist, clean_sort
 
 OBSERVATIONS_URL = 'https://ebird.org/ws2.0/data/obs/%s/recent'
@@ -85,7 +85,7 @@ def get_observations(token, area, back=14, max_results=None, locale='en',
     }
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
@@ -238,7 +238,7 @@ def get_species_observations(token, species, area, back=14, max_results=None, lo
     }
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     if len(cleaned) > 1:
         params['r'] = ','.join(cleaned)
@@ -326,7 +326,7 @@ def get_nearby_observations(token, lat, lng, dist=25, back=14, max_results=None,
     }
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     filtered = filter_parameters(params)
     mapped = map_parameters(filtered)
@@ -412,7 +412,7 @@ def get_nearby_species(token, species, lat, lng, dist=25, back=14, max_results=N
     }
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     filtered = filter_parameters(params)
     mapped = map_parameters(filtered)
@@ -641,7 +641,7 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
         params['r'] = ','.join(cleaned)
 
     if category is not None:
-        params['cat'] = clean_category(category)
+        params['cat'] = ','.join(clean_categories(category))
 
     filtered = filter_parameters(params)
     mapped = map_parameters(filtered)

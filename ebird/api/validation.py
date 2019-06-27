@@ -5,6 +5,7 @@
 import re
 
 from datetime import date, datetime
+from enum import Enum
 
 from ebird.api import constants
 
@@ -13,6 +14,12 @@ _region_types = ', '.join(constants.REGION_TYPES)
 _sort_list = ', '.join(constants.SPECIES_SORT)
 _species_categories = ', '.join(constants.SPECIES_CATEGORIES)
 _species_ordering = ', '.join(constants.SPECIES_ORDERING)
+
+
+class Transform(Enum):
+    NONE = 1
+    LOWER = 2
+    UPPER = 3
 
 
 def is_country(value):
@@ -36,6 +43,8 @@ def is_location(value):
 
 
 def get_location_type(value):
+    if not value or not isinstance(value, str):
+        raise ValueError('Location type must be a string.')
     if is_country(value):
         result = 'country'
     elif is_subnational1(value):
@@ -56,30 +65,25 @@ def get_location_types(items):
     return list(results)
 
 
-def clean_code(value):
+def clean_code(value, transform=Transform.NONE):
     if not value or not isinstance(value, str):
         raise ValueError('Code must be a string.')
+    if transform == Transform.LOWER:
+        value = value.lower()
+    elif transform == Transform.UPPER:
+        value = value.upper()
     return value.strip()
 
 
-def clean_codes(value):
+def clean_codes(value, transform=Transform.NONE):
     if isinstance(value, str):
-        if ',' in value:
-            items = value.split(',')
-        else:
-            items = [value]
+        items = value.split(',')
     elif isinstance(value, list):
         items = value
     else:
         raise ValueError('Must be a comma-separated string or list of names')
 
-    cleaned = [code.strip() for code in items]
-
-    for item in cleaned:
-        if not item or not isinstance(item, str):
-            raise ValueError('Codes must be a string.')
-
-    return cleaned
+    return [clean_code(code, transform=transform) for code in items]
 
 
 def clean_lat(value):
@@ -176,37 +180,23 @@ def clean_locale(value):
 
 
 def clean_detail(value):
-    cleaned = str(value).lower()
-
+    cleaned = clean_code(value, transform=Transform.LOWER)
     if cleaned not in ('simple', 'full'):
         raise ValueError(
             "Value for 'detail', %s, must be either 'simple' or 'full'" % value)
-
     return cleaned
 
 
 def clean_provisional(value):
-    try:
-        cleaned = bool(value)
-    except ValueError as err:
-        err.message = "Value for 'provisional', %s, must be a boolean" % value
-        raise
-
-    return 'true' if cleaned else 'false'
+    return 'true' if bool(value) else 'false'
 
 
 def clean_hotspot(value):
-    try:
-        cleaned = bool(value)
-    except ValueError as err:
-        err.message = "Value for 'hotspot', %s, must be a boolean" % value
-        raise
-
-    return 'true' if cleaned else 'false'
+    return 'true' if bool(value) else 'false'
 
 
 def clean_location(value):
-    cleaned = clean_code(value).upper()
+    cleaned = clean_code(value, transform=Transform.UPPER)
     if not is_location(cleaned):
         raise ValueError('Invalid location identifier: %s' % cleaned)
     return cleaned
@@ -214,18 +204,18 @@ def clean_location(value):
 
 def clean_region(value):
     cleaned = clean_code(value)
-
-    if cleaned != 'world':
+    if cleaned == 'WORLD':
+        cleaned = cleaned.lower()
+    elif cleaned != 'world':
         cleaned = cleaned.upper()
         if not is_region(cleaned):
             raise ValueError("Value for 'region', %s, must be a country, e.g. 'US',"
                              "subnational1, e.g. 'US-NV' or subnational2, e.g. 'US-NV-211'")
-
     return cleaned
 
 
 def clean_region_type(value):
-    cleaned = value.lower().strip()
+    cleaned = clean_code(value, transform=Transform.LOWER)
     if cleaned not in constants.REGION_TYPES:
         raise ValueError(
             "Region type, %s, must be one or more of : %s" % (value, _region_types))
@@ -233,7 +223,7 @@ def clean_region_type(value):
 
 
 def clean_area(value):
-    cleaned = clean_code(value).upper()
+    cleaned = clean_code(value, transform=Transform.UPPER)
     area_type = get_location_type(cleaned)
 
     if area_type not in ['country', 'subnational1', 'subnational2', 'location']:
@@ -243,7 +233,7 @@ def clean_area(value):
 
 
 def clean_areas(values):
-    cleaned = [code.upper() for code in clean_codes(values)]
+    cleaned = clean_codes(values, transform=Transform.UPPER)
     types = get_location_types(cleaned)
 
     if len(types) > 1:
@@ -261,19 +251,18 @@ def clean_areas(values):
     return cleaned
 
 
-def clean_category(value):
-    cleaned = clean_codes(value)
+def clean_categories(value):
+    cleaned = clean_codes(value, transform=Transform.LOWER)
     for entry in cleaned:
         if entry not in constants.SPECIES_CATEGORIES:
             raise ValueError(
                 "Species category, %s, must be one or more of : %s" % (
                     entry, _species_categories))
-
-    return ','.join(cleaned)
+    return cleaned
 
 
 def clean_ordering(value):
-    cleaned = value.lower().strip()
+    cleaned = clean_code(value, transform=Transform.LOWER)
     if cleaned not in constants.SPECIES_ORDERING:
         raise ValueError(
             "Species ordering, %s, must be one or more of : %s" % (value, _species_ordering))
@@ -281,7 +270,7 @@ def clean_ordering(value):
 
 
 def clean_sort(value):
-    cleaned = value.lower().strip()
+    cleaned = clean_code(value, transform=Transform.LOWER)
     if cleaned not in constants.SPECIES_SORT:
         raise ValueError(
             "Species sort, %s, must be one or more of : %s" % (value, _sort_list))
@@ -289,7 +278,7 @@ def clean_sort(value):
 
 
 def clean_species_code(value):
-    cleaned = value.lower()
+    cleaned = clean_code(value, transform=Transform.LOWER)
     if re.match(r'^\w{6}$', cleaned):
         return cleaned
 
