@@ -48,6 +48,11 @@ major: .make.current
 	awk -F. '{$$1+=1; OFS="."; print $$1, 0, 0}' .make.current > .make.version
 	sed -i "s/__version__ = .*/__version__ = '${version}'/" ${version_file}
 
+.make.version:
+    # dummy target to silence an "unresolved prerequisit" warning for the
+    # CHANGLOG.md target. It's not need for the makefile to work.
+	[ -f .make.version ]
+
 CHANGELOG.md: .make.version
     # Update latest (unreleased) entry to add the release number and a date stamp
 	sed -i "s/## \[Unreleased\]/## [${version}] - ${today}/" $@
