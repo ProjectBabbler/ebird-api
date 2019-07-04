@@ -4,16 +4,14 @@ from tests.mixins import BaseMixin
 
 class BackTestsMixin(BaseMixin):
 
-    def test_back_is_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(back=10))
-        actual = mocked_function.call_args[0][1]
-        self.assertEqual(actual['back'], 10)  # noqa
+    def test_back_is_sent(self):
+        query = self.api_call(back=10)[1]
+        self.assertEqual(query['back'], 10)
 
-    def test_default_back_is_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params(back=DEFAULT_BACK))
-        actual = mocked_function.call_args[0][1]
-        self.assertTrue('back' not in actual)  # noqa
+    def test_default_back_is_not_sent(self):
+        query = self.api_call(back=DEFAULT_BACK)[1]
+        self.assertTrue('back' not in query)
 
-    def test_invalid_back_raises_error(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(back=31))  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(back='x'))  # noqa
+    def test_invalid_back_raises_error(self):
+        self.api_raises(ValueError, back=31)
+        self.api_raises(ValueError, back='x')

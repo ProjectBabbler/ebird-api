@@ -1,35 +1,27 @@
 from unittest import TestCase
-from unittest.mock import patch
 
 from ebird.api.taxonomy import TAXONOMY_VERSIONS_URL, get_taxonomy_versions
 
-from tests import mixins
+from tests.mixins import HeaderTestsMixin
 
 
-def get_content(url, params, headers):  # noqa
-    return '[]'
-
-
-@patch('ebird.api.taxonomy.get_content', side_effect=get_content)
-class GetTaxonomyVersionsTests(mixins.HeaderTestsMixin, TestCase):
+class GetTaxonomyVersionsTests(TestCase, HeaderTestsMixin):
     """Tests for the get_taxonomy_versions() API call."""
 
-    def get_fixture(self):
+    def get_callable(self):
         return get_taxonomy_versions
 
     def get_params(self, **kwargs):
         params = {
-            'token': self.get_token(),
+            'token': '12345',
         }
         params.update(kwargs)
         return params
 
-    def test_request_url(self, mocked_function):
-        self.get_fixture()(**self.get_params())
-        actual = mocked_function.call_args[0][0]
-        self.assertEqual(TAXONOMY_VERSIONS_URL, actual)
+    def test_request_url(self):
+        url = self.api_call()[0]
+        self.assertEqual(TAXONOMY_VERSIONS_URL, url)
 
-    def test_query_params_are_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params())
-        actual = mocked_function.call_args[0][1]
-        self.assertDictEqual({}, actual)
+    def test_query_params_are_not_sent(self):
+        query = self.api_call()[1]
+        self.assertDictEqual({}, query)

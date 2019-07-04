@@ -1,14 +1,32 @@
+from unittest import mock
+
+
+def get_response(url, params, headers):  # noqa
+    return b'[]'
+
+
 class BaseMixin:
 
-    fixture = None
-    params = None
-    token = 'abc123'
+    def assertTrue(self, expression, msg=None):
+        raise NotImplemented('TestCase must come before mixins')
 
-    def get_fixture(self):
-        return self.fixture
+    def assertEqual(self, first, second, msg=None):
+        raise NotImplemented('TestCase must come before mixins')
 
-    def get_params(self, **kwargs):  # noqa
-        return self.params
+    def assertRaises(self, exception, callable, *args, **kwargs):  # noqa
+        raise NotImplemented('TestCase must come before mixins')
 
-    def get_token(self):
-        return self.token
+    def get_callable(self):
+        raise NotImplemented('You must define the API function to be tested')
+
+    def get_params(self, **kwargs):
+        return kwargs
+
+    def api_call(self, **kwargs):
+        with mock.patch('ebird.api.utils.get_response', side_effect=get_response) as fn:
+            self.get_callable()(**self.get_params(**kwargs))
+            args = fn.call_args[0]
+            return args[0], args[1], args[2]  # url, params, headers
+
+    def api_raises(self, exception, **kwargs):
+        self.assertRaises(exception, self.get_callable(), **self.get_params(**kwargs))

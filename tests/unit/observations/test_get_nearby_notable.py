@@ -1,19 +1,12 @@
-# -*- coding: utf-8 -*-
-
 from unittest import TestCase
-from unittest.mock import patch
 
 from ebird.api.observations import NEARBY_NOTABLE_URL, get_nearby_notable
 
 from tests import mixins
 
 
-def get_content(url, params, headers):  # noqa
-    return '[]'
-
-
-@patch('ebird.api.observations.get_content', side_effect=get_content)
 class GetGeoNotableTests(
+    TestCase,
     mixins.BackTestsMixin,
     mixins.DetailTestsMixin,
     mixins.DistTestsMixin,
@@ -22,27 +15,25 @@ class GetGeoNotableTests(
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
     mixins.LocaleTestsMixin,
-    mixins.MaxObservationsTestsMixin,
-    TestCase
+    mixins.MaxObservationsTestsMixin
 ):
     """Tests for the get_nearest_notable() API call."""
 
     def get_max_results_default(self):
         return None
 
-    def get_fixture(self):
+    def get_callable(self):
         return get_nearby_notable
 
     def get_params(self, **kwargs):
         params = {
-            'token': self.get_token(),
+            'token': '12345',
             'lat': '45.0',
             'lng': '45.0',
         }
         params.update(kwargs)
         return params
 
-    def test_request_url(self, mocked_function):
-        self.get_fixture()(**self.get_params())
-        actual = mocked_function.call_args[0][0]
-        self.assertEqual(NEARBY_NOTABLE_URL, actual)
+    def test_request_url(self):
+        url = self.api_call()[0]
+        self.assertEqual(NEARBY_NOTABLE_URL, url)

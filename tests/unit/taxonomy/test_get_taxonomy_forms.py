@@ -1,41 +1,31 @@
 from unittest import TestCase
-from unittest.mock import patch
 
 from ebird.api.taxonomy import TAXONOMY_FORMS_URL, get_taxonomy_forms
 
-from tests import mixins
+from tests.mixins import HeaderTestsMixin
 
 
-def get_content(url, params, headers):  # noqa
-    return '[]'
-
-
-@patch('ebird.api.taxonomy.get_content', side_effect=get_content)
-class GetTaxonomyFormsTests(
-        mixins.HeaderTestsMixin,
-        TestCase):
+class GetTaxonomyFormsTests(TestCase, HeaderTestsMixin):
     """Tests for the get_taxonomy_forms() API call."""
 
-    def get_fixture(self):
+    def get_callable(self):
         return get_taxonomy_forms
 
     def get_params(self, **kwargs):
         params = {
-            'token': self.get_token(),
+            'token': '12345',
             'species': 'horlar',
         }
         params.update(kwargs)
         return params
 
-    def test_url_contains_species_code(self, mocked_function):
-        self.get_fixture()(**self.get_params())
-        actual = mocked_function.call_args[0][0]
-        self.assertEqual(TAXONOMY_FORMS_URL % 'horlar', actual)
+    def test_url_contains_species_code(self):
+        url = self.api_call()[0]
+        self.assertEqual(TAXONOMY_FORMS_URL % 'horlar', url)
 
-    def test_invalid_species_code_raises_error(self, mocked_function):  # noqa
-        self.assertRaises(ValueError, self.get_fixture(), **self.get_params(species='abc'))
+    def test_invalid_species_code_raises_error(self):
+        self.api_raises(ValueError, species='abc')
 
-    def test_query_params_are_not_sent(self, mocked_function):
-        self.get_fixture()(**self.get_params())
-        actual = mocked_function.call_args[0][1]
-        self.assertDictEqual({}, actual)
+    def test_query_params_are_not_sent(self):
+        query = self.api_call()[1]
+        self.assertDictEqual({}, query)
