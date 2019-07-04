@@ -51,13 +51,11 @@ def map_parameters(params):
     return mapped
 
 
-def filter_parameters(params, **kwargs):
+def filter_parameters(params):
     """Filter out any parameter which matches the eBird API default value.
 
     :param params: a dict contains the GET parameters for the request that
     will be sent to the eBird API.
-
-    :param kwargs: additional values to use to filter out default values.
 
     :return: a copy of the params dictionary with only the parameters
     that are not set to a default value.
@@ -66,7 +64,6 @@ def filter_parameters(params, **kwargs):
     filtered = {}
 
     defaults = _parameter_defaults.copy()
-    defaults.update(**kwargs)
 
     for key, value in params.items():
         if key in defaults:
@@ -78,7 +75,7 @@ def filter_parameters(params, **kwargs):
     return filtered
 
 
-def get_content(url, params, headers):
+def get_response(url, params=None, headers=None):
     """Get the content from the eBird API.
 
     :param url: the URL for the API call.
@@ -99,10 +96,16 @@ def get_content(url, params, headers):
     :raises HTTPError if the eBird API returns an error.
 
     """
-    request = Request(url + '?' + urlencode(params, doseq=True))
-    for name, value in headers.items():
-        request.add_header(name, value)
-    return urlopen(request).read().decode('utf-8')
+    if params:
+        url += '?' + urlencode(params, doseq=True)
+
+    request = Request(url)
+
+    if headers:
+        for name, value in headers.items():
+            request.add_header(name, value)
+
+    return urlopen(request).read()
 
 
 def get_json(content):
@@ -115,7 +118,7 @@ def get_json(content):
     :rtype: list
 
     """
-    return json.loads(content)
+    return json.loads(content.decode('utf-8'))
 
 
 def save_json(filename, data, indent=None):
@@ -134,3 +137,29 @@ def save_json(filename, data, indent=None):
         filename += '.json'
     with open(filename, 'w') as outfile:
         json.dump(data, outfile, indent=indent)
+
+
+def call(url, params, headers):
+    """Call the eBird API.
+
+    :param url: the URL for the API call.
+    :type url: str
+
+    :param params: the query parameters for the API call.
+    :type params: dict
+
+    :param headers: the headers to add to the request.
+    :type params: dict
+
+    :return: the content returned by the API
+    :rtype: str
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
+    """
+    filtered = filter_parameters(params)
+    mapped = map_parameters(filtered)
+    return get_json(get_response(url, mapped, headers))

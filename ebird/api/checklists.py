@@ -1,6 +1,6 @@
 """Functions for fetching checklists and information about visits."""
 
-from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
+from ebird.api.utils import call
 
 from ebird.api.validation import clean_code, clean_max_checklists, clean_area, clean_date
 
@@ -59,10 +59,7 @@ def get_visits(token, area, date=None, max_results=10):
         'X-eBirdApiToken': token,
     }
 
-    filtered = filter_parameters(params)
-    mapped = map_parameters(filtered)
-
-    return get_json(get_content(url, mapped, headers))
+    return call(url, params, headers)
 
 
 def get_checklist(token, sub_id):
@@ -97,4 +94,4 @@ def get_checklist(token, sub_id):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)

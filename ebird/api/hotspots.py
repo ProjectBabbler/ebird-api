@@ -1,6 +1,6 @@
 """Functions for fetching information about hotspots."""
 
-from ebird.api.utils import get_json, get_content, filter_parameters
+from ebird.api.utils import call
 
 from ebird.api.validation import clean_lat, clean_lng, clean_dist, \
     clean_back, clean_region, clean_location
@@ -56,7 +56,7 @@ def get_hotspots(token, region, back=None):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, filter_parameters(params), headers))
+    return call(url, params, headers)
 
 
 def get_nearby_hotspots(token, lat, lng, dist=25, back=None):
@@ -111,7 +111,7 @@ def get_nearby_hotspots(token, lat, lng, dist=25, back=None):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(NEARBY_HOTSPOTS_URL, filter_parameters(params), headers))
+    return call(NEARBY_HOTSPOTS_URL, params, headers)
 
 
 def get_hotspot(token, loc_id):
@@ -140,4 +140,4 @@ def get_hotspot(token, loc_id):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)

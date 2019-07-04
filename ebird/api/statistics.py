@@ -1,6 +1,6 @@
 """Functions for fetching basic statistics about observers and observations."""
 
-from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
+from ebird.api.utils import call
 
 from ebird.api.validation import clean_area, clean_date, clean_max_observers, clean_region
 
@@ -44,14 +44,11 @@ def get_top_100(token, region, date, max_results=100):
         'checklistSort': False,
     }
 
-    filtered = filter_parameters(params)
-    mapped = map_parameters(filtered)
-
     headers = {
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, mapped, headers))
+    return call(url, params, headers)
 
 
 def get_totals(token, area, date):
@@ -84,4 +81,4 @@ def get_totals(token, area, date):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)

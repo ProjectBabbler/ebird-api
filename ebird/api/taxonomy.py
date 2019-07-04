@@ -1,6 +1,6 @@
 """Functions for fetching information about the taxonomy used by eBird."""
 
-from ebird.api.utils import get_json, get_content, filter_parameters, map_parameters
+from ebird.api.utils import call
 
 from ebird.api.validation import clean_categories, clean_locale, clean_ordering, \
     clean_species_code, clean_codes
@@ -65,13 +65,7 @@ def get_taxonomy(token, category=None, locale='en', version=None, species=None):
         'X-eBirdApiToken': token,
     }
 
-    defaults = {
-        'fmt': 'csv',  # Leave this in case we want to allow the format to be specified.
-    }
-
-    filtered = filter_parameters(params, **defaults)
-
-    return get_json(get_content(TAXONOMY_URL, filtered, headers))
+    return call(TAXONOMY_URL, params, headers)
 
 
 def get_taxonomy_forms(token, species):
@@ -102,7 +96,7 @@ def get_taxonomy_forms(token, species):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)
 
 
 def get_taxonomy_groups(token, ordering='ebird', locale='en'):
@@ -161,10 +155,7 @@ def get_taxonomy_groups(token, ordering='ebird', locale='en'):
         'X-eBirdApiToken': token,
     }
 
-    filtered = filter_parameters(params)
-    mapped = map_parameters(filtered)
-
-    return get_json(get_content(url, mapped, headers))
+    return call(url, params, headers)
 
 
 def get_taxonomy_versions(token):
@@ -187,4 +178,4 @@ def get_taxonomy_versions(token):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(TAXONOMY_VERSIONS_URL, {}, headers))
+    return call(TAXONOMY_VERSIONS_URL, {}, headers)

@@ -1,6 +1,6 @@
 """Functions for fetching information about regions."""
 
-from ebird.api.utils import get_json, get_content
+from ebird.api.utils import call
 
 from ebird.api.validation import clean_region, clean_region_type
 
@@ -42,7 +42,7 @@ def get_regions(token, rtype, region):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)
 
 
 def get_adjacent_regions(token, region):
@@ -71,7 +71,7 @@ def get_adjacent_regions(token, region):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)
 
 
 def get_region(token, region):
@@ -106,4 +106,4 @@ def get_region(token, region):
         'X-eBirdApiToken': token,
     }
 
-    return get_json(get_content(url, {}, headers))
+    return call(url, {}, headers)
