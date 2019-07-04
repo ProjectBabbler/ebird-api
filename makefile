@@ -19,6 +19,11 @@ gpg_key = `git config --global --get user.signingkey`
 
 .PHONY: clean lint patch minor major release test unit acceptance
 
+help : makefile
+	@sed -n 's/^##//p' $<
+
+##
+## clean          : Remove all the auto-generated files.
 clean:
 	python setup.py clean --dist --eggs --pycache
 	# remove state files
@@ -29,6 +34,7 @@ clean:
 	rm -rf coverage
 	rm -f .coverage
 
+## lint           : Run flake8 on the API code and tests.
 lint:
 	flake8 ebird test
 
@@ -36,16 +42,19 @@ lint:
     # Extract version number from python code
 	grep ^__version__ ${version_file} | cut -d \' -f 2 > $@
 
+## patch          : Bump the release number.
 patch: .make.current
 	# Bump the patch release number and update the python code
 	awk -F. '{$$3+=1; OFS="."; print $$1, $$2, $$3}' .make.current > .make.version
 	sed -i "s/__version__ = .*/__version__ = '${version}'/" ${version_file}
 
+## minor          : Bump the minor version number.
 minor: .make.current
 	# Bump the minor release number and update the python code
 	awk -F. '{$$2+=1; OFS="."; print $$1, $$2, 0}' .make.current > .make.version
 	sed -i "s/__version__ = .*/__version__ = '${version}'/" ${version_file}
 
+## major          : Bump the major version number.
 major: .make.current
 	# Bump the major release number and update the python code
 	awk -F. '{$$1+=1; OFS="."; print $$1, 0, 0}' .make.current > .make.version
@@ -70,6 +79,7 @@ CHANGELOG.md: .make.version
 		   -e "s/-\[Unreleased\]/[${version}]/" \
 		   -e "s/HEAD-/${version}/"
 
+## release        : Build and upload a new release to PyPi.
 release: lint CHANGELOG.md
 	git add @^ ${version_file}
 	git commit -S -m "Updated for release ${version}"
@@ -86,10 +96,12 @@ unit:
 	python setup.py test
 
 acceptance:
-	python -m tests.acceptance.client
+	python -m 	tests.acceptance.client
 
+## test           : Run the unit and acceptance tests.
 test: unit acceptance
 
+## coverage       : Generate a coverage report from the tests.
 coverage:
 	# Run coverage for the unit tests
 	coverage run setup.py test
@@ -99,3 +111,5 @@ coverage:
 	coverage report
 	# Generate a full report in HTML
 	coverage html
+
+##
