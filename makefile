@@ -17,7 +17,7 @@ version_file = ebird/api/__init__.py
 release_branch = master
 gpg_key = `git config --global --get user.signingkey`
 
-.PHONY: clean patch minor major release test unit acceptance
+.PHONY: clean lint patch minor major release test unit acceptance
 
 clean:
 	python setup.py clean --dist --eggs --pycache
@@ -28,6 +28,9 @@ clean:
 	# remove coverage files
 	rm -rf coverage
 	rm -f .coverage
+
+lint:
+	flake8 ebird test
 
 .make.current:
     # Extract version number from python code
@@ -67,7 +70,7 @@ CHANGELOG.md: .make.version
 		   -e "s/-\[Unreleased\]/[${version}]/" \
 		   -e "s/HEAD-/${version}/"
 
-release: CHANGELOG.md
+release: lint CHANGELOG.md
 	git add @^ ${version_file}
 	git commit -S -m "Updated for release ${version}"
 	git push origin ${release_branch}
