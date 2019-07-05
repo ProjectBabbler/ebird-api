@@ -8,23 +8,30 @@
 #     make (patch | minor | major) release
 #
 
+# .make.current contains the currenct release.
 current := `cat .make.current`
+# .make.version contains the next release.
 version := `cat .make.version`
+# Release date to be added to the changelog .
 today := `date +%Y-%m-%d`
-
+# Where the version string can be found.
 version_file = ebird/api/__init__.py
-
+# Repository branch which is used for releases
 release_branch = master
+# Get the public ID for the GPG key from the git config - added previously
 gpg_key = `git config --global --get user.signingkey`
 
+# Targets which are not actual files or directories
 .PHONY: clean lint patch minor major release test unit acceptance
 
 help : makefile
+    # Show all ## comments
 	@sed -n 's/^##//p' $<
 
 ##
 ## clean          : Remove all the auto-generated files.
 clean:
+    # Use the setup plugin, janitor to remove all build products
 	python setup.py clean --dist --eggs --pycache
 	# remove state files
 	rm -f .make.*
@@ -81,21 +88,25 @@ CHANGELOG.md: .make.version
 
 ## release        : Build and upload a new release to PyPi.
 release: lint CHANGELOG.md
+    # Add the updated __init__.py and CHANGELOG.md
 	git add @^ ${version_file}
+	# Sign the comment
 	git commit -S -m "Updated for release ${version}"
 	git push origin ${release_branch}
-
+    # Add the version number as a tag and sign it
 	git tag -s ${version} -m ${version}
 	git push --tags
-
+    # Build the source and binary files
 	python setup.py sdist bdist_wheel
-
+    # Upload to PyPI
 	twine upload --sign --identity ${gpg_key} dist/*
 
 unit:
+    # The test runner in setup.py is configured to run the unit tests.
 	python setup.py test
 
 acceptance:
+    # Acceptance tests are regular python scripts
 	python -m 	tests.acceptance.client
 
 ## test           : Run the unit and acceptance tests.
