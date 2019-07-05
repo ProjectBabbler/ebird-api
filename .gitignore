@@ -15,7 +15,7 @@ __pycache__/
 coverage
 
 # files generated during acceptance test
-tests/results
+downloads
 
 # Distribution and packaging
 

@@ -14,7 +14,7 @@ lng = '-122.94'
 locale = 'en'
 loc_id = 'L2313391'
 sub_id = 'S56966468'
-result_dir = 'tests/results'
+result_dir = 'downloads'
 
 
 def save_results(filename, results):

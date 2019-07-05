@@ -36,7 +36,7 @@ clean:
 	# remove state files
 	rm -f .make.*
 	# remove files generated when running acceptance tests
-	rm -rf tests/results
+	rm -rf downloads
 	# remove coverage files
 	rm -rf coverage
 	rm -f .coverage
