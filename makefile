@@ -8,6 +8,14 @@
 #     make (patch | minor | major) release
 #
 
+# Set a default key for the eBird API. This need to
+# be set to the correct value in the generated .env file
+api_key = '<not set>'
+
+# Path to the version of python we want to use
+python := /usr/bin/python3.6
+# The name of the virtualenv directory (created locally)
+virtualenv := .venv
 # .make.current contains the currenct release.
 current := `cat .make.current`
 # .make.version contains the next release.
@@ -27,6 +35,24 @@ gpg_key = `git config --global --get user.signingkey`
 help : makefile
     # Show all ## comments
 	@sed -n 's/^##//p' $<
+
+.env:
+	echo "EBIRD_API_KEY=${api_key}" > $@
+
+.envrc: .env
+	echo "export VIRTUAL_ENV=${virtualenv}" > $@
+	echo "layout python-venv ${python}" >> $@
+	echo "dotenv" >> $@
+	direnv allow
+
+${virtualenv}:
+	${python} -m venv $@
+
+## virtualenv     : Create virtualenv
+virtualenv: .envrc ${virtualenv}
+	${virtualenv}/bin/pip3.6 install pip-tools
+	# pip-sync uses requirements.txt by default
+	${virtualenv}/bin/pip-sync
 
 ##
 ## clean          : Remove all the auto-generated files.
