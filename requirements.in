@@ -1,3 +1,5 @@
+setupext-janitor
+wheel
 tox
 pytest
 coverage
