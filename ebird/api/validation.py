@@ -202,6 +202,19 @@ def clean_location(value):
     return cleaned
 
 
+def clean_locations(values):
+    cleaned = clean_codes(values, transform=Transform.UPPER)
+
+    if len(cleaned) > 10:
+        raise ValueError("List of locations cannot be longer than 10")
+
+    for code in cleaned:
+        if not is_location(code):
+            raise ValueError("%s is not a location code" % code)
+
+    return cleaned
+
+
 def clean_region(value):
     cleaned = clean_code(value)
     if cleaned == 'WORLD':
