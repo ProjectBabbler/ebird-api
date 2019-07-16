@@ -119,7 +119,7 @@ CHANGELOG.md: .make.version
 ## release        : Build and upload a new release to PyPi.
 release: lint CHANGELOG.md
     # Add the updated __init__.py and CHANGELOG.md
-	git add @^ ${version_file}
+	git add CHANGELOG.md ${version_file}
 	# Sign the comment
 	git commit -S -m "Updated for release ${version}"
 	git push origin ${release_branch}
