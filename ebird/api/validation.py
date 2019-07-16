@@ -255,11 +255,8 @@ def clean_areas(values):
         if types[0] not in ['country', 'subnational1', 'subnational2', 'location']:
             raise ValueError('Unknown type of area')
 
-    # Disabled this check for now since the API does not enforce this
-    # rule although the documentation says it does.
-
-    # if len(cleaned) > 10:
-    #     raise ValueError("List of areas cannot be longer than 10")
+    if len(cleaned) > 10:
+        raise ValueError("List of areas cannot be longer than 10")
 
     return cleaned
 
