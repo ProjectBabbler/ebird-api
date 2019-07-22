@@ -13,9 +13,9 @@ class GetHistoricObservationsTests(
     mixins.DetailTestsMixin,
     mixins.HeaderTestsMixin,
     mixins.HotspotTestsMixin,
-    mixins.LocaleTestsMixin,
     mixins.MaxObservationsTestsMixin,
-    mixins.ProvisionalTestsMixin
+    mixins.ProvisionalTestsMixin,
+    mixins.SpeciesLocaleTestsMixin
 ):
     """Tests for the get_historic_observations() API call."""
 

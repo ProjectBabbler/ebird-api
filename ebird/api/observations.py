@@ -78,7 +78,7 @@ def get_observations(token, area, back=14, max_results=None, locale='en',
     params = {
         'back': clean_back(back),
         'maxObservations': clean_max_observations(max_results),
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'includeProvisional': clean_provisional(provisional),
         'hotspot': clean_hotspot(hotspot),
         'detail': clean_detail(detail),
@@ -148,7 +148,7 @@ def get_notable_observations(token, area, back=14, max_results=None, locale='en'
     params = {
         'back': clean_back(back),
         'maxObservations': clean_max_observations(max_results),
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'hotspot': clean_hotspot(hotspot),
         'detail': clean_detail(detail),
     }
@@ -225,7 +225,7 @@ def get_species_observations(token, species, area, back=14, max_results=None, lo
     params = {
         'back': clean_back(back),
         'maxObservations': clean_max_observations(max_results),
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'includeProvisional': clean_provisional(provisional),
         'hotspot': clean_hotspot(hotspot),
         'detail': clean_detail(detail),
@@ -465,7 +465,7 @@ def get_nearby_notable(token, lat, lng, dist=25, back=14, max_results=None, loca
         'dist': clean_dist(dist),
         'back': clean_back(back),
         'maxObservations': clean_max_observations(max_results),
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'hotspot': clean_hotspot(hotspot),
         'detail': clean_detail(detail),
     }
@@ -610,7 +610,7 @@ def get_historic_observations(token, area, date, max_results=None, locale='en',
     params = {
         'rank': 'mrec',
         'detail': clean_detail(detail),
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'includeProvisional': clean_provisional(provisional),
         'hotspot': clean_hotspot(hotspot),
         'maxObservations': clean_max_observations(max_results),

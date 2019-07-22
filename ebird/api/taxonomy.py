@@ -48,7 +48,7 @@ def get_taxonomy(token, category=None, locale='en', version=None, species=None):
 
     """
     params = {
-        'locale': clean_locale(locale),
+        'sppLocale': clean_locale(locale),
         'fmt': 'json'
     }
 

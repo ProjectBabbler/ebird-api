@@ -14,9 +14,9 @@ class GetGeoSpeciesTests(
     mixins.HotspotTestsMixin,
     mixins.LatTestsMixin,
     mixins.LngTestsMixin,
-    mixins.SpeciesLocaleTestsMixin,
     mixins.MaxObservationsTestsMixin,
-    mixins.ProvisionalTestsMixin
+    mixins.ProvisionalTestsMixin,
+    mixins.SpeciesLocaleTestsMixin
 ):
     """Tests for the get_nearest_species() API call."""
 

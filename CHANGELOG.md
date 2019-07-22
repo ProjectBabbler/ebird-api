@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Changed
+- Update the functions for fetching observations to use the sppLocale 
+  query parameter to match the recent changes made in the eBird API.
+
 ## [3.0.3] - 2019-07-16
 ### Changed
 - When fetching observations, the list of area may only contain 10 items.

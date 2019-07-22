@@ -13,9 +13,9 @@ class GetRegionSpeciesObservationsTests(
     mixins.DetailTestsMixin,
     mixins.HeaderTestsMixin,
     mixins.HotspotTestsMixin,
-    mixins.LocaleTestsMixin,
     mixins.MaxObservationsTestsMixin,
-    mixins.ProvisionalTestsMixin
+    mixins.ProvisionalTestsMixin,
+    mixins.SpeciesLocaleTestsMixin
 ):
     """Tests for the get_nearest_notable() API call."""
 
