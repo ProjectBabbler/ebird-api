@@ -88,6 +88,7 @@ avoid any issues with representation.
 - Core functions for accessing end-points for fetching observations.
 
 [Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...HEAD
+[3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.3
 [3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.2...3.0.3
 [3.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...3.0.2
 [3.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...3.0.1
