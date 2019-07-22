@@ -2,7 +2,7 @@
 
 """A set of wrapper functions for accessing the eBird API."""
 
-__version__ = '3.0.3'
+__version__ = '3.0.4'
 
 from ebird.api.constants import (
     LOCALES
