@@ -14,6 +14,7 @@ _region_types = ', '.join(constants.REGION_TYPES)
 _sort_list = ', '.join(constants.SPECIES_SORT)
 _species_categories = ', '.join(constants.SPECIES_CATEGORIES)
 _species_ordering = ', '.join(constants.SPECIES_ORDERING)
+_top_100_rank = ', '.join(constants.TOP_100_RANK)
 
 
 class Transform(Enum):
@@ -314,3 +315,11 @@ def clean_date(value):
         raise ValueError('Date is in the future: %s' % cleaned.strftime('%Y-%m-%d'))
 
     return cleaned.strftime('%Y/%m/%d')
+
+
+def clean_rank(value):
+    cleaned = clean_code(value, transform=Transform.LOWER)
+    if cleaned not in constants.TOP_100_RANK:
+        raise ValueError(
+            "Top 100 rank, %s, must be one or more of : %s" % (value, _top_100_rank))
+    return cleaned

@@ -4,10 +4,10 @@ from unittest import TestCase
 
 from ebird.api.statistics import TOP_100_URL, get_top_100
 
-from tests.mixins import HeaderTestsMixin, MaxObserversTestsMixin
+from tests.mixins import HeaderTestsMixin, RankedByTestsMixin, MaxObserversTestsMixin
 
 
-class GetTop100Tests(TestCase, HeaderTestsMixin, MaxObserversTestsMixin):
+class GetTop100Tests(TestCase, HeaderTestsMixin, RankedByTestsMixin, MaxObserversTestsMixin):
     """Tests for the get_top_100() API call."""
 
     def get_callable(self):
@@ -18,6 +18,7 @@ class GetTop100Tests(TestCase, HeaderTestsMixin, MaxObserversTestsMixin):
             'token': '12345',
             'region': 'US-NV',
             'date': date.today(),
+            'rank': 'spp'
         }
         params.update(kwargs)
         return params

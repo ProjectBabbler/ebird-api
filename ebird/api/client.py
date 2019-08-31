@@ -274,7 +274,7 @@ class Client:
         """
         return checklists.get_checklist(self.api_key, sub_id)
 
-    def get_top_100(self, region, date):
+    def get_top_100(self, region, date, rank='spp'):
         """
         Get the observers who have seen the most species or submitted the
         greatest number of checklists on a given date.
@@ -283,10 +283,14 @@ class Client:
 
         :param date: the date, since Jan 1st 1800.
 
+        :param rank: rank the observers by species seen (spp) or number of
+        checklists submitted (cl).
+
         :return: the list of observers.
 
         """
-        return statistics.get_top_100(self.api_key, region, date, max_results=self.max_observers)
+        return statistics.get_top_100(
+            self.api_key, region, date, rank=rank, max_results=self.max_observers)
 
     def get_totals(self, area, date):
         """

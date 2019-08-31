@@ -12,6 +12,7 @@ DEFAULT_TAXONOMY_ORDER = 'ebird'
 DEFAULT_MAX_OBSERVATIONS = None
 DEFAULT_MAX_OBSERVERS = 100
 DEFAULT_MAX_CHECKLISTS = 10
+DEFAULT_TOP_100_RANK = 'spp'
 
 LOCALES = {
     'Bulgarian': 'bg',
@@ -88,3 +89,5 @@ SPECIES_ORDERING = ['ebird', 'merlin']
 SPECIES_SORT = ['date', 'species']
 
 REGION_TYPES = ['country', 'subnational1', 'subnational2']
+
+TOP_100_RANK = ['spp', 'cl']

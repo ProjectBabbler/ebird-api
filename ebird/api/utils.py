@@ -21,6 +21,7 @@ _parameter_defaults = {
     'maxObservations': constants.DEFAULT_MAX_OBSERVATIONS,
     'maxObservers': constants.DEFAULT_MAX_OBSERVERS,
     'maxVisits': constants.DEFAULT_MAX_CHECKLISTS,
+    'rankedBy': constants.DEFAULT_TOP_100_RANK
 }
 
 _parameter_map = {

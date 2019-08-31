@@ -16,3 +16,4 @@ from tests.mixins.max_observers_tests import MaxObserversTestsMixin
 from tests.mixins.ordering_tests import OrderingTestsMixin
 from tests.mixins.provisional_tests import ProvisionalTestsMixin
 from tests.mixins.sort_tests import SortTestsMixin
+from tests.mixins.ranked_by_tests import RankedByTestsMixin

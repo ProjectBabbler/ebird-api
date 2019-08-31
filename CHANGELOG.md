@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Changed
+- Replaced the checklistSort query parameter for the top_100 end-point 
+  with rankedBy. This change was made by eBird as checklistSort was not
+  working.
+
 ## [3.0.4] - 2019-07-22
 ### Changed
 - Update the functions for fetching observations to use the sppLocale 

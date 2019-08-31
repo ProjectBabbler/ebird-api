@@ -2,14 +2,14 @@
 
 from ebird.api.utils import call
 
-from ebird.api.validation import clean_area, clean_date, clean_max_observers, clean_region
-
+from ebird.api.validation import clean_area, clean_date, clean_max_observers, \
+    clean_region, clean_rank
 
 TOP_100_URL = 'https://ebird.org/ws2.0/product/top100/%s/%s'
 TOTALS_URL = 'https://ebird.org/ws2.0/product/stats/%s/%s'
 
 
-def get_top_100(token, region, date, max_results=100):
+def get_top_100(token, region, date, rank='spp', max_results=100):
     """
     Get the observers who have seen the most species or submitted the
     greatest number of checklists on a given date.
@@ -22,6 +22,8 @@ def get_top_100(token, region, date, max_results=100):
     :param region: the code for the region, eg. US-NV.
 
     :param date: the date, since Jan 1st 1800.
+
+    :param rank: order results by species seen (spp) or checklists submitted (cl).
 
     :param max_results: the maximum number of entries to return from
     1 to 100. The default value is 100.
@@ -41,7 +43,7 @@ def get_top_100(token, region, date, max_results=100):
 
     params = {
         'maxObservers': clean_max_observers(max_results),
-        'checklistSort': False,
+        'rankedBy': clean_rank(rank),
     }
 
     headers = {
