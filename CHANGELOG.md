@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [3.0.6] - 2020-09-09
+### Changed
+- Subnational1 and subnational2 codes were assumed to be at least two
+  characters. Now they are at least 1 character. 
+
 ## [3.0.5] - 2019-08-31
 ### Changed
 - Replaced the checklistSort query parameter for the top_100 end-point 
@@ -93,7 +98,9 @@ avoid any issues with representation.
 ### Added
 - Core functions for accessing end-points for fetching observations.
 
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...HEAD
+[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.6...HEAD
+[3.0.6]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.6
+[3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.5
 [3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.4...3.0.5
 [3.0.4]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.4
 [3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.3
