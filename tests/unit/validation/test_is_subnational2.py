@@ -11,7 +11,6 @@ class IsSubnational2Tests(unittest.TestCase):
 
     def test_invalid_code_is_not_subnational2(self):
         self.assertFalse(is_subnational2('US-NV-'))
-        self.assertFalse(is_subnational2('US-NV-1'))
 
     def test_country_is_not_subnational2(self):
         self.assertFalse(is_subnational2('US'))

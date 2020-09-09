@@ -28,15 +28,19 @@ def is_country(value):
 
 
 def is_subnational1(value):
-    return re.match(r'^\w{2}-\w{2,3}$', value)
+    return re.match(r'^\w{2}-\w{1,}$', value)
 
 
 def is_subnational2(value):
-    return re.match(r'^\w{2}-\w{2,3}-\w{2,}$', value)
+    return re.match(r'^\w{2}-\w{1,}-\w{1,}$', value)
 
 
 def is_region(value):
-    return re.match(r'^\w{2}((-\w{2,3})?-\w{2,})?$', value)
+    return (
+        re.match(r'^\w{2}$', value) or
+        re.match(r'^\w{2}-\w{1,}$', value) or
+        re.match(r'^\w{2}-\w{1,}-\w{1,}$', value)
+    )
 
 
 def is_location(value):
