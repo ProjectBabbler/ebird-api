@@ -1,5 +1,4 @@
 # flake8: noqa
-from tests.mixins.base import BaseMixin
 from tests.mixins.area_tests import AreaTestsMixin
 from tests.mixins.back_tests import BackTestsMixin
 from tests.mixins.category_tests import CategoryTestsMixin
@@ -9,11 +8,11 @@ from tests.mixins.header_tests import HeaderTestsMixin
 from tests.mixins.hotspot_tests import HotspotTestsMixin
 from tests.mixins.lat_tests import LatTestsMixin
 from tests.mixins.lng_tests import LngTestsMixin
-from tests.mixins.locale_tests import SpeciesLocaleTestsMixin, GroupLocaleTestsMixin
-from tests.mixins.max_observations_tests import MaxObservationsTestsMixin
+from tests.mixins.locale_tests import GroupLocaleTestsMixin, SpeciesLocaleTestsMixin
 from tests.mixins.max_checklists_tests import MaxChecklistsTestsMixin
+from tests.mixins.max_observations_tests import MaxObservationsTestsMixin
 from tests.mixins.max_observers_tests import MaxObserversTestsMixin
 from tests.mixins.ordering_tests import OrderingTestsMixin
 from tests.mixins.provisional_tests import ProvisionalTestsMixin
-from tests.mixins.sort_tests import SortTestsMixin
 from tests.mixins.ranked_by_tests import RankedByTestsMixin
+from tests.mixins.sort_tests import SortTestsMixin

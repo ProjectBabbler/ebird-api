@@ -1,6 +1,11 @@
-setupext-janitor
-wheel
-tox
-pytest
+-e .
+
+bump2version
+black
 coverage
 flake8
+isort
+pytest
+pytest-cov
+tox
+twine

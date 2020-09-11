@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-import re
 
 from setuptools import setup
 
@@ -11,27 +10,21 @@ def read(filename):
         return fp.read()
 
 
-def find_version(path):
-    version_file = read(path)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
-    if version_match:
-        return version_match.group(1)
-    raise RuntimeError("Unable to find version string.")
-
-
 setup(
     name='ebird-api',
-    version=find_version("ebird/api/__init__.py"),
+    version='3.0.6',
     description='Wrapper for accessing the eBird API',
     long_description=read("README.md"),
     long_description_content_type='text/markdown',
     author='ProjectBabbler',
     author_email='projectbabbler@gmail.com',
     url='http://pypi.python.org/pypi/ebird-api/',
-    license='GPL',
+    license='MIT',
     keywords='eBird API client',
-    packages=['ebird.api'],
-    test_suite='tests.unit',
+    packages=['ebird/api'],
+    package_dir={"": "src"},
+    zip_safe=False,
+    test_suite='tests',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',

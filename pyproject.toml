@@ -1,0 +1,18 @@
+[tool.black]
+# Notes:
+#
+# line-length: this is just the default but it's included here so it's easy
+# to see that the value is synced with other code quality tools.
+#
+# target-version: the python version is set when the project is generated
+# so we might as well make use of it.
+#
+# exclude: the regex for excluding migrations is added in case you don't
+# want them reformatted.
+#
+# For all options see:
+#   https://black.readthedocs.io/en/stable/installation_and_usage.html
+
+line-length = 88
+target-version = ['py38']
+# exclude = ".*/migrations/.*"

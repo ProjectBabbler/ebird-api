@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
 ## [3.0.6] - 2020-09-09
 ### Changed
 - Subnational1 and subnational2 codes were assumed to be at least two

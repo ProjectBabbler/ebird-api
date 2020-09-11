@@ -1,38 +1,25 @@
-# Compiled files
-
+# Python
 __pycache__/
-*.py[cod]
+*.py[co]
+*.egg*
 
-# Testing and coverage
+# Editor temp files
+*~
 
-.cache/
-.pytest_cache
-.tox/
+# Ignore dot files except those required for the project
+.*
+!.bumpversion.cfg
+!.coveragerc
+!.flake8
+!.gitignore
+!.gitkeep
+!.travis.yml
 
-# coverage results
-.coverage
-# coverage report
+# Project artefacts
+build
 coverage
+dist
+venv
 
-# files generated during acceptance test
-downloads
-
-# Distribution and packaging
-
-build/
-dist/
-
-*.egg-info
-*.egg
-
-# Environment
-
-.venv/
-
-.envrc
-.env
-
-# Development tools
-
-.idea
-.make.*
+# Any local makefiles
+*.mk

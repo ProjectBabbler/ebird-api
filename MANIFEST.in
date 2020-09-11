@@ -1,2 +1,2 @@
 include CHANGELOG.md LICENSE.txt
-recursive-include ebird *.py
+recursive-include src *.py
