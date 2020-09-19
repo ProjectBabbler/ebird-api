@@ -12,6 +12,7 @@
 PYTHON = python3.8
 
 # Where everything lives
+site_python := /usr/bin/env $(PYTHON)
 
 root_dir = $(realpath .)
 
@@ -113,7 +114,7 @@ upload:
 	$(twine) upload $(upload_opts) dist/*
 
 venv:
-	$(PYTHON) -m venv venv
+	$(site_python) -m venv venv
 	$(pip) install --upgrade pip setuptools wheel
 	$(pip) install --upgrade keyrings.alt
 	$(pip) install pip-tools
