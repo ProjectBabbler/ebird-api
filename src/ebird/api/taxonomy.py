@@ -51,7 +51,7 @@ def get_taxonomy(token, category=None, locale="en", version=None, species=None):
     :raises HTTPError if the eBird API returns an error.
 
     """
-    params = {"sppLocale": clean_locale(locale), "fmt": "json"}
+    params = {"locale": clean_locale(locale), "fmt": "json"}
 
     if category is not None:
         params["cat"] = ",".join(clean_categories(category))
