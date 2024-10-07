@@ -10,6 +10,7 @@ __pycache__/
 .*
 !.bumpversion.cfg
 !.coveragerc
+!.env.example
 !.flake8
 !.gitignore
 !.gitkeep
