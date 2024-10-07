@@ -9,22 +9,21 @@
 #
 
 # You can set these variable on the command line.
-PYTHON = python3.8
+PYTHON_VERSION = 3.12
+PYTHON = python$(PYTHON_VERSION)
 
 # Where everything lives
 site_python := /usr/bin/env $(PYTHON)
 
 root_dir = $(realpath .)
+venv_dir = $(root_dir)/.venv
 
-python := $(root_dir)/venv/bin/python3
-pip := $(root_dir)/venv/bin/pip3
-pip-compile := $(root_dir)/venv/bin/pip-compile
-pip-sync := $(root_dir)/venv/bin/pip-sync
-flake8 := $(root_dir)/venv/bin/flake8
-pytest := $(root_dir)/venv/bin/pytest
-coverage := $(root_dir)/venv/bin/coverage
-bumpversion := $(root_dir)/venv/bin/bump2version
-twine := $(root_dir)/venv/bin/twine
+python := $(venv_dir)/bin/python3
+flake8 := $(venv_dir)/bin/flake8
+pytest := $(venv_dir)/bin/pytest
+coverage := $(venv_dir)/bin/coverage
+bumpversion := $(venv_dir)/bin/bump2version
+twine := $(venv_dir)/bin/twine
 
 
 commit_opts := --gpg-sign
@@ -70,7 +69,7 @@ clean-coverage:
 
 .PHONY: clean-venv
 clean-venv:
-	rm -rf venv
+	rm -rf $(venv_dir)
 
 .PHONE: clean-versions
 clean-versions:
@@ -114,11 +113,8 @@ upload:
 	$(twine) upload $(upload_opts) dist/*
 
 venv:
-	$(site_python) -m venv venv
-	$(pip) install --upgrade pip setuptools wheel
-	$(pip) install --upgrade keyrings.alt
-	$(pip) install pip-tools
-	$(pip-sync)
+	uv venv --python $(PYTHON_VERSION) .venv
+	uv pip sync read requirements.txt
 
 # include any local makefiles
 -include *.mk
