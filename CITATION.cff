@@ -1,0 +1,15 @@
+abstract: "Wrapper for accessing the eBird API"
+authors:
+  - name: "Project Babbler"
+cff-version: 1.2.0
+date-released: "2020-09-09"
+keywords:
+  - eBird
+  - API
+  - client
+license: MIT License
+message: "If you use this software, please cite it using the metadata from this file."
+repository-artifact: http://pypi.python.org/pypi/ebird-api/
+repository-code: "https://github.com/ProjectBabbler/ebird-api"
+title: "eBird API"
+version: 3.0.6
