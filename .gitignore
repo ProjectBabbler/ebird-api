@@ -15,6 +15,7 @@ __pycache__/
 !.flake8
 !.gitignore
 !.gitkeep
+!.python-version
 !.travis.yml
 
 # Project artefacts
