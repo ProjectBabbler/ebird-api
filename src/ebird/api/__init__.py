@@ -2,7 +2,7 @@
 
 """A set of wrapper functions for accessing the eBird API."""
 
-__version__ = "3.0.6"
+__version__ = "3.0.7"
 
 from ebird.api.checklists import get_checklist, get_visits
 from ebird.api.client import Client

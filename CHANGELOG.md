@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.0.7] - 2024-10-09
 ### Changed
 - get_taxonomy now passes "locale" as a parameter, not "sppLocale",
   which was ignored so all names were returned in English.

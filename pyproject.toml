@@ -30,7 +30,7 @@ license = {text = "MIT License"}
 name = "ebird-api"
 readme = "README.md"
 requires-python = ">= 3.8"
-version = "3.0.6"
+version = "3.0.7"
 
 [project.urls]
 Repository = "https://github.com/ProjectBabbler/ebird-api.git"
