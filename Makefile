@@ -103,7 +103,7 @@ upload:
 
 venv:
 	uv venv .venv
-	uv pip sync read requirements.txt
+	uv pip sync requirements.txt
 
 # include any local makefiles
 -include *.mk
