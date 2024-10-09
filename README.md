@@ -71,8 +71,7 @@ counties = 'US-NY-103,US-NY-059,US-NY-81'
 records = get_observations(api_key, locations, hotspot=False, category='species')
 ```
 
-The functions that return observations, checklists or taxonomy support allow
-the common name for species to be returned in different languages:
+The common name for species can be returned in different languages by specifying locale in the functions that return observations, checklists or taxonomy:
 
 ```python
 from ebird.api import get_observations
@@ -115,8 +114,7 @@ records = get_nearby_notable(api_key, 38.05, -122.94, dist=50)
 records = get_nearby_species(api_key, 'barswa', 38.05, -122.94, back=10)
 ```
 
-For the more travel-minded you can also find out where is th e nearest place 
-to see a given species:
+For the more travel-minded you can also find out the nearest place to see a given species:
 
 ```python
 from ebird.api import get_nearest_species
@@ -207,7 +205,7 @@ You can get details of all the species, subspecies, forms
 etc. in the taxonomy used by eBird. It's the easiest way
 of getting the codes for each species or subspecies, 
 e.g. horlar (Horned Lark), cangoo (Canada Goose), etc.,
-that are used in the other API calls.1
+that are used in the other API calls.
 
 ```python
 from ebird.api import get_taxonomy, get_taxonomy_forms, get_taxonomy_versions
@@ -232,7 +230,7 @@ versions = get_taxonomy_versions(api_key)
 ### Statistics
 
 You can also get some statistics from the eBird data. The most interesting
-is probably get_top_100() which return the list of observers who have seen
+is probably get_top_100() which returns the list of observers who have seen
 the most species or submitted the largest number of checklists. The list is
 just for a specific day so it is really only useful for "Big Days" when 
 lots of people are out trying to get the greatest number of species.
