@@ -64,12 +64,8 @@ clean-coverage:
 clean-venv:
 	rm -rf $(venv_dir)
 
-.PHONE: clean-versions
-clean-versions:
-	rm requirements.txt
-
 .PHONY: clean
-clean: clean-build clean-tests clean-venv clean-versions
+clean: clean-build clean-tests clean-venv
 
 .PHONY: build
 build: clean-build
