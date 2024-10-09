@@ -65,7 +65,7 @@ clean-venv:
 	rm -rf $(venv_dir)
 
 .PHONY: clean
-clean: clean-build clean-tests clean-venv
+clean: clean-build clean-tests
 
 .PHONY: build
 build: clean-build
