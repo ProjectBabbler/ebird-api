@@ -2,7 +2,9 @@
 #    uv pip compile requirements.in --universal --output-file requirements.txt
 -e .
     # via -r requirements.in
-black==24.8.0
+black==24.10.0
+    # via -r requirements.in
+build==1.2.2.post1
     # via -r requirements.in
 bump2version==1.0.1
     # via -r requirements.in
@@ -20,6 +22,7 @@ click==8.1.7
     # via black
 colorama==0.4.6
     # via
+    #   build
     #   click
     #   pytest
     #   tox
@@ -76,6 +79,7 @@ nh3==0.2.18
 packaging==24.1
     # via
     #   black
+    #   build
     #   pyproject-api
     #   pytest
     #   tox
@@ -104,6 +108,8 @@ pygments==2.18.0
     #   rich
 pyproject-api==1.8.0
     # via tox
+pyproject-hooks==1.2.0
+    # via build
 pytest==8.3.3
     # via
     #   -r requirements.in

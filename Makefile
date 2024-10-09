@@ -8,17 +8,10 @@
 #     make (patch | minor | major) release
 #
 
-# You can set these variable on the command line.
-PYTHON_VERSION = 3.12
-PYTHON = python$(PYTHON_VERSION)
-
-# Where everything lives
-site_python := /usr/bin/env $(PYTHON)
-
 root_dir = $(realpath .)
 venv_dir = $(root_dir)/.venv
 
-python := $(venv_dir)/bin/python3
+python := $(venv_dir)/bin/python
 flake8 := $(venv_dir)/bin/flake8
 pytest := $(venv_dir)/bin/pytest
 coverage := $(venv_dir)/bin/coverage
@@ -80,7 +73,7 @@ clean: clean-build clean-tests clean-venv clean-versions
 
 .PHONY: build
 build: clean-build
-	$(python) setup.py sdist bdist_wheel
+	$(python) -m build
 
 .PHONY: checks
 checks:
@@ -113,7 +106,7 @@ upload:
 	$(twine) upload $(upload_opts) dist/*
 
 venv:
-	uv venv --python $(PYTHON_VERSION) .venv
+	uv venv .venv
 	uv pip sync read requirements.txt
 
 # include any local makefiles

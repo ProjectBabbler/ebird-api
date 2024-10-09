@@ -1,5 +1,6 @@
 -e .
 
+build
 bump2version
 black
 coverage
