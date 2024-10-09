@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.observations import SPECIES_OBSERVATIONS_URL, get_species_observations
+from ebird.api.observations import (
+    SPECIES_OBSERVATIONS_URL,
+    get_species_observations,
+)
 from tests import mixins
 
 

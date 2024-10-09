@@ -1,7 +1,11 @@
 from datetime import date
 from unittest import TestCase
 
-from ebird.api.checklists import CHECKLISTS_DATE_URL, CHECKLISTS_RECENT_URL, get_visits
+from ebird.api.checklists import (
+    CHECKLISTS_DATE_URL,
+    CHECKLISTS_RECENT_URL,
+    get_visits,
+)
 from tests.mixins import HeaderTestsMixin, MaxChecklistsTestsMixin
 
 

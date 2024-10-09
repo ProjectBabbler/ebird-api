@@ -2,7 +2,14 @@
 
 """Classes for simplifying calls to the eBird API."""
 
-from ebird.api import checklists, hotspots, observations, regions, statistics, taxonomy
+from ebird.api import (
+    checklists,
+    hotspots,
+    observations,
+    regions,
+    statistics,
+    taxonomy,
+)
 from ebird.api.validation import clean_locale
 
 

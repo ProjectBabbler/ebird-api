@@ -8,7 +8,11 @@ from tests.mixins.header_tests import HeaderTestsMixin
 from tests.mixins.hotspot_tests import HotspotTestsMixin
 from tests.mixins.lat_tests import LatTestsMixin
 from tests.mixins.lng_tests import LngTestsMixin
-from tests.mixins.locale_tests import LocaleTestsMixin, GroupLocaleTestsMixin, SpeciesLocaleTestsMixin
+from tests.mixins.locale_tests import (
+    GroupLocaleTestsMixin,
+    LocaleTestsMixin,
+    SpeciesLocaleTestsMixin,
+)
 from tests.mixins.max_checklists_tests import MaxChecklistsTestsMixin
 from tests.mixins.max_observations_tests import MaxObservationsTestsMixin
 from tests.mixins.max_observers_tests import MaxObserversTestsMixin

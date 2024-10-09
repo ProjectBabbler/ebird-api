@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.observations import NOTABLE_OBSERVATIONS_URL, get_notable_observations
+from ebird.api.observations import (
+    NOTABLE_OBSERVATIONS_URL,
+    get_notable_observations,
+)
 from tests import mixins
 
 

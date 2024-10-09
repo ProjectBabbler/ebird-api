@@ -2,7 +2,11 @@ from datetime import date
 from unittest import TestCase
 
 from ebird.api.statistics import TOP_100_URL, get_top_100
-from tests.mixins import HeaderTestsMixin, MaxObserversTestsMixin, RankedByTestsMixin
+from tests.mixins import (
+    HeaderTestsMixin,
+    MaxObserversTestsMixin,
+    RankedByTestsMixin,
+)
 
 
 class GetTop100Tests(

@@ -1,7 +1,10 @@
 from datetime import date
 from unittest import TestCase
 
-from ebird.api.observations import HISTORIC_OBSERVATIONS_URL, get_historic_observations
+from ebird.api.observations import (
+    HISTORIC_OBSERVATIONS_URL,
+    get_historic_observations,
+)
 from tests import mixins
 
 
