@@ -5,7 +5,8 @@
 #
 #     make clean
 #     make test
-#     make (patch | minor | major) release
+#     make (patch | minor | major)
+#     make build upload
 #
 
 root_dir = $(realpath .)
