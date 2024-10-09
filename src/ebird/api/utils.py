@@ -15,6 +15,7 @@ _parameter_defaults = {
     "hotspot": constants.DEFAULT_HOTSPOTS_ONLY,
     "includeProvisional": constants.DEFAULT_PROVISIONAL,
     "sort": constants.DEFAULT_OBSERVATION_ORDER,
+    "locale": constants.DEFAULT_LOCALE,
     "sppLocale": constants.DEFAULT_LOCALE,
     "maxObservations": constants.DEFAULT_MAX_OBSERVATIONS,
     "maxObservers": constants.DEFAULT_MAX_OBSERVERS,

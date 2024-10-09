@@ -9,6 +9,9 @@ This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Changed
+- get_taxonomy now passes "locale" as a parameter, not "sppLocale",
+  which was ignored so all names were returned in English.
 
 ## [3.0.6] - 2020-09-09
 ### Changed

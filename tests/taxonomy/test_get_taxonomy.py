@@ -1,10 +1,10 @@
 from unittest import TestCase
 
 from ebird.api.taxonomy import TAXONOMY_URL, get_taxonomy
-from tests.mixins import HeaderTestsMixin, SpeciesLocaleTestsMixin
+from tests.mixins import HeaderTestsMixin, LocaleTestsMixin
 
 
-class GetTaxonomyTests(TestCase, HeaderTestsMixin, SpeciesLocaleTestsMixin):
+class GetTaxonomyTests(TestCase, HeaderTestsMixin, LocaleTestsMixin):
     """Tests for the get_taxonomy() API call."""
 
     def get_callable(self):
