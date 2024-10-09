@@ -275,7 +275,9 @@ only returns JSON.
 
 ## Compatibility
 
-ebird-api works with Python 3.5+. 
+ebird-api works with currently supported versions of Python, 3.8+. However, 
+it is known to work with earlier versions, at least 3.5 - 3.7, without any 
+problems.
 
 ## Links
 
