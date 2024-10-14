@@ -1,0 +1,12 @@
+TODO Add integration tests
+     The recent bug where sppLocale was being used to fetch the taxonomy
+     was not caught because the unit tests were simply checking the code
+     runs. Some integration tests are needed to verify the calls to the
+     API really are working. However these should only be run when a release
+     is going to be made. It's too expensive in terms of time and goodwill
+     to be hitting the eBird API every time the (unit) tests are run.
+
+TODO Bump2version should be updating the release date in CITATION.cff
+
+TODO Move all configuration options into pyproject.toml
+     - bump2version
