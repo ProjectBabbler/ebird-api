@@ -41,7 +41,7 @@ help:
 	@echo "  major                to update the version number for a major release, e.g. 2.1 to 3.0"
 	@echo "  minor                to update the version number for a minor release, e.g. 2.1 to 2.2"
 	@echo "  patch                to update the version number for a patch release, e.g. 2.1.1 to 2.1.2"
-	@echo "  test                 to run the tests during development"
+	@echo "  test                 to run the unit tests during development"
 	@echo "  upload               to upload a release to PyPI repository"
 	@echo "  venv                 to create the virtualenv and install dependencies"
 	@echo

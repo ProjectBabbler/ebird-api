@@ -63,3 +63,6 @@ include_trailing_comma = true
 pythonpath = [
   "."
 ]
+testpaths = [
+    "tests/unit"
+]
