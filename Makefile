@@ -13,7 +13,9 @@ root_dir = $(realpath .)
 venv_dir = $(root_dir)/.venv
 
 python := $(venv_dir)/bin/python
+black := $(venv_dir)/bin/black
 flake8 := $(venv_dir)/bin/flake8
+isort := $(venv_dir)/bin/isort
 pytest := $(venv_dir)/bin/pytest
 coverage := $(venv_dir)/bin/coverage
 bumpversion := $(venv_dir)/bin/bump2version
@@ -74,13 +76,13 @@ build: clean-build
 
 .PHONY: checks
 checks:
-	flake8 src tests
-	black src tests
-	isort src tests
+	$(flake8) src tests
+	$(black) src tests
+	$(isort) src tests
 
 .PHONY: coverage
 coverage:
-	pytest --cov=src --cov-config=.coveragerc --cov-report html
+	$(pytest) --cov=src --cov-config=.coveragerc --cov-report html
 
 .PHONY: major
 major:
@@ -96,7 +98,7 @@ patch:
 
 .PHONY: test
 test:
-	pytest $(pytest_opts)
+	$(pytest) $(pytest_opts)
 
 .PHONY: upload
 upload:
