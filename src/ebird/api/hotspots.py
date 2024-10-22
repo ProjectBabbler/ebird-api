@@ -21,7 +21,7 @@ def get_hotspots(token, region, back=None):
     If back is specified then only the hotspots visited in the given number
     of days are returned.
 
-    Fetch all the hotspots visited in  country, subnational1 or subnational2
+    Fetch all the hotspots visited in a country, subnational1 or subnational2
     area recently (up to 30 days ago).
 
     This maps to the end point in the eBird API 2.0,

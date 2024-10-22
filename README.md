@@ -38,19 +38,25 @@ what you want to do - they will be interested to hear it.
 ### Observations
 
 ```python
+import os
+
 from ebird.api import get_observations
+
+# Always store secrets outside the code, so you don't accidentally
+# commit them. Environment variables are ideal for this.
+api_key = os.environ["EBIRD_API_KEY"]
     
 # Get observations from Woodman Pond, Madison county, New York for the past week.
-records = get_observations(api_key, 'L227544', back=7)
+this_week = get_observations(api_key, 'L227544', back=7)
 
 # Get observations from Madison county, New York
-records = get_observations(api_key, 'US-NY-053')
+country_records = get_observations(api_key, 'US-NY-053')
 
 # Get observations from New York
-records = get_observations(api_key, 'US-NY')
+state_records = get_observations(api_key, 'US-NY')
 
 # Get observations from the USA - don't overdo the data downloads
-records = get_observations(api_key, 'US')
+national_records = get_observations(api_key, 'US')
 ```
 
 Any where you pass in single location or region you can also pass in a 
@@ -58,7 +64,11 @@ list or a comma-separated string. You can specify up to 10 locations or
 regions:
 
 ```python
+import os
+
 from ebird.api import get_observations
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get the observations for the most visited locations in Madison county, New York:
 # Woodman Pond, Ditch Bank Rd., Cornell Biological Field Station and
@@ -71,10 +81,16 @@ counties = 'US-NY-103,US-NY-059,US-NY-81'
 records = get_observations(api_key, locations, hotspot=False, category='species')
 ```
 
-The common name for species can be returned in different languages by specifying locale in the functions that return observations, checklists or taxonomy:
+The common name for species can be returned in different languages by 
+specifying locale in the functions that return observations, checklists 
+or taxonomy:
 
 ```python
+import os
+
 from ebird.api import get_observations
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 records = get_observations(api_key, 'CA-QC', locale='fr')
 ```
@@ -85,7 +101,11 @@ geographical area - useful for finding the nearest place to see a given
 species:
 
 ```python
+import os
+
 from ebird.api import get_nearby_observations
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get the most recent sightings of all species seen in the last week within 
 # 10km of Point Reyes National Seashore.
@@ -98,30 +118,42 @@ notable ones (locally or nationally rare species) or limit the records to
 a small number of species:
 
 ```python
-from ebird.api import get_notable_observations, get_nearby_notable, \
-    get_species_observations, get_nearby_species
+import os
+
+from ebird.api import (
+    get_notable_observations, 
+    get_nearby_notable,
+    get_species_observations, 
+    get_nearby_species,
+)
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get the interesting birds seen in New York state.
-records = get_notable_observations(api_key, 'US-NY')
+notables = get_notable_observations(api_key, 'US-NY')
 
 # Get the observations of Horned Lark (Eremophila alpestris) in New York state.
 records = get_species_observations(api_key, 'horlar', 'US-NY')
 
 # Get the interesting birds within 50kn of Point Reyes
-records = get_nearby_notable(api_key, 38.05, -122.94, dist=50)
+nearby_notables = get_nearby_notable(api_key, 38.05, -122.94, dist=50)
 
 # Find out if Barn Swallows have been seen in the area in the past 10 days
-records = get_nearby_species(api_key, 'barswa', 38.05, -122.94, back=10)
+nearby_species = get_nearby_species(api_key, 'barswa', 38.05, -122.94, back=10)
 ```
 
 For the more travel-minded you can also find out the nearest place to see a given species:
 
 ```python
+import os 
+
 from ebird.api import get_nearest_species
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Where is the closest place to Cornell Lab of Ornithology to see
 # Tennessee Warbler. 
-locations = get_nearest_species('tenwar', 42.48, -76.45)
+locations = get_nearest_species(api_key, 'tenwar', 42.48, -76.45)
 ```
 
 Depending on what time of year you try this, you might have a long way to go.
@@ -134,13 +166,17 @@ using get_visits(). Each result returned has the unique identifier for the
 checklist. You can then call get_checklist() to get the list of observations.
 
 ```python
+import os
+
 from ebird.api import get_visits, get_checklist
 
+api_key = os.environ["EBIRD_API_KEY"]
+
 # Get visits made recently to locations in New York state:
-records = get_visits(api_key, 'US-NY')
+visits = get_visits(api_key, 'US-NY')
 
 # Get visits made recently to locations in New York state on Jan 1st 2010
-records = get_visits(api_key, 'US-NY', '2010-01-01')
+recent_visits = get_visits(api_key, 'US-NY', '2010-01-01')
 
 # Get the details of a checklist
 checklist = get_checklist(api_key, 'S22536787')
@@ -155,13 +191,14 @@ hotspots within a given radius. get_hotspot() can be used to get information
 on the location of a given hotspot.
 
 ```python
+import os
+
 from ebird.api import get_hotspots, get_nearby_hotspots, get_hotspot
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # List all the hotspots in New York state.
 hotspots = get_hotspots(api_key, 'US-NY')
-
-# List all the hotspots in New York state visited in the past week.
-recent = get_hotspots(api_key, 'US-NY', back=7)
 
 # List all the hotspots in New York state visited in the past week.
 recent = get_hotspots(api_key, 'US-NY', back=7)
@@ -181,7 +218,11 @@ list of sub-regions for a given region. For the approximate area covered
 by a region use get_region().
 
 ```python
+import os
+
 from ebird.api import get_regions, get_adjacent_regions, get_region
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get the list of countries in the world.
 countries = get_regions(api_key, 'country', 'world')
@@ -208,7 +249,11 @@ e.g. horlar (Horned Lark), cangoo (Canada Goose), etc.,
 that are used in the other API calls.
 
 ```python
+import os
+
 from ebird.api import get_taxonomy, get_taxonomy_forms, get_taxonomy_versions
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get all the species in the eBird taxonomy.
 taxonomy = get_taxonomy(api_key)
@@ -236,8 +281,12 @@ just for a specific day so it is really only useful for "Big Days" when
 lots of people are out trying to get the greatest number of species.
 
 ```python
+import os
+
 from datetime import date
 from ebird.api import get_top_100, get_totals
+
+api_key = os.environ["EBIRD_API_KEY"]
 
 # Get the winner of the Global Big Day in New York, on 5th May 2018
 winners = get_top_100(api_key, 'US-NY', '2018-05-05')
@@ -253,9 +302,11 @@ You can set the API key and locale when creating a Client instance so you don't
 have to keep passing them as arguments.
 
 ```python
+import os
+
 from ebird.api import Client
 
-api_key = 'abc123'
+api_key = os.environ["EBIRD_API_KEY"]
 locale = 'es'
 
 client = Client(api_key, locale)
