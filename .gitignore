@@ -21,7 +21,6 @@ __pycache__/
 build
 coverage
 dist
-venv
 
 # Any local makefiles
 *.mk
