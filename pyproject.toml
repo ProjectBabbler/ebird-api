@@ -122,3 +122,20 @@ deps =
 setenv =
     PYTHONPATH = src
 """
+
+[tool.uv]
+dev-dependencies = [
+    "black>=24.8.0",
+    "bump-my-version>=0.28.0",
+    "coverage>=7.6.1",
+    "flake8>=5.0.4",
+    "geopy>=2.4.1",
+    "isort>=5.13.2",
+    "pytest>=8.3.3",
+    "pytest-cov>=5.0.0",
+    "tox>=4.23.1",
+    "tox-uv>=1.11.3",
+]
+
+[tool.uv.sources]
+ebird-api = { workspace = true }
