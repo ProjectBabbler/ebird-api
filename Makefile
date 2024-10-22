@@ -18,7 +18,7 @@ flake8 := $(venv_dir)/bin/flake8
 isort := $(venv_dir)/bin/isort
 pytest := $(venv_dir)/bin/pytest
 coverage := $(venv_dir)/bin/coverage
-bumpversion := $(venv_dir)/bin/bump2version
+bumpversion := $(venv_dir)/bin/bump-my-version
 twine := $(venv_dir)/bin/twine
 
 
@@ -86,15 +86,15 @@ coverage:
 
 .PHONY: major
 major:
-	$(bumpversion) major
+	$(bumpversion) bump major
 
 .PHONY: minor
 minor:
-	$(bumpversion) minor
+	$(bumpversion) bump minor
 
 .PHONY: patch
 patch:
-	$(bumpversion) patch
+	$(bumpversion) bump patch
 
 .PHONY: test
 test:

@@ -1,7 +1,7 @@
 -e .
 
 build
-bump2version
+bump-my-version
 black
 coverage
 flake8

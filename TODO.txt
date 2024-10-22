@@ -1,4 +1,1 @@
-TODO Bump2version should be updating the release date in CITATION.cff
-
-TODO Move all configuration options into pyproject.toml
-     - bump2version
+Nothing to do right now
