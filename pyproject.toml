@@ -106,3 +106,19 @@ pythonpath = [
 testpaths = [
     "tests/unit"
 ]
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+requires =
+    tox>=4.2
+    tox-uv>=1.11.3
+envlist = py38, py39, py310, py311, py312
+
+[testenv]
+commands = pytest
+deps =
+    pytest
+setenv =
+    PYTHONPATH = src
+"""
