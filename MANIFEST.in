@@ -1,2 +1,0 @@
-include CHANGELOG.md LICENSE.txt
-recursive-include src *.py
