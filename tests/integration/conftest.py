@@ -1,4 +1,5 @@
 import os
+
 import pytest
 
 from ebird.api import get_hotspots
