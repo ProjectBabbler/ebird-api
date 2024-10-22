@@ -18,6 +18,3 @@ __pycache__/
 # Project artefacts
 build
 dist
-
-# Any local makefiles
-*.mk
