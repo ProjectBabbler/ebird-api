@@ -95,6 +95,9 @@ search = "^date-released: \\d{{4}}-\\d{{2}}-\\d{{2}}$"
 replace = "date-released: {now:%Y-%m-%d}"
 regex = true
 
+[tool.coverage.run]
+branch = true
+
 [tool.isort]
 multi_line_output = 3
 include_trailing_comma = true

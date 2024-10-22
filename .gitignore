@@ -8,8 +8,6 @@ __pycache__/
 
 # Ignore dot files except those required for the project
 .*
-!.bumpversion.cfg
-!.coveragerc
 !.env.example
 !.envrc
 !.flake8
@@ -19,7 +17,6 @@ __pycache__/
 
 # Project artefacts
 build
-coverage
 dist
 
 # Any local makefiles

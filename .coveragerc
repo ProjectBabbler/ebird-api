@@ -1,6 +1,0 @@
-[run]
-branch = True
-source = src/ebird
-
-[html]
-directory = coverage/html
