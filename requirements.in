@@ -5,6 +5,7 @@ bump2version
 black
 coverage
 flake8
+geopy
 isort
 pytest
 pytest-cov
