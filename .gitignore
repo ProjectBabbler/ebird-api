@@ -13,6 +13,7 @@ __pycache__/
 !.flake8
 !.gitignore
 !.gitkeep
+!.pre-commit-config.yaml
 !.python-version
 
 # Project artefacts

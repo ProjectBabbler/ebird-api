@@ -138,6 +138,7 @@ dev-dependencies = [
     "pytest-cov>=5.0.0",
     "tox>=4.23.1",
     "tox-uv>=1.11.3",
+    "pre-commit>=3.5.0",
 ]
 
 [tool.uv.sources]
