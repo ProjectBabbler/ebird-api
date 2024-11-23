@@ -18,3 +18,4 @@ __pycache__/
 # Project artefacts
 build
 dist
+htmlcov
