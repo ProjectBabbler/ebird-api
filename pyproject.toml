@@ -37,24 +37,6 @@ Repository = "https://github.com/ProjectBabbler/ebird-api.git"
 Issues = "https://github.com/ProjectBabbler/ebird-api/issues"
 Changelog = "https://github.com/ProjectBabbler/ebird-api/blob/master/CHANGELOG.md"
 
-[tool.black]
-# Notes:
-#
-# line-length: this is just the default but it's included here so it's easy
-# to see that the value is synced with other code quality tools.
-#
-# target-version: the python version is set when the project is generated
-# so we might as well make use of it.
-#
-# exclude: the regex for excluding migrations is added in case you don't
-# want them reformatted.
-#
-# For all options see:
-#   https://black.readthedocs.io/en/stable/installation_and_usage.html
-
-line-length = 88
-target-version = ["py312"]
-
 [tool.bumpversion]
 current_version = "3.0.7"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
@@ -128,7 +110,6 @@ setenv =
 
 [tool.uv]
 dev-dependencies = [
-    "black>=24.8.0",
     "bump-my-version>=0.28.0",
     "coverage>=7.6.1",
     "flake8>=5.0.4",
