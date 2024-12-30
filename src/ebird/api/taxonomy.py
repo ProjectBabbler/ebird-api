@@ -13,6 +13,7 @@ TAXONOMY_URL = "https://ebird.org/ws2.0/ref/taxonomy/ebird"
 TAXONOMY_FORMS_URL = "https://ebird.org/ws2.0/ref/taxon/forms/%s"
 TAXONOMY_GROUPS_URL = "https://ebird.org/ws2.0/ref/sppgroup/%s"
 TAXONOMY_VERSIONS_URL = "https://ebird.org/ws2.0/ref/taxonomy/versions"
+TAXONOMY_LOCALES_URL = "https://api.ebird.org/v2/ref/taxa-locales/ebird"
 
 
 def get_taxonomy(token, category=None, locale="en", version=None, species=None):
@@ -180,3 +181,33 @@ def get_taxonomy_versions(token):
     }
 
     return call(TAXONOMY_VERSIONS_URL, {}, headers)
+
+
+def get_taxonomy_locales(token):
+    """Get all locales supported for common names.
+
+    The maps to the end point in the eBird API 2.0,
+    https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#3ea8ff71-c254-4811-9e80-b445a39302a6
+
+    This API call returns a list of all the languages supported
+    by eBird. An entry in the list takes the form:
+
+        {'code': 'af', 'lastUpdate': '2024-12-21 06:06', 'name': 'Afrikaans'}
+
+    There are currently, (2024-12-30), 107 languages available.
+
+    :param token: the token needed to access the API.
+
+    :return: a list of all the taxonomy locales used by eBird.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
+    """
+    headers = {
+        "X-eBirdApiToken": token,
+    }
+
+    return call(TAXONOMY_LOCALES_URL, {}, headers)

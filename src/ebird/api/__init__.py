@@ -24,5 +24,6 @@ from ebird.api.taxonomy import (
     get_taxonomy,
     get_taxonomy_forms,
     get_taxonomy_groups,
+    get_taxonomy_locales,
     get_taxonomy_versions,
 )
