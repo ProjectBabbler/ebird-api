@@ -18,18 +18,18 @@ from ebird.api.validation import (
     clean_sort,
 )
 
-OBSERVATIONS_URL = "https://ebird.org/ws2.0/data/obs/%s/recent"
-NOTABLE_OBSERVATIONS_URL = "https://ebird.org/ws2.0/data/obs/%s/recent/notable"
-SPECIES_OBSERVATIONS_URL = "https://ebird.org/ws2.0/data/obs/%s/recent/%s"
+OBSERVATIONS_URL = "https://api.ebird.org/v2/data/obs/%s/recent"
+NOTABLE_OBSERVATIONS_URL = "https://api.ebird.org/v2/data/obs/%s/recent/notable"
+SPECIES_OBSERVATIONS_URL = "https://api.ebird.org/v2/data/obs/%s/recent/%s"
 
-NEARBY_OBSERVATIONS_URL = "https://ebird.org/ws2.0/data/obs/geo/recent"
-NEARBY_NOTABLE_URL = "https://ebird.org/ws2.0/data/obs/geo/recent/notable"
-NEARBY_SPECIES_URL = "https://ebird.org/ws2.0/data/obs/geo/recent/%s"
+NEARBY_OBSERVATIONS_URL = "https://api.ebird.org/v2/data/obs/geo/recent"
+NEARBY_NOTABLE_URL = "https://api.ebird.org/v2/data/obs/geo/recent/notable"
+NEARBY_SPECIES_URL = "https://api.ebird.org/v2/data/obs/geo/recent/%s"
 
 
-NEAREST_SPECIES_URL = "https://ebird.org/ws2.0/data/nearest/geo/recent/%s"
+NEAREST_SPECIES_URL = "https://api.ebird.org/v2/data/nearest/geo/recent/%s"
 
-HISTORIC_OBSERVATIONS_URL = "https://ebird.org/ws2.0/data/obs/%s/historic/%s"
+HISTORIC_OBSERVATIONS_URL = "https://api.ebird.org/v2/data/obs/%s/historic/%s"
 
 
 def get_observations(

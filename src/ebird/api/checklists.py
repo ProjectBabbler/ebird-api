@@ -8,9 +8,9 @@ from ebird.api.validation import (
     clean_max_checklists,
 )
 
-CHECKLISTS_DATE_URL = "https://ebird.org/ws2.0/product/lists/%s/%s"
-CHECKLISTS_RECENT_URL = "https://ebird.org/ws2.0/product/lists/%s"
-CHECKLIST_URL = "https://ebird.org/ws2.0/product/checklist/view/%s"
+CHECKLISTS_DATE_URL = "https://api.ebird.org/v2/product/lists/%s/%s"
+CHECKLISTS_RECENT_URL = "https://api.ebird.org/v2/product/lists/%s"
+CHECKLIST_URL = "https://api.ebird.org/v2/product/checklist/view/%s"
 
 
 def get_visits(token, area, date=None, max_results=10):

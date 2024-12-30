@@ -10,9 +10,9 @@ from ebird.api.validation import (
     clean_region,
 )
 
-REGION_HOTSPOTS_URL = "https://ebird.org/ws2.0/ref/hotspot/%s"
-NEARBY_HOTSPOTS_URL = "https://ebird.org/ws2.0/ref/hotspot/geo"
-HOTSPOT_INFO_URL = "https://ebird.org/ws2.0/ref/hotspot/info/%s"
+REGION_HOTSPOTS_URL = "https://api.ebird.org/v2/ref/hotspot/%s"
+NEARBY_HOTSPOTS_URL = "https://api.ebird.org/v2/ref/hotspot/geo"
+HOTSPOT_INFO_URL = "https://api.ebird.org/v2/ref/hotspot/info/%s"
 
 
 def get_hotspots(token, region, back=None):

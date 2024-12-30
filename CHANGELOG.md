@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [3.1.1] - 2024-12-30
+## Changed
+- URLs calling the api are now in the form, https://api.ebird.org/v2/...
+
 ## [3.1.0] - 2024-12-30
 ### Added
 - get_taxonomy_locales which returns a list of all the languages

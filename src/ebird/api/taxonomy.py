@@ -9,10 +9,10 @@ from ebird.api.validation import (
     clean_species_code,
 )
 
-TAXONOMY_URL = "https://ebird.org/ws2.0/ref/taxonomy/ebird"
-TAXONOMY_FORMS_URL = "https://ebird.org/ws2.0/ref/taxon/forms/%s"
-TAXONOMY_GROUPS_URL = "https://ebird.org/ws2.0/ref/sppgroup/%s"
-TAXONOMY_VERSIONS_URL = "https://ebird.org/ws2.0/ref/taxonomy/versions"
+TAXONOMY_URL = "https://api.ebird.org/v2/ref/taxonomy/ebird"
+TAXONOMY_FORMS_URL = "https://api.ebird.org/v2/ref/taxon/forms/%s"
+TAXONOMY_GROUPS_URL = "https://api.ebird.org/v2/ref/sppgroup/%s"
+TAXONOMY_VERSIONS_URL = "https://api.ebird.org/v2/ref/taxonomy/versions"
 TAXONOMY_LOCALES_URL = "https://api.ebird.org/v2/ref/taxa-locales/ebird"
 
 

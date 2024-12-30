@@ -9,8 +9,8 @@ from ebird.api.validation import (
     clean_region,
 )
 
-TOP_100_URL = "https://ebird.org/ws2.0/product/top100/%s/%s"
-TOTALS_URL = "https://ebird.org/ws2.0/product/stats/%s/%s"
+TOP_100_URL = "https://api.ebird.org/v2/product/top100/%s/%s"
+TOTALS_URL = "https://api.ebird.org/v2/product/stats/%s/%s"
 
 
 def get_top_100(token, region, date, rank="spp", max_results=100):
