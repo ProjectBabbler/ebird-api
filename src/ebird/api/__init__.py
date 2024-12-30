@@ -19,6 +19,7 @@ from ebird.api.observations import (
     get_species_observations,
 )
 from ebird.api.regions import get_adjacent_regions, get_region, get_regions
+from ebird.api.species import get_species_list
 from ebird.api.statistics import get_top_100, get_totals
 from ebird.api.taxonomy import (
     get_taxonomy,

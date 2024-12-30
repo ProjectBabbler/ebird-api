@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [3.2.0] - 2024-12-30
+- Add get_species_list which returns the list of codes for species seen
+  in a country, subnational1 are, subnational2 area or hotspot.
+
 ## [3.1.1] - 2024-12-30
 ## Changed
 - URLs calling the api are now in the form, https://api.ebird.org/v2/...
