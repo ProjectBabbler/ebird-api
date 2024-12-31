@@ -3,7 +3,7 @@
 from ebird.api.utils import call
 from ebird.api.validation import clean_region, clean_region_type
 
-REGION_LIST_URL = "https://api.ebird.org/v2/ref/region/list/%s/%s.json"
+REGION_LIST_URL = "https://api.ebird.org/v2/ref/region/list/%s/%s"
 ADJACENT_REGIONS_URL = "https://api.ebird.org/v2/ref/adjacent/%s"
 REGION_INFO_URL = "https://api.ebird.org/v2/ref/region/info/%s"
 
