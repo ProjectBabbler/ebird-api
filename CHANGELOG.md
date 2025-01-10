@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Added
+- Added constant API_MAX_RESULTS for the maximum number of results returned
+  by an API call.
+
 ## [3.2.1] - 2024-12-31
 ### Updated
 - Remove the '.json' suffix from the URL from get_regions()

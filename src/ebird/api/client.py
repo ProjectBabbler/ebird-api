@@ -4,6 +4,7 @@
 
 from ebird.api import (
     checklists,
+    constants,
     hotspots,
     observations,
     regions,
@@ -34,6 +35,7 @@ class Client:
         self.max_visits = 200
         self.max_observers = 100
         self.back = 14
+        self.max_visits = constants.API_MAX_RESULTS
         self.category = None
         self.detail = "full"
         self.dist = 25

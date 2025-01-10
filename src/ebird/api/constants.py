@@ -14,6 +14,8 @@ DEFAULT_MAX_OBSERVERS = 100
 DEFAULT_MAX_CHECKLISTS = 10
 DEFAULT_TOP_100_RANK = "spp"
 
+API_MAX_RESULTS = 200
+
 LOCALES = {
     "Bulgarian": "bg",
     "Chinese": "zh",

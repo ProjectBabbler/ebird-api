@@ -175,7 +175,7 @@ def clean_max_observers(value):
 
 
 def clean_max_checklists(value):
-    return clean_max_results(value, 200)
+    return clean_max_results(value, constants.API_MAX_RESULTS)
 
 
 def clean_locale(value):
