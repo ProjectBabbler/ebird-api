@@ -32,13 +32,12 @@ class Client:
         self.api_key = api_key
         self.locale = clean_locale(locale)
         self.max_observations = None
-        self.max_visits = 200
-        self.max_observers = 100
-        self.back = 14
         self.max_visits = constants.API_MAX_RESULTS
+        self.max_observers = constants.DEFAULT_MAX_OBSERVERS
+        self.back = constants.DEFAULT_BACK
         self.category = None
         self.detail = "full"
-        self.dist = 25
+        self.dist = constants.DEFAULT_DISTANCE
         self.hotspot = False
         self.provisional = True
         self.sort = "date"
