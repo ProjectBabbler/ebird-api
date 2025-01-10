@@ -30,7 +30,7 @@ license = {text = "MIT License"}
 name = "ebird-api"
 readme = "README.md"
 requires-python = ">= 3.8"
-version = "3.2.1"
+version = "3.2.2"
 
 [project.urls]
 Repository = "https://github.com/ProjectBabbler/ebird-api.git"
@@ -38,7 +38,7 @@ Issues = "https://github.com/ProjectBabbler/ebird-api/issues"
 Changelog = "https://github.com/ProjectBabbler/ebird-api/blob/master/CHANGELOG.md"
 
 [tool.bumpversion]
-current_version = "3.2.1"
+current_version = "3.2.2"
 parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
 serialize = ["{major}.{minor}.{patch}"]
 ignore_missing_version = false
