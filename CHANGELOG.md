@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.3.0] - 2025-02-01
 - Added get_location() which works like get_hotspot() but return data for
   hotspots and private locations.
 
