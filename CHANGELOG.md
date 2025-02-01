@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- Added get_location() which works like get_hotspot() but return data for
+  hotspots and private locations.
+
 ## [3.2.2] - 2025-01-10
 ### Added
 - Added constant API_MAX_RESULTS for the maximum number of results returned

@@ -7,7 +7,12 @@ __version__ = "3.2.2"
 from ebird.api.checklists import get_checklist, get_visits
 from ebird.api.client import Client
 from ebird.api.constants import LOCALES
-from ebird.api.hotspots import get_hotspot, get_hotspots, get_nearby_hotspots
+from ebird.api.hotspots import (
+    get_hotspot,
+    get_hotspots,
+    get_location,
+    get_nearby_hotspots,
+)
 from ebird.api.observations import (
     get_historic_observations,
     get_nearby_notable,

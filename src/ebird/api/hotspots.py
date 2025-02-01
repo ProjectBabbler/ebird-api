@@ -1,5 +1,7 @@
 """Functions for fetching information about hotspots."""
 
+from urllib.error import HTTPError
+
 from ebird.api.utils import call
 from ebird.api.validation import (
     clean_back,
@@ -13,6 +15,7 @@ from ebird.api.validation import (
 REGION_HOTSPOTS_URL = "https://api.ebird.org/v2/ref/hotspot/%s"
 NEARBY_HOTSPOTS_URL = "https://api.ebird.org/v2/ref/hotspot/geo"
 HOTSPOT_INFO_URL = "https://api.ebird.org/v2/ref/hotspot/info/%s"
+LOCATION_INFO_URL = "https://api.ebird.org/v2/ref/region/info/%s"
 
 
 def get_hotspots(token, region, back=None):
@@ -120,6 +123,10 @@ def get_nearby_hotspots(token, lat, lng, dist=25, back=None):
 def get_hotspot(token, loc_id):
     """Get the geographical details of a hotspot.
 
+    The call only work for hotspots. If you use the identifier for a private
+    location the eBird API will return HTTP 410 Gone and an HttpError will be
+    raised.
+
     This maps to the end point in the eBird API 2.0,
     https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#e25218db-566b-4d8b-81ca-e79a8f68c599
 
@@ -144,3 +151,89 @@ def get_hotspot(token, loc_id):
     }
 
     return call(url, {}, headers)
+
+
+def get_location(token, loc_id):
+    """Get the geographical details of a location (hotspot or private).
+
+    This maps to the end point in the eBird API 2.0,
+    https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#e25218db-566b-4d8b-81ca-e79a8f68c599
+
+    This uses the same API call for get_region, however the data is flattened
+    so it matches the format returned by get_hotspot(). As result you can use
+    this as a drop-in replacement for get_hotspot() which will work with any
+    location.
+
+    NOTE: There is one difference between get_hotspot(). The 'hierarchicalName'
+    attribute ends with the name of the country. In get_hotspot() is ends with
+    the country code.
+
+    :param token: the token needed to access the API.
+
+    :param loc_id: the code for the location, eg. L34742596.
+
+    :return: the latitude, longitude, name, region, etc. for the location.
+
+    :raises ValueError: if an invalid region code is given.
+
+    :raises URLError if there is an error with the connection to the
+    eBird site.
+
+    :raises HTTPError if the eBird API returns an error.
+
+    """
+
+    # get_region() does not return "isHotspot" in the results, so we
+    # try get_hotspot() first and if the call fails with HTTP 410 Gone,
+    # indicating it's a private location, we call get_region and
+    # massage the result.
+
+    try:
+        return get_hotspot(token, loc_id)
+    except HTTPError as err:
+        if err.code != 410:
+            raise
+
+    url = LOCATION_INFO_URL % clean_location(loc_id)
+
+    headers = {
+        "X-eBirdApiToken": token,
+    }
+
+    data: dict = call(url, {}, headers)
+
+    result = {
+        "locId": data["code"],
+        "name": data["result"],
+        "latitude": data["latitude"],
+        "longitude": data["longitude"],
+        "isHotspot": False,
+        "locName": data["result"],
+        "lat": data["latitude"],
+        "lng": data["longitude"],
+        "locID": data["code"],
+    }
+
+    # Get all the parent regions in reverse order
+    items = [data["parent"]]
+    while "parent" in items[-1]:
+        items.append(items[-1].pop("parent"))
+    parents = items[::-1]
+
+    # if the name contains the parent, remove it
+    full_name = ", " + parents[0]["result"]
+    for parent in parents[1:]:
+        if parent["result"].endswith(full_name):
+            parent["result"] = parent["result"][: -len(full_name)]
+        full_name = ", " + parent["result"] + full_name
+
+    # Add the processed regions to the record
+    for parent in parents:
+        kind = parent["type"]
+        name = parent["result"]
+        result["%sName" % kind] = name
+        result["%sCode" % kind] = parent["code"]
+
+    result["hierarchicalName"] = result["name"] + full_name
+
+    return result
