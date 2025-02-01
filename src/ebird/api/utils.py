@@ -151,7 +151,7 @@ def call(url, params, headers):
     :type params: dict
 
     :return: the content returned by the API
-    :rtype: str
+    :rtype: dict | list
 
     :raises URLError if there is an error with the connection to the
     eBird site.
