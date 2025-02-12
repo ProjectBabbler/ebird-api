@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [3.4.1] - 2025-02-12
 - Disallow lower case location codes
 
 ## [3.4.0] - 2025-02-12
