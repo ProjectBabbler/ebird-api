@@ -30,7 +30,7 @@ class GetLocationTypeTests(unittest.TestCase):
         self.assertEqual("location", get_location_type("L123456"))
 
     def test_location_lower_case(self):
-        self.assertEqual("location", get_location_type("l123456"))
+        self.assertIsNone(get_location_type("l123456"))
 
     def test_unknown_location_type(self):
         self.assertEqual(None, get_location_type("world"))

@@ -43,7 +43,7 @@ def is_region(value):
 
 
 def is_location(value):
-    return re.match(r"^L\d+$", value.upper())
+    return re.match(r"^L\d+$", value)
 
 
 def get_location_type(value):

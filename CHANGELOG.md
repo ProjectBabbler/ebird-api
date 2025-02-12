@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- Disallow lower case location codes
+
 ## [3.4.0] - 2025-02-12
 - Tighten definition of regexes to exclude lower case letters for region codes
 
