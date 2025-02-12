@@ -10,21 +10,21 @@ class GetLocationTypeTests(unittest.TestCase):
         self.assertEqual("country", get_location_type("US"))
 
     def test_country_lower_case(self):
-        self.assertEqual("country", get_location_type("us"))
+        self.assertIsNone(get_location_type("us"))
 
     def test_subnational1(self):
         self.assertEqual("subnational1", get_location_type("US-NV"))
         self.assertEqual("subnational1", get_location_type("MX-OXA"))
 
     def test_subnational1_lower_case(self):
-        self.assertEqual("subnational1", get_location_type("us-nv"))
+        self.assertIsNone(get_location_type("us-nv"))
 
     def test_subnational2(self):
         self.assertEqual("subnational2", get_location_type("US-NV-11"))
         self.assertEqual("subnational2", get_location_type("US-NV-112"))
 
     def test_subnational2_lower_case(self):
-        self.assertEqual("subnational2", get_location_type("us-nv-11"))
+        self.assertIsNone(get_location_type("us-nv-11"))
 
     def test_location(self):
         self.assertEqual("location", get_location_type("L123456"))

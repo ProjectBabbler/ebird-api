@@ -23,22 +23,22 @@ class Transform(Enum):
 
 
 def is_country(value):
-    return re.match(r"^\w{2}$", value)
+    return re.match(r"^[A-Z]{2}$", value)
 
 
 def is_subnational1(value):
-    return re.match(r"^\w{2}-\w{1,}$", value)
+    return re.match(r"^[A-Z]{2}-[A-Z0-9]{2,3}$", value)
 
 
 def is_subnational2(value):
-    return re.match(r"^\w{2}-\w{1,}-\w{1,}$", value)
+    return re.match(r"^[A-Z]{2}-[A-Z0-9]{2,3}-[A-Z0-9]{2,3}$", value)
 
 
 def is_region(value):
     return (
-        re.match(r"^\w{2}$", value)
-        or re.match(r"^\w{2}-\w{1,}$", value)
-        or re.match(r"^\w{2}-\w{1,}-\w{1,}$", value)
+        re.match(r"^[A-Z]{2}$", value)
+        or re.match(r"^[A-Z]{2}-[A-Z0-9]{2,3}$", value)
+        or re.match(r"^[A-Z]{2}-[A-Z0-9]{2,3}-[A-Z0-9]{2,3}$", value)
     )
 
 
