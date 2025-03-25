@@ -15,6 +15,7 @@ from ebird.api.validation import (
     clean_locale,
     clean_max_observations,
     clean_provisional,
+    clean_observation_rank,
     clean_sort,
 )
 
@@ -633,6 +634,7 @@ def get_historic_observations(
     hotspot=False,
     detail="simple",
     category=None,
+    rank="mrec",
 ):
     """Get recent observations for a region.
 
@@ -671,6 +673,10 @@ def get_historic_observations(
     More than one value can be given in a comma-separated string. The default
     value is None and records from all categories will be returned.
 
+    :param rank: return the last (rank='mrec') or first(rank='create')
+    observation on the date. See the eBird API documentation for a description
+    of the fields.
+
     :return: the list of observations in simple format.
 
     :raises ValueError: if any of the arguments fail the validation checks.
@@ -686,7 +692,7 @@ def get_historic_observations(
     url = HISTORIC_OBSERVATIONS_URL % (cleaned[0], date.strftime("%Y/%m/%d"))
 
     params = {
-        "rank": "mrec",
+        "rank": clean_observation_rank(rank),
         "detail": clean_detail(detail),
         "sppLocale": clean_locale(locale),
         "includeProvisional": clean_provisional(provisional),
