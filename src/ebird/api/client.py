@@ -41,6 +41,7 @@ class Client:
         self.hotspot = False
         self.provisional = True
         self.sort = "date"
+        self.rank = "mrec"
 
     def get_observations(self, area):
         """Get recent observations (up to 30 days ago) for a region or location.
@@ -127,6 +128,7 @@ class Client:
             hotspot=self.hotspot,
             detail=self.detail,
             category=self.category,
+            rank=self.rank,
         )
 
     def get_nearby_observations(self, lat, lng, dist=25):
