@@ -2,6 +2,8 @@
 
 """Classes for simplifying calls to the eBird API."""
 
+import socket
+
 from ebird.api import (
     checklists,
     constants,
@@ -41,6 +43,7 @@ class Client:
         self.hotspot = False
         self.provisional = True
         self.sort = "date"
+        socket.setdefaulttimeout(constants.DEFAULT_TIMEOUT)
 
     def get_observations(self, area):
         """Get recent observations (up to 30 days ago) for a region or location.

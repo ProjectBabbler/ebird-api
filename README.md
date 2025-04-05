@@ -16,23 +16,23 @@ pip install ebird-api
 ## Usage
 
 Each of the functions map to a specific end-point in the API - with one or
-two exceptions where API calls are essentially identical. The functions can 
-be grouped into five activities: fetching observations, getting information 
-on hotspots, getting information on regions, getting lists of species and 
+two exceptions where API calls are essentially identical. The functions can
+be grouped into five activities: fetching observations, getting information
+on hotspots, getting information on regions, getting lists of species and
 getting statistics.
 
-All functions support arguments (with sensible defaults) for all the query 
-parameters supported by the eBird API. Check the docstring for each function 
-for more details. There you will also find a link to the documentation for 
+All functions support arguments (with sensible defaults) for all the query
+parameters supported by the eBird API. Check the docstring for each function
+for more details. There you will also find a link to the documentation for
 each end-point.
 
-To use the API you will need to register for an API key. All you need to do is 
-fill out this [form](https://ebird.org/api/keygen) and the API key is generated 
+To use the API you will need to register for an API key. All you need to do is
+fill out this [form](https://ebird.org/api/keygen) and the API key is generated
 automatically.
 
-NOTE: Use the API with some restraint. Data costs money so don't go downloading 
-all the checklists for the world or other excessive behaviour or your account will 
-get banned. If you have a project in mind get in touch with eBird and tell them 
+NOTE: Use the API with some restraint. Data costs money so don't go downloading
+all the checklists for the world or other excessive behaviour or your account will
+get banned. If you have a project in mind get in touch with eBird and tell them
 what you want to do - they will be interested to hear it.
 
 ### Observations
@@ -45,7 +45,7 @@ from ebird.api import get_observations
 # Always store secrets outside the code, so you don't accidentally
 # commit them. Environment variables are ideal for this.
 api_key = os.environ["EBIRD_API_KEY"]
-    
+
 # Get observations from Woodman Pond, Madison county, New York for the past week.
 this_week = get_observations(api_key, 'L227544', back=7)
 
@@ -59,8 +59,8 @@ state_records = get_observations(api_key, 'US-NY')
 national_records = get_observations(api_key, 'US')
 ```
 
-Any where you pass in single location or region you can also pass in a 
-list or a comma-separated string. You can specify up to 10 locations or 
+Any where you pass in single location or region you can also pass in a
+list or a comma-separated string. You can specify up to 10 locations or
 regions:
 
 ```python
@@ -81,8 +81,8 @@ counties = 'US-NY-103,US-NY-059,US-NY-81'
 records = get_observations(api_key, locations, hotspot=False, category='species')
 ```
 
-The common name for species can be returned in different languages by 
-specifying locale in the functions that return observations, checklists 
+The common name for species can be returned in different languages by
+specifying locale in the functions that return observations, checklists
 or taxonomy:
 
 ```python
@@ -96,7 +96,7 @@ records = get_observations(api_key, 'CA-QC', locale='fr')
 ```
 
 In addition to getting all the observations for a given location or in
-an area you can also get the latest observation of each species in a 
+an area you can also get the latest observation of each species in a
 geographical area - useful for finding the nearest place to see a given
 species:
 
@@ -107,23 +107,23 @@ from ebird.api import get_nearby_observations
 
 api_key = os.environ["EBIRD_API_KEY"]
 
-# Get the most recent sightings of all species seen in the last week within 
+# Get the most recent sightings of all species seen in the last week within
 # 10km of Point Reyes National Seashore.
 records = get_nearby_observations(api_key, 38.05, -122.94, dist=10, back=7)
 ```
 
-The calls to get_observations() and get_nearby_observation() return all the 
-available records. You can limit the set of records returned to only include 
-notable ones (locally or nationally rare species) or limit the records to 
+The calls to get_observations() and get_nearby_observation() return all the
+available records. You can limit the set of records returned to only include
+notable ones (locally or nationally rare species) or limit the records to
 a small number of species:
 
 ```python
 import os
 
 from ebird.api import (
-    get_notable_observations, 
+    get_notable_observations,
     get_nearby_notable,
-    get_species_observations, 
+    get_species_observations,
     get_nearby_species,
 )
 
@@ -145,14 +145,14 @@ nearby_species = get_nearby_species(api_key, 'barswa', 38.05, -122.94, back=10)
 For the more travel-minded you can also find out the nearest place to see a given species:
 
 ```python
-import os 
+import os
 
 from ebird.api import get_nearest_species
 
 api_key = os.environ["EBIRD_API_KEY"]
 
 # Where is the closest place to Cornell Lab of Ornithology to see
-# Tennessee Warbler. 
+# Tennessee Warbler.
 locations = get_nearest_species(api_key, 'tenwar', 42.48, -76.45)
 ```
 
@@ -162,7 +162,7 @@ Depending on what time of year you try this, you might have a long way to go.
 
 There are two functions for finding out what has been seen at a given location.
 First you can get the list of checklists for a given country, region or location
-using get_visits(). Each result returned has the unique identifier for the 
+using get_visits(). Each result returned has the unique identifier for the
 checklist. You can then call get_checklist() to get the list of observations.
 
 ```python
@@ -212,9 +212,9 @@ details = get_hotspot(api_key, 'L2313391')
 
 ### Regions
 
-eBird divides the world into countries, subnational1 regions (states) or 
-subnational2 regions (counties). You can use get_regions() to get the 
-list of sub-regions for a given region. For the approximate area covered 
+eBird divides the world into countries, subnational1 regions (states) or
+subnational2 regions (counties). You can use get_regions() to get the
+list of sub-regions for a given region. For the approximate area covered
 by a region use get_region().
 
 ```python
@@ -244,7 +244,7 @@ bounds = get_region(api_key, 'US-NY')
 
 You can get details of all the species, subspecies, forms
 etc. in the taxonomy used by eBird. It's the easiest way
-of getting the codes for each species or subspecies, 
+of getting the codes for each species or subspecies,
 e.g. horlar (Horned Lark), cangoo (Canada Goose), etc.,
 that are used in the other API calls.
 
@@ -277,7 +277,7 @@ versions = get_taxonomy_versions(api_key)
 You can also get some statistics from the eBird data. The most interesting
 is probably get_top_100() which returns the list of observers who have seen
 the most species or submitted the largest number of checklists. The list is
-just for a specific day so it is really only useful for "Big Days" when 
+just for a specific day so it is really only useful for "Big Days" when
 lots of people are out trying to get the greatest number of species.
 
 ```python
@@ -319,20 +319,36 @@ The client supports all the API functions.
 
 ## Formats
 
-Most of the eBird API calls return JSON. Some of the calls such as getting 
-the hotspots for a region or getting the taxonomy also support CSV. Since 
-converting JSON to CSV is simple this library is opinionated in that it 
+Most of the eBird API calls return JSON. Some of the calls such as getting
+the hotspots for a region or getting the taxonomy also support CSV. Since
+converting JSON to CSV is simple this library is opinionated in that it
 only returns JSON.
 
 ## Compatibility
 
-ebird-api works with currently supported versions of Python, 3.8+. However, 
-it is known to work with earlier versions, at least 3.5 - 3.7, without any 
+ebird-api works with currently supported versions of Python, 3.8+. However,
+it is known to work with earlier versions, at least 3.5 - 3.7, without any
 problems.
+
+## Troubleshooting
+
+Just occasionally (rarely in fact), the connection to eBird will freeze. The
+client will raise an error but if you use the API functions directly then your
+program will sit there forever. To fix this set a default timeout all connections
+using:
+
+```python
+import socket
+
+socket.setdefaulttimeout(30)
+```
+
+Thirty seconds is a reasonable figure, however you might change it if your
+internet connection is slow or the eBird servers are busy.
 
 ## Links
 
-Documentation for the eBird API: https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#intro 
+Documentation for the eBird API: https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#intro
 though it could do with a little love and attention.
 
 Available translations for species names: http://help.ebird.org/customer/portal/articles/1596582

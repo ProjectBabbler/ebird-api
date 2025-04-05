@@ -101,3 +101,8 @@ SPECIES_SORT = ["date", "species"]
 REGION_TYPES = ["country", "subnational1", "subnational2"]
 
 TOP_100_RANK = ["spp", "cl"]
+
+# Just occasionally the connection to eBird freezes. The timeout
+# will raise an error which is preferable to the sitting there
+# waiting for something to happen, when it will not.
+DEFAULT_TIMEOUT = 30
