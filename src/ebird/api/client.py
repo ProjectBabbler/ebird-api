@@ -43,6 +43,7 @@ class Client:
         self.hotspot = False
         self.provisional = True
         self.sort = "date"
+        self.rank = "mrec"
         socket.setdefaulttimeout(constants.DEFAULT_TIMEOUT)
 
     def get_observations(self, area):
@@ -130,6 +131,7 @@ class Client:
             hotspot=self.hotspot,
             detail=self.detail,
             category=self.category,
+            rank=self.rank,
         )
 
     def get_nearby_observations(self, lat, lng, dist=25):

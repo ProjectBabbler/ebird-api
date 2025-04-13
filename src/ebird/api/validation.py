@@ -200,6 +200,15 @@ def clean_detail(value):
     return cleaned
 
 
+def clean_observation_rank(value):
+    cleaned = clean_code(value, transform=Transform.LOWER)
+    if cleaned not in ("mrec", "create"):
+        raise ValueError(
+            "Value for 'rank', %s, must be either 'mrec' or 'create'" % value
+        )
+    return cleaned
+
+
 def clean_provisional(value):
     return "true" if bool(value) else "false"
 
