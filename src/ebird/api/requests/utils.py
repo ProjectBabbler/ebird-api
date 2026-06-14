@@ -1,6 +1,8 @@
 """Various functions used in the API."""
 
 import json
+import time
+from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -74,7 +76,7 @@ def filter_parameters(params):
     return filtered
 
 
-def get_response(url, params=None, headers=None):
+def get_response(url, params=None, headers=None, max_retries=3, backoff_factor=1.0):
     """Get the content from the eBird API.
 
     :param url: the URL for the API call.
@@ -84,7 +86,14 @@ def get_response(url, params=None, headers=None):
     :type params: dict
 
     :param headers: the headers to add to the request.
-    :type params: dict
+    :type headers: dict
+
+    :param max_retries: number of times to retry after a 429 response.
+    :type max_retries: int
+
+    :param backoff_factor: seconds to wait before the first retry; doubles
+    on each subsequent attempt.
+    :type backoff_factor: float
 
     :return: the content returned by the API
     :rtype: str
@@ -104,7 +113,15 @@ def get_response(url, params=None, headers=None):
         for name, value in headers.items():
             request.add_header(name, value)
 
-    return urlopen(request).read()
+    for attempt in range(max_retries + 1):
+        try:
+            return urlopen(request).read()
+        except HTTPError as exc:
+            if attempt == max_retries:
+                raise
+            retry_after = exc.headers.get("Retry-After") if exc.code == 429 else None
+            delay = float(retry_after) if retry_after else backoff_factor * (2**attempt)
+            time.sleep(delay)
 
 
 def get_json(content):
@@ -138,7 +155,7 @@ def save_json(filename, data, indent=None):
         json.dump(data, outfile, indent=indent)
 
 
-def call(url, params, headers):
+def call(url, params, headers, max_retries=3, backoff_factor=1.0):
     """Call the eBird API.
 
     :param url: the URL for the API call.
@@ -148,7 +165,14 @@ def call(url, params, headers):
     :type params: dict
 
     :param headers: the headers to add to the request.
-    :type params: dict
+    :type headers: dict
+
+    :param max_retries: number of times to retry after a 429 response.
+    :type max_retries: int
+
+    :param backoff_factor: seconds to wait before the first retry; doubles
+    on each subsequent attempt.
+    :type backoff_factor: float
 
     :return: the content returned by the API
     :rtype: dict | list
@@ -161,4 +185,8 @@ def call(url, params, headers):
     """
     filtered = filter_parameters(params)
     mapped = map_parameters(filtered)
-    return get_json(get_response(url, mapped, headers))
+    return get_json(
+        get_response(
+            url, mapped, headers, max_retries=max_retries, backoff_factor=backoff_factor
+        )
+    )

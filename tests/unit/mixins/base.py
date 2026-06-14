@@ -1,7 +1,7 @@
 from unittest import mock
 
 
-def get_response(url, params, headers):  # noqa
+def get_response(url, params, headers, **kwargs):  # noqa
     return b"[]"
 
 

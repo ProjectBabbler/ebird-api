@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [4.1.0] - 2026-06-14
+- Retry requests, with exponentinal back-off, if an error occurs.
+
 ## [4.0.0] - 2025-07-09
 - Moved the package to ebird.api.requests to make space for other projects.
 - Changed the minimum supported python version to 3.10
