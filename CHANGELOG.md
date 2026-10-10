@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication,
 
-## [Unreleased]
+## [4.1.1] - 2026-10-10
 - Changed get_location() to handle an API change where an empty response
   is now returned for private locations instead of HHTP 410 Gone.
 
