@@ -1,7 +1,7 @@
 """Functions for fetching basic statistics about observers and observations."""
 
-from ebird.api.utils import call
-from ebird.api.validation import (
+from ebird.api.requests.utils import call
+from ebird.api.requests.validation import (
     clean_area,
     clean_date,
     clean_max_observers,

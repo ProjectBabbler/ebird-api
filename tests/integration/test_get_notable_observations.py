@@ -1,4 +1,4 @@
-from ebird.api import get_notable_observations
+from ebird.api.requests import get_notable_observations
 
 
 def test_api_call(api_token, subnational1_code):

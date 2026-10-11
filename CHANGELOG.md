@@ -6,7 +6,18 @@ the git log for details.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
-and by implication, [Semantic Versioning](http://semver.org/).
+and by implication,
+
+## [4.1.1] - 2026-10-10
+- Changed get_location() to handle an API change where an empty response
+  is now returned for private locations instead of HHTP 410 Gone.
+
+## [4.1.0] - 2026-06-14
+- Retry requests, with exponentinal back-off, if an error occurs.
+
+## [4.0.0] - 2025-07-09
+- Moved the package to ebird.api.requests to make space for other projects.
+- Changed the minimum supported python version to 3.10
 
 ## [3.4.2] - 2025-04-05
 - Added a timeout so the client will raise an error if the connection

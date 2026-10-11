@@ -1,7 +1,7 @@
 from datetime import date
 from unittest import TestCase
 
-from ebird.api.statistics import TOP_100_URL, get_top_100
+from ebird.api.requests.statistics import TOP_100_URL, get_top_100
 from tests.unit.mixins import (
     HeaderTestsMixin,
     MaxObserversTestsMixin,

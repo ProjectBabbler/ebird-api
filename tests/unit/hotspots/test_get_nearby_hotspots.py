@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.hotspots import NEARBY_HOTSPOTS_URL, get_nearby_hotspots
+from ebird.api.requests.hotspots import (
+    NEARBY_HOTSPOTS_URL,
+    get_nearby_hotspots,
+)
 from tests.unit import mixins
 
 

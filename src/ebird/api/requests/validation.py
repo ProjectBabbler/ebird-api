@@ -6,7 +6,7 @@ import re
 from datetime import date, datetime
 from enum import Enum
 
-from ebird.api import constants
+from ebird.api.requests import constants
 
 _locales = constants.LOCALES.values()
 _region_types = ", ".join(constants.REGION_TYPES)

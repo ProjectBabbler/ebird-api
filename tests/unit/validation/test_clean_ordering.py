@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_ordering
+from ebird.api.requests.validation import clean_ordering
 
 
 class CleanOrderingTests(unittest.TestCase):

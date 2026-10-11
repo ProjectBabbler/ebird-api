@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_HOTSPOTS_ONLY
+from ebird.api.requests.constants import DEFAULT_HOTSPOTS_ONLY
 from tests.unit.mixins.base import BaseMixin
 
 

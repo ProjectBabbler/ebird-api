@@ -1,7 +1,7 @@
 """Functions for fetching information about species."""
 
-from ebird.api.utils import call
-from ebird.api.validation import clean_area
+from ebird.api.requests.utils import call
+from ebird.api.requests.validation import clean_area
 
 SPECIES_LIST_URL = "https://api.ebird.org/v2/product/spplist/%s"
 

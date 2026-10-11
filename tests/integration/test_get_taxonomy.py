@@ -1,4 +1,4 @@
-from ebird.api import get_taxonomy
+from ebird.api.requests import get_taxonomy
 
 
 def test_api_call(api_token):

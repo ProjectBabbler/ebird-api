@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.observations import NEARBY_SPECIES_URL, get_nearby_species
+from ebird.api.requests.observations import (
+    NEARBY_SPECIES_URL,
+    get_nearby_species,
+)
 from tests.unit import mixins
 
 

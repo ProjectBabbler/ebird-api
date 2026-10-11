@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from ebird.api import get_hotspots
+from ebird.api.requests import get_hotspots
 
 
 @pytest.fixture(scope="session")

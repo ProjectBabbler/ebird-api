@@ -1,7 +1,7 @@
 """Functions for fetching information about the taxonomy used by eBird."""
 
-from ebird.api.utils import call
-from ebird.api.validation import (
+from ebird.api.requests.utils import call
+from ebird.api.requests.validation import (
     clean_categories,
     clean_codes,
     clean_locale,

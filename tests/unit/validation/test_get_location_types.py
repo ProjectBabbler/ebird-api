@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import get_location_types
+from ebird.api.requests.validation import get_location_types
 
 
 class GetLocationTypesTests(unittest.TestCase):

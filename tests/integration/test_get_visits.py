@@ -1,4 +1,4 @@
-from ebird.api import get_visits
+from ebird.api.requests import get_visits
 
 
 def test_api_call(api_token, subnational1_code):

@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_provisional
+from ebird.api.requests.validation import clean_provisional
 
 
 class CleanProvisionalTests(unittest.TestCase):

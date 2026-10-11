@@ -1,6 +1,6 @@
 import datetime as dt
 
-from ebird.api import get_top_100
+from ebird.api.requests import get_top_100
 
 
 def test_api_call(api_token, subnational1_code):

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.taxonomy import TAXONOMY_FORMS_URL, get_taxonomy_forms
+from ebird.api.requests.taxonomy import TAXONOMY_FORMS_URL, get_taxonomy_forms
 from tests.unit.mixins import HeaderTestsMixin
 
 

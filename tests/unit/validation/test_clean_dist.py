@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_dist
+from ebird.api.requests.validation import clean_dist
 
 
 class CleanDistTests(unittest.TestCase):

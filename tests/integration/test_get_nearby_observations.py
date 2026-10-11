@@ -1,4 +1,4 @@
-from ebird.api import get_nearby_observations
+from ebird.api.requests import get_nearby_observations
 
 
 def test_api_call(api_token, coordinates):

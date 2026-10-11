@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import is_country
+from ebird.api.requests.validation import is_country
 
 
 class IsCountryTests(unittest.TestCase):

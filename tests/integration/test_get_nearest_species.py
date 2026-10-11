@@ -1,4 +1,4 @@
-from ebird.api import get_nearest_species
+from ebird.api.requests import get_nearest_species
 
 
 def test_api_call(api_token, species_code, coordinates):

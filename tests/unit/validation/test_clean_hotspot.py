@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_hotspot
+from ebird.api.requests.validation import clean_hotspot
 
 
 class CleanHotspotTests(unittest.TestCase):

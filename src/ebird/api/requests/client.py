@@ -4,7 +4,7 @@
 
 import socket
 
-from ebird.api import (
+from ebird.api.requests import (
     checklists,
     constants,
     hotspots,
@@ -13,7 +13,7 @@ from ebird.api import (
     statistics,
     taxonomy,
 )
-from ebird.api.validation import clean_locale
+from ebird.api.requests.validation import clean_locale
 
 
 class Client:

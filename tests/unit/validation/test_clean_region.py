@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_region
+from ebird.api.requests.validation import clean_region
 
 
 class CleanRegionTests(unittest.TestCase):

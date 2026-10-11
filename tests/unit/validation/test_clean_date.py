@@ -1,7 +1,7 @@
 import unittest
 from datetime import date, datetime, timedelta
 
-from ebird.api.validation import clean_date
+from ebird.api.requests.validation import clean_date
 
 
 class CleanDateTests(unittest.TestCase):

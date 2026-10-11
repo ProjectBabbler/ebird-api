@@ -1,7 +1,7 @@
 from datetime import date
 from unittest import TestCase
 
-from ebird.api.statistics import TOTALS_URL, get_totals
+from ebird.api.requests.statistics import TOTALS_URL, get_totals
 from tests.unit.mixins import HeaderTestsMixin
 
 

@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_max_results
+from ebird.api.requests.validation import clean_max_results
 
 
 class CleanMaxResultsTests(unittest.TestCase):

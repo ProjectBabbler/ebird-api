@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.checklists import CHECKLIST_URL, get_checklist
+from ebird.api.requests.checklists import CHECKLIST_URL, get_checklist
 from tests.unit.mixins import HeaderTestsMixin
 
 

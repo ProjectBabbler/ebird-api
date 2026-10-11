@@ -1,6 +1,6 @@
 import datetime as dt
 
-from ebird.api import get_historic_observations
+from ebird.api.requests import get_historic_observations
 
 
 def test_api_call(api_token, subnational1_code):

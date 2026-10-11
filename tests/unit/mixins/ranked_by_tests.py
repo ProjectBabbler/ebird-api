@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_TOP_100_RANK
+from ebird.api.requests.constants import DEFAULT_TOP_100_RANK
 from tests.unit.mixins.base import BaseMixin
 
 

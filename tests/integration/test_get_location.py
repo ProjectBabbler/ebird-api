@@ -1,4 +1,4 @@
-from ebird.api import get_location
+from ebird.api.requests import get_location
 
 
 def test_get_hotspot(api_token):

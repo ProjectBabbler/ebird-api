@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.hotspots import HOTSPOT_INFO_URL, get_location
+from ebird.api.requests.hotspots import HOTSPOT_INFO_URL, get_location
 from tests.unit.mixins import HeaderTestsMixin
 
 

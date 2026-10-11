@@ -1,7 +1,7 @@
 from datetime import date
 from unittest import TestCase
 
-from ebird.api.observations import (
+from ebird.api.requests.observations import (
     HISTORIC_OBSERVATIONS_URL,
     get_historic_observations,
 )

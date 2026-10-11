@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_DETAIL
+from ebird.api.requests.constants import DEFAULT_DETAIL
 from tests.unit.mixins.base import BaseMixin
 
 

@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.taxonomy import TAXONOMY_VERSIONS_URL, get_taxonomy_versions
+from ebird.api.requests.taxonomy import (
+    TAXONOMY_VERSIONS_URL,
+    get_taxonomy_versions,
+)
 from tests.unit.mixins import HeaderTestsMixin
 
 

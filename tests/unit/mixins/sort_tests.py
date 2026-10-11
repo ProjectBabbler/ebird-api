@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_OBSERVATION_ORDER
+from ebird.api.requests.constants import DEFAULT_OBSERVATION_ORDER
 from tests.unit.mixins.base import BaseMixin
 
 

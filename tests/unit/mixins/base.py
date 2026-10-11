@@ -1,7 +1,7 @@
 from unittest import mock
 
 
-def get_response(url, params, headers):  # noqa
+def get_response(url, params, headers, **kwargs):  # noqa
     return b"[]"
 
 
@@ -22,7 +22,9 @@ class BaseMixin:
         return kwargs
 
     def api_call(self, **kwargs):
-        with mock.patch("ebird.api.utils.get_response", side_effect=get_response) as fn:
+        with mock.patch(
+            "ebird.api.requests.utils.get_response", side_effect=get_response
+        ) as fn:
             self.get_callable()(**self.get_params(**kwargs))
             args = fn.call_args[0]
             return args[0], args[1], args[2]  # url, params, headers

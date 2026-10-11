@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.taxonomy import TAXONOMY_LOCALES_URL, get_taxonomy_locales
+from ebird.api.requests.taxonomy import (
+    TAXONOMY_LOCALES_URL,
+    get_taxonomy_locales,
+)
 from tests.unit.mixins import HeaderTestsMixin
 
 

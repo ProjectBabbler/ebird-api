@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import is_location
+from ebird.api.requests.validation import is_location
 
 
 class IsLocationTests(unittest.TestCase):

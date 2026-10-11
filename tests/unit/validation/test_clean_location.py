@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_location
+from ebird.api.requests.validation import clean_location
 
 
 class CleanLocationTests(unittest.TestCase):

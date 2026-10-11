@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.regions import ADJACENT_REGIONS_URL, get_adjacent_regions
+from ebird.api.requests.regions import (
+    ADJACENT_REGIONS_URL,
+    get_adjacent_regions,
+)
 from tests.unit.mixins import HeaderTestsMixin
 
 

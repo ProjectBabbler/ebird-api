@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_codes
+from ebird.api.requests.validation import clean_codes
 
 
 class CleanCodesTests(unittest.TestCase):

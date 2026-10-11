@@ -1,4 +1,4 @@
-from ebird.api import get_nearby_notable
+from ebird.api.requests import get_nearby_notable
 
 
 def test_api_call(api_token, coordinates):

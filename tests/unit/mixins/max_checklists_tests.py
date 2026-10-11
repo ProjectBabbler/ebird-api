@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_MAX_CHECKLISTS
+from ebird.api.requests.constants import DEFAULT_MAX_CHECKLISTS
 from tests.unit.mixins.base import BaseMixin
 
 

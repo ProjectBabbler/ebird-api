@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_SPECIES_CATEGORY
+from ebird.api.requests.constants import DEFAULT_SPECIES_CATEGORY
 from tests.unit.mixins.base import BaseMixin
 
 

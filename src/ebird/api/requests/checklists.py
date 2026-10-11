@@ -1,7 +1,7 @@
 """Functions for fetching checklists and information about visits."""
 
-from ebird.api.utils import call
-from ebird.api.validation import (
+from ebird.api.requests.utils import call
+from ebird.api.requests.validation import (
     clean_area,
     clean_code,
     clean_date,

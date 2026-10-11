@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import clean_locale
+from ebird.api.requests.validation import clean_locale
 
 
 class CleanLocaleTests(unittest.TestCase):

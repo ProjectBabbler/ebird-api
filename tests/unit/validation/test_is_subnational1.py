@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import is_subnational1
+from ebird.api.requests.validation import is_subnational1
 
 
 class IsSubnational1Tests(unittest.TestCase):

@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_LOCALE
+from ebird.api.requests.constants import DEFAULT_LOCALE
 from tests.unit.mixins.base import BaseMixin
 
 

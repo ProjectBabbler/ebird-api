@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.observations import (
+from ebird.api.requests.observations import (
     NOTABLE_OBSERVATIONS_URL,
     get_notable_observations,
 )

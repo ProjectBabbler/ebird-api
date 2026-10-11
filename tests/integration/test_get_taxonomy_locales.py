@@ -1,4 +1,4 @@
-from ebird.api import get_taxonomy_locales
+from ebird.api.requests import get_taxonomy_locales
 
 
 def test_api_call(api_token):

@@ -1,4 +1,4 @@
-from ebird.api import get_species_list
+from ebird.api.requests import get_species_list
 
 
 def test_api_call(api_token, subnational1_code):

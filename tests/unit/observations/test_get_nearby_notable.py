@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.observations import NEARBY_NOTABLE_URL, get_nearby_notable
+from ebird.api.requests.observations import (
+    NEARBY_NOTABLE_URL,
+    get_nearby_notable,
+)
 from tests.unit import mixins
 
 

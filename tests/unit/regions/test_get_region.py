@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.regions import REGION_INFO_URL, get_region
+from ebird.api.requests.regions import REGION_INFO_URL, get_region
 from tests.unit.mixins import HeaderTestsMixin
 
 

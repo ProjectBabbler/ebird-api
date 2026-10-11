@@ -1,6 +1,9 @@
 from unittest import TestCase
 
-from ebird.api.taxonomy import TAXONOMY_GROUPS_URL, get_taxonomy_groups
+from ebird.api.requests.taxonomy import (
+    TAXONOMY_GROUPS_URL,
+    get_taxonomy_groups,
+)
 from tests.unit.mixins import GroupLocaleTestsMixin, HeaderTestsMixin
 
 

@@ -1,6 +1,6 @@
 import unittest
 
-from ebird.api.validation import is_region
+from ebird.api.requests.validation import is_region
 
 
 class IsRegionTests(unittest.TestCase):

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from ebird.api.species import SPECIES_LIST_URL, get_species_list
+from ebird.api.requests.species import SPECIES_LIST_URL, get_species_list
 from tests.unit.mixins import HeaderTestsMixin
 
 

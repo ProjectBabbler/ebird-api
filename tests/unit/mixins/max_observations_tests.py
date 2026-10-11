@@ -1,4 +1,4 @@
-from ebird.api.constants import DEFAULT_MAX_OBSERVATIONS
+from ebird.api.requests.constants import DEFAULT_MAX_OBSERVATIONS
 from tests.unit.mixins.base import BaseMixin
 
 
