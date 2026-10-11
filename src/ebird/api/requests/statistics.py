@@ -5,7 +5,7 @@ from ebird.api.requests.validation import (
     clean_area,
     clean_date,
     clean_max_observers,
-    clean_rank,
+    clean_observer_rank,
     clean_region,
 )
 
@@ -46,7 +46,7 @@ def get_top_100(token, region, date, rank="spp", max_results=100):
 
     params = {
         "maxObservers": clean_max_observers(max_results),
-        "rankedBy": clean_rank(rank),
+        "rankedBy": clean_observer_rank(rank),
     }
 
     headers = {

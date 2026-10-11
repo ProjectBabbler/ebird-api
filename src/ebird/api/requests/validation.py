@@ -348,7 +348,7 @@ def clean_date(value):
     return cleaned.strftime("%Y/%m/%d")
 
 
-def clean_rank(value):
+def clean_observer_rank(value):
     cleaned = clean_code(value, transform=Transform.LOWER)
     if cleaned not in constants.TOP_100_RANK:
         raise ValueError(
