@@ -202,9 +202,9 @@ def clean_detail(value):
 
 def clean_observation_rank(value):
     cleaned = clean_code(value, transform=Transform.LOWER)
-    if cleaned not in ("mrec", "create"):
+    if cleaned not in constants.HISTORIC_RANKING_TYPES:
         raise ValueError(
-            "Value for 'rank', %s, must be either 'mrec' or 'create'" % value
+            f"Value for 'rank', {value}, must be in the set {constants.HISTORIC_RANKING_TYPES}."
         )
     return cleaned
 

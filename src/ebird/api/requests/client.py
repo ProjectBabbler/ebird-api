@@ -43,7 +43,6 @@ class Client:
         self.hotspot = False
         self.provisional = True
         self.sort = "date"
-        self.rank = "mrec"
         socket.setdefaulttimeout(constants.DEFAULT_TIMEOUT)
 
     def get_observations(self, area):
@@ -110,7 +109,7 @@ class Client:
             category=self.category,
         )
 
-    def get_historic_observations(self, area, date):
+    def get_historic_observations(self, area, date, rank="mrec"):
         """Get recent observations for a region.
 
         :param area: a country, subnational1, subnational2 or location code
@@ -131,7 +130,7 @@ class Client:
             hotspot=self.hotspot,
             detail=self.detail,
             category=self.category,
-            rank=self.rank,
+            rank=rank,
         )
 
     def get_nearby_observations(self, lat, lng, dist=25):

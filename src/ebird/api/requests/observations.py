@@ -673,9 +673,8 @@ def get_historic_observations(
     More than one value can be given in a comma-separated string. The default
     value is None and records from all categories will be returned.
 
-    :param rank: return the last (rank='mrec') or first(rank='create')
-    observation on the date. See the eBird API documentation for a description
-    of the fields.
+    :param rank: return the last (rank='mrec') or first (rank='create')
+    observation on the date.
 
     :return: the list of observations in simple format.
 

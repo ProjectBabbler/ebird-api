@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- Changed get_historical_observations so observations can be returned by date created or date last modified.
+
 ## [4.1.0] - 2026-06-14
 - Retry requests, with exponentinal back-off, if an error occurs.
 
