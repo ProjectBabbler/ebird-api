@@ -1,5 +1,6 @@
 """Functions for fetching information about hotspots."""
 
+from json import JSONDecodeError
 from urllib.error import HTTPError
 
 from ebird.api.requests.utils import call
@@ -124,8 +125,8 @@ def get_hotspot(token, loc_id):
     """Get the geographical details of a hotspot.
 
     The call only work for hotspots. If you use the identifier for a private
-    location the eBird API will return HTTP 410 Gone and an HttpError will be
-    raised.
+    location the eBird API will return an empty response (as of Oct 2026) and
+    a JSONDecodeError will be raised.
 
     This maps to the end point in the eBird API 2.0,
     https://documenter.getpostman.com/view/664302/S1ENwy59?version=latest#e25218db-566b-4d8b-81ca-e79a8f68c599
@@ -142,6 +143,8 @@ def get_hotspot(token, loc_id):
     eBird site.
 
     :raises HTTPError if the eBird API returns an error.
+
+    :raises JSONDecodeError if the JSON data returned by the API is invalid.
 
     """
     url = HOTSPOT_INFO_URL % clean_location(loc_id)
@@ -185,11 +188,13 @@ def get_location(token, loc_id):
 
     # get_region() does not return "isHotspot" in the results, so we
     # try get_hotspot() first and if the call fails with HTTP 410 Gone,
-    # indicating it's a private location, we call get_region and
-    # massage the result.
+    # or as of Oct 2026, HTTP 200 and an empty response, indicating
+    # it's a private location, we call get_region and massage the result.
 
     try:
         return get_hotspot(token, loc_id)
+    except JSONDecodeError:
+        pass
     except HTTPError as err:
         if err.code != 410:
             raise

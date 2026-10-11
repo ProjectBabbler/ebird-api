@@ -9,9 +9,9 @@ class IsRegionTests(unittest.TestCase):
     def test_country_is_region(self):
         self.assertTrue(is_region("US"))
 
-    def test_single_character_subnational1_is_not_region(self):
-        self.assertFalse(is_region("AR-A"))
-        self.assertFalse(is_region("AR-1"))
+    def test_single_character_subnational1_is_region(self):
+        self.assertTrue(is_region("AR-A"))
+        self.assertTrue(is_region("AR-1"))
 
     def test_two_character_subnational1_is_region(self):
         self.assertTrue(is_region("US-NV"))
@@ -28,6 +28,14 @@ class IsRegionTests(unittest.TestCase):
     def test_two_character_subnational2_is_region(self):
         self.assertTrue(is_region("US-NV-AB"))
         self.assertTrue(is_region("US-NV-11"))
+
+    def test_subnational2_in_single_character_subnational1_is_region(self):
+        self.assertTrue(is_region("IE-L-DN"))
+        self.assertTrue(is_region("IE-L-123"))
+
+    def test_four_character_subnational1_is_not_region(self):
+        self.assertFalse(is_region("US-NVAB"))
+        self.assertFalse(is_region("US-NVAB-11"))
 
     def test_location_is_not_region(self):
         self.assertFalse(is_region("L123456"))

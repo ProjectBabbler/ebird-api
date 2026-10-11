@@ -9,6 +9,8 @@ class CleanRegionTests(unittest.TestCase):
     def test_codes_are_correct_case(self):
         self.assertEqual("US", clean_region("us"))
         self.assertEqual("US-NV", clean_region("us-nv"))
+        self.assertEqual("IE-L", clean_region("ie-l"))
+        self.assertEqual("IE-L-DN", clean_region("ie-l-dn"))
         self.assertEqual("world", clean_region("WORLD"))
 
     def test_invalid_code_raises_error(self):

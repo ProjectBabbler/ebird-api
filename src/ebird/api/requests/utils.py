@@ -182,6 +182,8 @@ def call(url, params, headers, max_retries=3, backoff_factor=1.0):
 
     :raises HTTPError if the eBird API returns an error.
 
+    :raises JSONDecodeError if the JSON data returned by the API is invalid.
+
     """
     filtered = filter_parameters(params)
     mapped = map_parameters(filtered)

@@ -10,6 +10,11 @@ and by implication, [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 - Changed get_historical_observations so observations can be returned by date created or date last modified.
+- Allow single-character subnational1 codes, e.g. IE-L.
+
+## [4.1.1] - 2026-10-10
+- Changed get_location() to handle an API change where an empty response
+  is now returned for private locations instead of HHTP 410 Gone.
 
 ## [4.1.0] - 2026-06-14
 - Retry requests, with exponentinal back-off, if an error occurs.
@@ -149,21 +154,3 @@ avoid any issues with representation.
 ## [0.1.0] - 2017-02-13
 ### Added
 - Core functions for accessing end-points for fetching observations.
-
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.6...HEAD
-[3.0.6]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.6
-[3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.5
-[3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.4...3.0.5
-[3.0.4]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.4
-[3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.3
-[3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.2...3.0.3
-[3.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...3.0.2
-[3.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...3.0.1
-[2.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.1...2.1.1
-[2.1.0]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.0...2.1.0
-[2.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.2...2.0.0
-[1.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.1...1.0.2
-[1.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.0...1.0.1
-[1.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.2.0...1.0.0
-[0.2.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.1...0.2.0
-[0.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.0...0.1.1
