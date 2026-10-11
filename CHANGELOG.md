@@ -153,21 +153,3 @@ avoid any issues with representation.
 ## [0.1.0] - 2017-02-13
 ### Added
 - Core functions for accessing end-points for fetching observations.
-
-[Unreleased]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.6...HEAD
-[3.0.6]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.6
-[3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.5...3.0.5
-[3.0.5]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.4...3.0.5
-[3.0.4]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.4
-[3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.3...3.0.3
-[3.0.3]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.2...3.0.3
-[3.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.1...3.0.2
-[3.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/3.0.0...3.0.1
-[2.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.1...2.1.1
-[2.1.0]: https://github.com/ProjectBabbler/ebird-api/compare/2.0.0...2.1.0
-[2.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.2...2.0.0
-[1.0.2]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.1...1.0.2
-[1.0.1]: https://github.com/ProjectBabbler/ebird-api/compare/1.0.0...1.0.1
-[1.0.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.2.0...1.0.0
-[0.2.0]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.1...0.2.0
-[0.1.1]: https://github.com/ProjectBabbler/ebird-api/compare/0.1.0...0.1.1
