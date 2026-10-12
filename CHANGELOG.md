@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [4.2.0] - 2026-10-12
 - Changed get_historic_observations() so observations can be returned by
   date created or date last modified.
 - Renamed clean_rank() to clean_observer_rank(). clean_rank() is deprecated
