@@ -33,3 +33,21 @@ class GetTop100Tests(
         self.assertEqual(
             TOP_100_URL % ("US-NV", params["date"].strftime("%Y/%m/%d")), url
         )
+
+    def test_location(self):
+        params = self.get_params(region="L99381")
+        url = self.api_call(region="L99381")[0]
+        self.assertEqual(
+            TOP_100_URL % ("L99381", params["date"].strftime("%Y/%m/%d")), url
+        )
+
+    def test_country(self):
+        params = self.get_params(region="us")
+        url = self.api_call(region="us")[0]
+        self.assertEqual(TOP_100_URL % ("US", params["date"].strftime("%Y/%m/%d")), url)
+
+    def test_subnational2_is_invalid(self):
+        self.api_raises(ValueError, region="US-NV-11")
+
+    def test_invalid_region(self):
+        self.api_raises(ValueError, region="invalid")

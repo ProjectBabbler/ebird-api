@@ -2,11 +2,15 @@
 
 from ebird.api.requests.utils import call
 from ebird.api.requests.validation import (
+    Transform,
     clean_area,
+    clean_code,
     clean_date,
     clean_max_observers,
     clean_observer_rank,
     clean_region,
+    is_location,
+    is_subnational2,
 )
 
 TOP_100_URL = "https://api.ebird.org/v2/product/top100/%s/%s"
@@ -23,7 +27,8 @@ def get_top_100(token, region, date, rank="spp", max_results=100):
 
     :param token: the token needed to access the API.
 
-    :param region: the code for the region, eg. US-NV.
+    :param region: the code for a country, subnational1 region or location,
+    e.g. US, US-NV or L99381. The API does not support subnational2 regions.
 
     :param date: the date, since Jan 1st 1800.
 
@@ -42,7 +47,18 @@ def get_top_100(token, region, date, rank="spp", max_results=100):
     :raises HTTPError if the eBird API returns an error.
 
     """
-    url = TOP_100_URL % (clean_region(region), date.strftime("%Y/%m/%d"))
+    code = clean_code(region, transform=Transform.UPPER)
+    if is_location(code):
+        cleaned = code
+    elif is_subnational2(code):
+        raise ValueError(
+            "Value for 'region', %s, must be a country, e.g. 'US', "
+            "subnational1, e.g. 'US-NV' or location, e.g. 'L99381'" % region
+        )
+    else:
+        cleaned = clean_region(region)
+
+    url = TOP_100_URL % (cleaned, date.strftime("%Y/%m/%d"))
 
     params = {
         "maxObservers": clean_max_observers(max_results),
