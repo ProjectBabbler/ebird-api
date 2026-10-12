@@ -7,6 +7,7 @@ DEFAULT_HOTSPOTS_ONLY = "false"
 DEFAULT_PROVISIONAL = "false"
 DEFAULT_LOCALE = "en"
 DEFAULT_OBSERVATION_ORDER = "date"
+DEFAULT_OBSERVATION_RANK = "mrec"
 DEFAULT_SPECIES_CATEGORY = None
 DEFAULT_TAXONOMY_ORDER = "ebird"
 DEFAULT_MAX_OBSERVATIONS = None
@@ -102,7 +103,7 @@ REGION_TYPES = ["country", "subnational1", "subnational2"]
 
 TOP_100_RANK = ["spp", "cl"]
 
-HISTORIC_RANKING_TYPES = ["mrec", "create"]
+OBSERVATION_RANK = ["mrec", "create"]
 
 # Just occasionally the connection to eBird freezes. The timeout
 # will raise an error which is preferable to the sitting there

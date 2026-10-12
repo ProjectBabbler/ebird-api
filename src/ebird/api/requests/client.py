@@ -117,6 +117,9 @@ class Client:
 
         :param date: the date, since Jan 1st 1800.
 
+        :param rank: for each species, return the latest observation on the
+        date, 'mrec' (the default), or the first observation, 'create'.
+
         :return: the list of observations in simple format.
 
         """

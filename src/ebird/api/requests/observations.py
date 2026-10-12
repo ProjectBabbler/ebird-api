@@ -14,8 +14,8 @@ from ebird.api.requests.validation import (
     clean_lng,
     clean_locale,
     clean_max_observations,
-    clean_provisional,
     clean_observation_rank,
+    clean_provisional,
     clean_sort,
 )
 
@@ -673,8 +673,8 @@ def get_historic_observations(
     More than one value can be given in a comma-separated string. The default
     value is None and records from all categories will be returned.
 
-    :param rank: return the last (rank='mrec') or first (rank='create')
-    observation on the date.
+    :param rank: for each species, return the latest observation on the
+    date, 'mrec' (the default), or the first observation, 'create'.
 
     :return: the list of observations in simple format.
 
