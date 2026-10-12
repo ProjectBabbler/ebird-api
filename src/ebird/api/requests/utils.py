@@ -88,7 +88,7 @@ def get_response(url, params=None, headers=None, max_retries=3, backoff_factor=1
     :param headers: the headers to add to the request.
     :type headers: dict
 
-    :param max_retries: number of times to retry after a 429 response.
+    :param max_retries: number of times to retry after an error response.
     :type max_retries: int
 
     :param backoff_factor: seconds to wait before the first retry; doubles
@@ -167,7 +167,7 @@ def call(url, params, headers, max_retries=3, backoff_factor=1.0):
     :param headers: the headers to add to the request.
     :type headers: dict
 
-    :param max_retries: number of times to retry after a 429 response.
+    :param max_retries: number of times to retry after an error response.
     :type max_retries: int
 
     :param backoff_factor: seconds to wait before the first retry; doubles

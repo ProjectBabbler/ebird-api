@@ -12,6 +12,7 @@ class IsSubnational1Tests(unittest.TestCase):
     def test_single_character_code_is_subnational1(self):
         self.assertTrue(is_subnational1("IE-L"))
         self.assertTrue(is_subnational1("AR-1"))
+        self.assertTrue(is_subnational1("US-0"))
 
     def test_three_character_code_is_subnational1(self):
         self.assertTrue(is_subnational1("MX-OXA"))
