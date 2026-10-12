@@ -109,7 +109,7 @@ class Client:
             category=self.category,
         )
 
-    def get_historic_observations(self, area, date):
+    def get_historic_observations(self, area, date, rank="mrec"):
         """Get recent observations for a region.
 
         :param area: a country, subnational1, subnational2 or location code
@@ -130,6 +130,7 @@ class Client:
             hotspot=self.hotspot,
             detail=self.detail,
             category=self.category,
+            rank=rank,
         )
 
     def get_nearby_observations(self, lat, lng, dist=25):

@@ -102,6 +102,8 @@ REGION_TYPES = ["country", "subnational1", "subnational2"]
 
 TOP_100_RANK = ["spp", "cl"]
 
+HISTORIC_RANKING_TYPES = ["mrec", "create"]
+
 # Just occasionally the connection to eBird freezes. The timeout
 # will raise an error which is preferable to the sitting there
 # waiting for something to happen, when it will not.

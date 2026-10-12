@@ -9,6 +9,7 @@ This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+- Changed get_historical_observations so observations can be returned by date created or date last modified.
 - Allow single-character subnational1 codes, e.g. IE-L.
 
 ## [4.1.1] - 2026-10-10
