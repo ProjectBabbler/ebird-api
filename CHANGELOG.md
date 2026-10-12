@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [4.3.0] - 2026-10-12
 - Added set_rate_limit() to set a minimum interval between requests. The
   interval is doubled, up to 60 seconds, if the API responds with HTTP 429
   Too Many Requests. Rate limiting is disabled by default.
