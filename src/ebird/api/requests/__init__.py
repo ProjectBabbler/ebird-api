@@ -37,3 +37,8 @@ from ebird.api.requests.taxonomy import (
     get_taxonomy_locales,
     get_taxonomy_versions,
 )
+from ebird.api.requests.utils import (
+    RateLimitError,
+    get_rate_limit,
+    set_rate_limit,
+)

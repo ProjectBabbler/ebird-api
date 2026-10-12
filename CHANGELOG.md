@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/).
 This project adheres to [PEP440](https://www.python.org/dev/peps/pep-0440/)
 and by implication, [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- Added set_rate_limit() to set a minimum interval between requests. The
+  interval is doubled, up to 60 seconds, if the API responds with HTTP 429
+  Too Many Requests. Rate limiting is disabled by default.
+- Added RateLimitError, a subclass of HTTPError, which is raised when the
+  API still responds with HTTP 429 after all the retries have been used.
+- Fixed the handling of a Retry-After header containing a date instead of
+  a number of seconds.
+
 ## [4.2.0] - 2026-10-12
 - Changed get_historic_observations() so observations can be returned by
   date created or date last modified.

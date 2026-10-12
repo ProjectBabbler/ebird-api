@@ -316,6 +316,30 @@ client.get_observations('MX-OAX')
 
 The client supports all the API functions.
 
+### Rate Limiting
+
+The eBird API limits how quickly requests can be made. If you exceed the
+limit the API responds with HTTP 429 Too Many Requests. If you are making
+lots of calls, for example downloading all the checklists for a region,
+then set a minimum interval, in seconds, between requests:
+
+```python
+from ebird.api.requests import set_rate_limit
+
+set_rate_limit(1.0)
+```
+
+The limit applies to all the requests made by the process. It is disabled
+by default. If the API still responds with HTTP 429, the interval is doubled,
+up to a maximum of 60 seconds, so the requests slow down to a rate the API
+accepts. Use get_rate_limit() to see the current interval.
+
+When an HTTP 429 response is returned, the request is retried after waiting
+for the time given in the Retry-After header. If the request still fails
+after all the retries are used, a RateLimitError is raised. It is a subclass
+of HTTPError, and the retry_after attribute contains the number of seconds
+the API asked you to wait, or None if no Retry-After header was returned.
+
 ## Formats
 
 Most of the eBird API calls return JSON. Some of the calls such as getting

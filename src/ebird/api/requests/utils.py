@@ -1,12 +1,121 @@
 """Various functions used in the API."""
 
+import datetime as dt
 import json
+import threading
 import time
+from email.utils import parsedate_to_datetime
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from ebird.api.requests import constants
+
+# The maximum interval, in seconds, the rate limiter will slow down to
+# after the eBird API responds with HTTP 429 Too Many Requests.
+MAX_RATE_LIMIT_INTERVAL = 60.0
+
+
+class RateLimitError(HTTPError):
+    """Raised when the eBird API still responds with HTTP 429 Too Many
+    Requests after all the retries have been used.
+
+    It is a subclass of HTTPError so existing error handling still works.
+    The retry_after attribute contains the number of seconds the API asked
+    the caller to wait, or None if no Retry-After header was returned.
+
+    """
+
+    def __init__(self, exc, retry_after=None):
+        super().__init__(exc.url, exc.code, exc.msg, exc.headers, exc.fp)
+        self.retry_after = retry_after
+
+
+class RateLimiter:
+    """Enforce a minimum interval between the start of successive requests.
+
+    An interval of zero (the default) disables the limiter.
+
+    """
+
+    def __init__(self, interval=0.0):
+        self.interval = float(interval)
+        self.last_request = None
+        self.lock = threading.Lock()
+
+    def wait(self):
+        with self.lock:
+            if self.interval > 0 and self.last_request is not None:
+                delay = self.interval - (time.monotonic() - self.last_request)
+                if delay > 0:
+                    time.sleep(delay)
+            self.last_request = time.monotonic()
+
+    def slow_down(self):
+        with self.lock:
+            if self.interval > 0:
+                self.interval = min(self.interval * 2, MAX_RATE_LIMIT_INTERVAL)
+
+
+_rate_limiter = RateLimiter()
+
+
+def set_rate_limit(interval):
+    """Set the minimum interval, in seconds, between requests to the eBird API.
+
+    The limit applies to all requests made by the process. Setting it to
+    zero, the default, disables rate limiting. If the API responds with
+    HTTP 429 Too Many Requests, the interval is doubled, up to a maximum
+    of MAX_RATE_LIMIT_INTERVAL, for the rest of the process, or until the
+    rate limit is set again.
+
+    :param interval: the number of seconds between requests.
+    :type interval: float
+
+    """
+    if interval < 0:
+        raise ValueError("The rate limit interval cannot be negative")
+    with _rate_limiter.lock:
+        _rate_limiter.interval = float(interval)
+
+
+def get_rate_limit():
+    """Get the current minimum interval, in seconds, between requests.
+
+    :return: the interval, which may have increased since it was set, if the
+    eBird API responded with HTTP 429 Too Many Requests.
+    :rtype: float
+
+    """
+    return _rate_limiter.interval
+
+
+def get_retry_after(exc):
+    """Get the number of seconds to wait from a Retry-After header.
+
+    :param exc: the error raised for the HTTP 429 response.
+    :type exc: HTTPError
+
+    :return: the number of seconds to wait, or None if the header was not
+    present or could not be parsed.
+    :rtype: float | None
+
+    """
+    value = exc.headers.get("Retry-After") if exc.headers else None
+    if not value:
+        return None
+    try:
+        return max(float(value), 0.0)
+    except ValueError:
+        pass
+    try:
+        when = parsedate_to_datetime(value)
+    except (TypeError, ValueError):
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=dt.timezone.utc)
+    return max((when - dt.datetime.now(dt.timezone.utc)).total_seconds(), 0.0)
+
 
 _parameter_defaults = {
     "back": constants.DEFAULT_BACK,
@@ -101,6 +210,9 @@ def get_response(url, params=None, headers=None, max_retries=3, backoff_factor=1
     :raises URLError if there is an error with the connection to the
     eBird site.
 
+    :raises RateLimitError if the eBird API still returns HTTP 429 Too Many
+    Requests after all the retries have been used.
+
     :raises HTTPError if the eBird API returns an error.
 
     """
@@ -114,14 +226,21 @@ def get_response(url, params=None, headers=None, max_retries=3, backoff_factor=1
             request.add_header(name, value)
 
     for attempt in range(max_retries + 1):
+        _rate_limiter.wait()
         try:
             return urlopen(request).read()
         except HTTPError as exc:
-            if attempt == max_retries:
+            retry_after = None
+            if exc.code == 429:
+                retry_after = get_retry_after(exc)
+                _rate_limiter.slow_down()
+                if attempt == max_retries:
+                    raise RateLimitError(exc, retry_after) from exc
+            elif attempt == max_retries:
                 raise
-            retry_after = exc.headers.get("Retry-After") if exc.code == 429 else None
-            delay = float(retry_after) if retry_after else backoff_factor * (2**attempt)
-            time.sleep(delay)
+            if retry_after is None:
+                retry_after = backoff_factor * (2**attempt)
+            time.sleep(retry_after)
 
 
 def get_json(content):
